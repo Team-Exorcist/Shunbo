@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Models\Doctor;
 use Illuminate\Support\Facades\Hash;
 
@@ -40,5 +41,32 @@ class docController extends Controller
         }else{
             return ["res" => "Registration Failed"];
         }
-}
+    }
+
+    public function login(Request $req){
+        $doctor = Doctor::where('email', $req->email)->first();
+
+        if(!$doctor || !Hash::check($req->password, $doctor->password)){
+            return response([
+                "res" => 'login failed'
+            ], 401);
+        }
+
+        $token = $doctor->createToken('docToken')->plainTextToken;
+
+        $response = [
+            'res' => 'logged in',
+            'user' => $doctor,
+            'token' => $token
+        ];
+        return response($response, 200);
+    }
+
+    function logout(Request $req){
+        auth()->user()->tokens()->delete();
+
+        return [
+            "res" => "logged out"
+        ];
+    }
 }
