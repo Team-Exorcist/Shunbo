@@ -40,6 +40,7 @@ class docController extends Controller
         $result = Doctor::where('email', $req->email)->update(['isverified' => 1]);
 
         if($result){
+            Verificationcode::where('email', $req->email)->delete();
             return ['res' => 'User verified'];
         }else{
             return ['res' => 'verification failed'];
