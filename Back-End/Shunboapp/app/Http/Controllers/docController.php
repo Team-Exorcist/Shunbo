@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Testmail;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Doctor;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class docController extends Controller
 {
@@ -13,7 +15,16 @@ class docController extends Controller
         return "hello";
     }
 
-    public function register(Request $req){
+    function sendMail($mailaddress){
+        $mailbody = [
+            'title' => 'Verify Email',
+            'body' => 'Your verification code is ...'
+        ];
+
+        Mail::to($mailaddress)->send(new TestMail($mailbody));
+    }
+
+    function register(Request $req){
         $req->validate([
             'name' => 'required|string|min:6',
             'email' => 'required| string| unique:doctors,email',
@@ -43,7 +54,7 @@ class docController extends Controller
         }
     }
 
-    public function login(Request $req){
+    function login(Request $req){
         $doctor = Doctor::where('email', $req->email)->first();
 
         if(!$doctor || !Hash::check($req->password, $doctor->password)){
