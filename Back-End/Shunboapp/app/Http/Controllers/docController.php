@@ -16,7 +16,7 @@ class docController extends Controller
         $req->validate([
             'name' => 'required|string|min:6',
             'email' => 'required| string| unique:doctors,email',
-            'mobile' => 'required| string| min:11| max:11',
+            'mobile' => 'required| string| min:11| max:11| unique:doctors,mobile',
             'password' => 'required| string| min:6'
         ]);
 
@@ -25,7 +25,20 @@ class docController extends Controller
         $doctor->email = $req->email;
         $doctor->mobile = $req->mobile;
         $doctor->password = Hash::make($req->password);
-        $doctor->save();
+        $result = $doctor->save();
 
+        $token = $doctor->createToken('docToken')->plainTextToken;
+
+        $response = [
+            'res' => "Registered",
+            'info' => $doctor,
+            'token' => $token
+        ];
+
+        if($result){
+            return response($response, 200);
+        }else{
+            return ["res" => "Registration Failed"];
+        }
 }
 }
