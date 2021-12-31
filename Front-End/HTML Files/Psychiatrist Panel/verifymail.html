@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VerifyMail</title>
+</head>
+<body>
+    <form id="verify">
+        <input type="email" id="email" placeholder="email">
+        <input type="number"  id="code" placeholder="code">
+        <button type="submit">Submit</button>
+    </form>
+    
+
+    <script>
+            document.getElementById('verify').addEventListener('submit', verifyMail );
+        
+        async function verifyMail(e){
+            e.preventDefault();
+            let email = document.getElementById('email');
+            let code = document.getElementById('code');
+
+            await fetch('http://127.0.0.1:8000/api/doc/verifymail', {
+                    method : 'POST',
+                    headers : {
+                        'Accept' : 'application/json, text/plain, */*',
+                        'Content-type' : 'application/json'
+                    },
+                    body : JSON.stringify({email:email, code:code })
+                })
+                .then(res => res.json())
+                .then(data => console.log(data));
+
+        }
+    </script>
+</body>
+
+</html>

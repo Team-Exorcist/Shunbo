@@ -29,21 +29,26 @@ class docController extends Controller
     }
 
     function verifyMail(Request $req){
-        $verificationcode = Verificationcode::where('email', $req->email)->first();
         
-        if(!$verificationcode || $verificationcode->code != $req->code){
+        $verificationcode = Verificationcode::where('email', $req->email)->first();
+        if(!$verificationcode){
             return response([
-                "res" => 'wrong verification code given'
+                "res" => 'wrong email'
             ], 401);
+            if($verificationcode->code != $req->code){
+                return response([
+                    "res" => 'wrong code'
+                ], 401);
+            }
         }
 
-        $result = Doctor::where('email', $req->email)->update(['isverified' => 1]);
+        $result = Doctor::where('email', $verificationcode->email)->update(['isverified' => 1]);
 
         if($result){
             Verificationcode::where('email', $req->email)->delete();
-            return ['res' => 'User verified'];
+            return ['res' => 1];
         }else{
-            return ['res' => 'verification failed'];
+            return ['res' => 0];
         }
 
     }
@@ -81,7 +86,7 @@ class docController extends Controller
         $token = $doctor->createToken('docToken')->plainTextToken;
 
         $response = [
-            'res' => "Registered",
+            'res' => 1,
             'info' => $doctor,
             'token' => $token
         ];
@@ -89,7 +94,7 @@ class docController extends Controller
         if($result){
             return response($response, 200);
         }else{
-            return ["res" => "Registration Failed"];
+            return ["res" => 0];
         }
     }
 
