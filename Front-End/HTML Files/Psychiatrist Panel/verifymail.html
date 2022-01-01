@@ -50,7 +50,7 @@
 
         <script>
             document.getElementById('verify').addEventListener('submit', verifyMail );
-        
+            let resp;
             async function verifyMail(e){
                 e.preventDefault();
                 let email = document.getElementById('email');
@@ -65,9 +65,12 @@
                         body : JSON.stringify({email:email, code:code })
                     })
                     .then(res => res.json())
-                    .then(data => console.log(data));
+                    .then(data => resp = data.res);
 
             }
+            if(resp == 1) window.location.href=`./docLgin.html`;
+
+
         </script>
 
 

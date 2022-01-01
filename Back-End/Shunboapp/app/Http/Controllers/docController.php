@@ -16,7 +16,18 @@ class docController extends Controller
         return "hello";
     }
 
+    function sendMail($mailaddress, $code){
+
+        $mailbody = [
+            'title' => 'Verify Email',
+            'body' => 'Your verification code is '.$code
+        ];
+
+        Mail::to($mailaddress)->send(new TestMail($mailbody));
+    }
+
     public function verifyCode($mailaddress){
+
         $code = mt_rand(100000,999999);
 
         $verificationcode = new Verificationcode();
@@ -25,8 +36,15 @@ class docController extends Controller
         $verificationcode->save();
 
         docController::sendMail($mailaddress, $code);
-
     }
+
+    //after giving the mail address send an email with code
+    function forgotPassword(Request $req){
+        $email = $req->email;
+        //send code to this email
+        verifyCode($email);
+    }
+
 
     function verifyMail(Request $req){
         
@@ -53,17 +71,6 @@ class docController extends Controller
 
     }
 
-    function sendMail($mailaddress, $code){
-
-        
-        $mailbody = [
-            'title' => 'Verify Email',
-            'body' => 'Your verification code is '.$code
-        ];
-
-        Mail::to($mailaddress)->send(new TestMail($mailbody));
-    }
-
     function register(Request $req){
         $req->validate([
             'name' => 'required|string|min:6',
@@ -83,12 +90,12 @@ class docController extends Controller
         $email = $req->email;
         docController::verifyCode($email);
 
-        $token = $doctor->createToken('docToken')->plainTextToken;
+        //$token = $doctor->createToken('docToken')->plainTextToken;
 
         $response = [
             'res' => 1,
-            'info' => $doctor,
-            'token' => $token
+            'info' => $doctor
+            //'token' => $token
         ];
 
         if($result){

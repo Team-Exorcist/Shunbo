@@ -88,9 +88,9 @@
                 })
                 .then(res => res.json())
                 .then(data => 
-                    sessionStorage.setItem('docToken', data.token)                     
+                    sessionStorage.setItem('docToken', data.res)                     
                 );
-                if(sessionStorage.getItem('docToken')) window.location.href="./verifymail.html";
+                if(sessionStorage.getItem('docToken') == 1) window.location.href="./verifyMail.html";
             }
         </script>
 

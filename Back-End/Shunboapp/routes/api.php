@@ -19,11 +19,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+//public doc
 Route::get('/test', [docController::class, 'test']);
 Route::post('/doc/register',[docController::class, 'register']);
 Route::post('/doc/login',[docController::class, 'login']);
 Route::post('/doc/verifymail',[docController::class, 'verifyMail']);
+Route::post('/doc/forgotPassword',[docController::class, 'forgotPassword']);
+
 
 
 //protected
