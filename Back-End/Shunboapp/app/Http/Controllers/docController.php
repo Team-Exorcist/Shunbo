@@ -45,6 +45,34 @@ class docController extends Controller
         verifyCode($email);
     }
 
+    function matchCode(Request $req){
+        $verificationcode = Verificationcode::where('email', $req->email)->first();
+        if(!$verificationcode){
+            return response([
+                "res" => 'wrong email'
+            ], 401);
+            if($verificationcode->code != $req->code){
+                return response([
+                    "res" => 'wrong code'
+                ], 401);
+            }
+        }
+        if($result){
+            $doctor = Doctor::where('email', $verificationcode->email)->first();
+            $token = $doctor->createToken('docToken')->plainTextToken;
+            Verificationcode::where('email', $req->email)->delete();
+            return ['updatePassToken' => $token, 'res' => 1];
+        }else{
+            return ['res' => 0];
+        }
+    }
+
+    function updatePassword(Request $req){
+        //
+    }
+
+
+
 
     function verifyMail(Request $req){
         
