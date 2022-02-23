@@ -25,12 +25,14 @@ Route::get('/doc/test', [docController::class, 'test']);
 Route::post('/doc/register',[docController::class, 'register']);
 Route::post('/doc/login',[docController::class, 'login']);
 Route::post('/doc/verifymail',[docController::class, 'verifyMail']);
-Route::post('/doc/forgotPassword',[docController::class, 'forgotPassword']);
+Route::post('/doc/forgotpassword',[docController::class, 'forgotPassword']);
 
 //public user
 Route::get('/user/test',[userController::class,'test']);
 Route::post('/user/register', [userController::class, 'register']);
-
+Route::post('/user/login', [userController::class, 'login']);
+Route::post('/user/verifymail', [userController::class, 'verifyMail']);
+//Route::post('user/forgotpassword', [])
 
 
 //protected

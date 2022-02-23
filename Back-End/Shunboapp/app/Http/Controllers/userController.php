@@ -102,7 +102,7 @@ class userController extends Controller{
             'password' => 'required| string| min:6'
         ]);
 
-        $user = new Doctor();
+        $user = new User();
         $user->name = $req->name;
         $user->email = $req->email;
         $user->mobile = $req->mobile;
