@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Doctor;
 
 use App\Mail\Testmail;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Models\Doctor;
 use App\Models\Verificationcode;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -44,6 +44,34 @@ class docController extends Controller
         //send code to this email
         verifyCode($email);
     }
+
+    function matchCode(Request $req){
+        $verificationcode = Verificationcode::where('email', $req->email)->first();
+        if(!$verificationcode){
+            return response([
+                "res" => 'wrong email'
+            ], 401);
+            if($verificationcode->code != $req->code){
+                return response([
+                    "res" => 'wrong code'
+                ], 401);
+            }
+        }
+        if($result){
+            $doctor = Doctor::where('email', $verificationcode->email)->first();
+            $token = $doctor->createToken('docToken')->plainTextToken;
+            Verificationcode::where('email', $req->email)->delete();
+            return ['updatePassToken' => $token, 'res' => 1];
+        }else{
+            return ['res' => 0];
+        }
+    }
+
+    function updatePassword(Request $req){
+        //
+    }
+
+
 
 
     function verifyMail(Request $req){
