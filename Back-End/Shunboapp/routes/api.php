@@ -25,7 +25,7 @@ Route::get('/doc/test', [docController::class, 'test']);
 Route::post('/doc/register',[docController::class, 'register']);
 Route::post('/doc/login',[docController::class, 'login']);
 Route::post('/doc/verifymail',[docController::class, 'verifyMail']);
-Route::post('/doc/forgotpassword',[docController::class, 'forgotPassword']);
+Route::post('/doc/resetpassword',[docController::class, 'resetPassword']);
 
 //public user
 Route::get('/user/test',[userController::class,'test']);

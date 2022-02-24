@@ -39,10 +39,11 @@ class docController extends Controller
     }
 
     //after giving the mail address send an email with code
-    function forgotPassword(Request $req){
+    function resetPassword(Request $req){
         $email = $req->email;
         //send code to this email
-        verifyCode($email);
+        docController::verifyCode($email);
+        return response(["res"=> 1],200);
     }
 
     function matchCode(Request $req){
