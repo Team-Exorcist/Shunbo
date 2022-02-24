@@ -28,11 +28,11 @@
                         <div style="text-align: center;"><img src="../../ICONS/authentication.png"  alt=""></div>
                         <div class="modal-body p-5 pt-0" >
                             <form class="design" id="verify">
-                                <div class="form-floating mb-sm-2">
+                                <!-- <div class="form-floating mb-sm-2">
                                     <p style="text-align: center;color: #e22d2d;font-weight: 500;">Please check your Mail and provide the Verification Code</p>
                                     <label for="floatingInput" style="color: black;margin-top: -3px;">Email address</label>
                                     <input type="email" class="form-control rounded-5" id="email" placeholder="Mail provided during Sign Up">
-                                </div>
+                                </div> -->
                                 <div class="form-floating mb-3">
                                     <label for="floatingPassword" style="color: black;">Verification Code</label>
                                     <input type="number" class="form-control rounded-4" id="code" placeholder="Provide verification code">
@@ -50,10 +50,10 @@
 
         <script>
             document.getElementById('verify').addEventListener('submit', verifyMail );
-            let resp;
+
             async function verifyMail(e){
                 e.preventDefault();
-                let email = document.getElementById('email');
+                let email = sessionStorage.getItem('mailadd');
                 let code = document.getElementById('code');
 
                 await fetch('http://127.0.0.1:8000/api/doc/verifymail', {
@@ -65,10 +65,12 @@
                         body : JSON.stringify({email:email, code:code })
                     })
                     .then(res => res.json())
-                    .then(data => resp = data.res);
-
+                    .then(data => {
+                        let resp = data.res;
+                        if(resp == 1) window.location.href=`./docLogin.html`;
+                    });
             }
-            if(resp == 1) window.location.href=`./docLgin.html`;
+            
 
 
         </script>
