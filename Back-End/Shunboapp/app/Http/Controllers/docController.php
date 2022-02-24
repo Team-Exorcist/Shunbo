@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Doctor;
 
 use App\Mail\Testmail;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Models\Doctor;
 use App\Models\Verificationcode;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -16,7 +16,18 @@ class docController extends Controller
         return "hello";
     }
 
+    function sendMail($mailaddress, $code){
+
+        $mailbody = [
+            'title' => 'Verify Email',
+            'body' => 'Your verification code is '.$code
+        ];
+
+        Mail::to($mailaddress)->send(new TestMail($mailbody));
+    }
+
     public function verifyCode($mailaddress){
+
         $code = mt_rand(100000,999999);
 
         $verificationcode = new Verificationcode();
@@ -25,8 +36,43 @@ class docController extends Controller
         $verificationcode->save();
 
         docController::sendMail($mailaddress, $code);
-
     }
+
+    //after giving the mail address send an email with code
+    function forgotPassword(Request $req){
+        $email = $req->email;
+        //send code to this email
+        verifyCode($email);
+    }
+
+    function matchCode(Request $req){
+        $verificationcode = Verificationcode::where('email', $req->email)->first();
+        if(!$verificationcode){
+            return response([
+                "res" => 'wrong email'
+            ], 401);
+            if($verificationcode->code != $req->code){
+                return response([
+                    "res" => 'wrong code'
+                ], 401);
+            }
+        }
+        if($result){
+            $doctor = Doctor::where('email', $verificationcode->email)->first();
+            $token = $doctor->createToken('docToken')->plainTextToken;
+            Verificationcode::where('email', $req->email)->delete();
+            return ['updatePassToken' => $token, 'res' => 1];
+        }else{
+            return ['res' => 0];
+        }
+    }
+
+    function updatePassword(Request $req){
+        //
+    }
+
+
+
 
     function verifyMail(Request $req){
         
@@ -53,17 +99,6 @@ class docController extends Controller
 
     }
 
-    function sendMail($mailaddress, $code){
-
-        
-        $mailbody = [
-            'title' => 'Verify Email',
-            'body' => 'Your verification code is '.$code
-        ];
-
-        Mail::to($mailaddress)->send(new TestMail($mailbody));
-    }
-
     function register(Request $req){
         $req->validate([
             'name' => 'required|string|min:6',
@@ -83,12 +118,12 @@ class docController extends Controller
         $email = $req->email;
         docController::verifyCode($email);
 
-        $token = $doctor->createToken('docToken')->plainTextToken;
+        //$token = $doctor->createToken('docToken')->plainTextToken;
 
         $response = [
             'res' => 1,
-            'info' => $doctor,
-            'token' => $token
+            'info' => $doctor
+            //'token' => $token
         ];
 
         if($result){
