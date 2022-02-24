@@ -26,6 +26,7 @@ Route::post('/doc/register',[docController::class, 'register']);
 Route::post('/doc/login',[docController::class, 'login']);
 Route::post('/doc/verifymail',[docController::class, 'verifyMail']);
 Route::post('/doc/resetpassword',[docController::class, 'resetPassword']);
+Route::post('/doc/changepassword', [docController::class, 'changePassword']);
 
 //public user
 Route::get('/user/test',[userController::class,'test']);
@@ -36,7 +37,6 @@ Route::post('/user/verifymail', [userController::class, 'verifyMail']);
 
 
 //protected
-
 Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::post('/doc/logout', [docController::class, 'logout']);
 });

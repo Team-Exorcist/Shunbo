@@ -46,30 +46,60 @@ class docController extends Controller
         return response(["res"=> 1],200);
     }
 
-    function matchCode(Request $req){
-        $verificationcode = Verificationcode::where('email', $req->email)->first();
-        if(!$verificationcode){
+    // function matchCode(Request $req){
+    //     $verificationcode = Verificationcode::where('email', $req->email)->first();
+    //     if(!$verificationcode){
+    //         return response([
+    //             "res" => 'wrong email'
+    //         ], 401);
+    //         if($verificationcode->code != $req->code){
+    //             return response([
+    //                 "res" => 'wrong code'
+    //             ], 401);
+    //         }
+    //     }
+    //     if($result){
+    //         $doctor = Doctor::where('email', $verificationcode->email)->first();
+    //         $token = $doctor->createToken('docToken')->plainTextToken;
+    //         Verificationcode::where('email', $req->email)->delete();
+    //         return ['updatePassToken' => $token, 'res' => 1];
+    //     }else{
+    //         return ['res' => 0];
+    //     }
+    // }
+
+    function changePassword(Request $req){
+        $email = $req->email;
+        $code = $req->code;
+        $newPassword = $req->password;
+
+        $password = Hash::make($req->password);
+  
+
+
+        $verificationCode = Verificationcode::where('email', $req->email)->first();
+        if(!$verificationCode){
             return response([
                 "res" => 'wrong email'
             ], 401);
-            if($verificationcode->code != $req->code){
+            if($verificationCode->code != $req->code){
                 return response([
                     "res" => 'wrong code'
                 ], 401);
             }
         }
-        if($result){
-            $doctor = Doctor::where('email', $verificationcode->email)->first();
-            $token = $doctor->createToken('docToken')->plainTextToken;
-            Verificationcode::where('email', $req->email)->delete();
-            return ['updatePassToken' => $token, 'res' => 1];
-        }else{
-            return ['res' => 0];
-        }
-    }
 
-    function updatePassword(Request $req){
-        //
+        $result = Doctor::where('email', $req->email)->update(['password' => $password]);
+        if($result){
+            Verificationcode::where('email', $req->email)->delete();
+            return response([
+                "res" => 1
+            ],200);
+        }else{
+            return response([
+                "res" => 0
+            ],401);
+        }
     }
 
 
