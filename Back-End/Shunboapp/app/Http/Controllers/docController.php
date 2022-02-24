@@ -176,7 +176,7 @@ class docController extends Controller
         $token = $doctor->createToken('docToken')->plainTextToken;
 
         $response = [
-            'res' => 'logged in',
+            'res' => '1',
             'user' => $doctor,
             'token' => $token
         ];

@@ -70,10 +70,11 @@
                     .then(res => res.json())
                     .then(data => {
                         sessionStorage.setItem('docToken', data.token);
+                        if(data.res == 1) window.location.href='./index.html';
                     } 
                                       
                     );
-                    if(sessionStorage.getItem('docToken')) window.location.href="./index.html";
+                   
                 }
         </script>
 
