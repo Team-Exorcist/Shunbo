@@ -34,8 +34,8 @@
                                             <input id="password" type="password" placeholder="Password" required="" class="form-control rounded-pill border-0 shadow-sm px-4 ">
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-block  mb-2 rounded-pill shadow-sm" style="height: 42px;font-size: 17px;">Login&nbsp;<i class='bx bxs-log-in-circle'></i></button>
-                                        <a href="./resetPassword.html" class="alert-link" style="text-align: center;color: black;font-weight: lighter;" >Forgot password?</a>
-                                        <a href="./docRegister.html" class="alert-link" style="text-align: center;color: black;float: right;font-weight: lighter;" >Don't have an account? </a>
+                                        <a href="#" class="alert-link" style="text-align: center;color: black;font-weight: lighter;" >Forgot password?</a>
+                                        <a href="#" class="alert-link" style="text-align: center;color: black;float: right;font-weight: lighter;" >Don't have an account? </a>
                                         <!-- <div class="text-center d-flex justify-content-between mt-4"><p>Code by <a href="#" class="font-italic text-muted"> 
                                             <u>Jassa</u></a></p></div> -->
                                     </form>
@@ -70,11 +70,10 @@
                     .then(res => res.json())
                     .then(data => {
                         sessionStorage.setItem('docToken', data.token);
-                        if(data.res == 1) window.location.href='./index.html';
                     } 
                                       
                     );
-                   
+                    if(sessionStorage.getItem('docToken')) window.location.href="./index.html";
                 }
         </script>
 
