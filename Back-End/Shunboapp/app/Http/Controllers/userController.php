@@ -174,10 +174,10 @@ class userController extends Controller{
             ], 401);
         }
 
-        $token = $user->createToken('docToken')->plainTextToken;
+        $token = $user->createToken('userToken', ['user'])->plainTextToken;
 
         $response = [
-            'res' => 'logged in',
+            'res' => '1',
             'user' => $user,
             'token' => $token
         ];

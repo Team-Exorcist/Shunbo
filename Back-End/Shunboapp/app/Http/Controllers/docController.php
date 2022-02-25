@@ -177,7 +177,7 @@ class docController extends Controller
             ], 401);
         }
 
-        $token = $doctor->createToken('docToken')->plainTextToken;
+        $token = $doctor->createToken('docToken',['doctor'])->plainTextToken;
 
         $response = [
             'res' => '1',

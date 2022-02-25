@@ -36,7 +36,7 @@ Route::post('/user/verifymail', [userController::class, 'verifyMail']);
 //Route::post('user/forgotpassword', [])
 
 
-//protected
-Route::group(['middleware' => ['auth:sanctum']], function(){
+//protected doctor
+Route::group(['middleware' => ['auth:sanctum', 'ability:doctor']], function(){
     Route::post('/doc/logout', [docController::class, 'logout']);
 });
