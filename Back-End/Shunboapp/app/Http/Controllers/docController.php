@@ -39,36 +39,71 @@ class docController extends Controller
     }
 
     //after giving the mail address send an email with code
-    function forgotPassword(Request $req){
+    function resetPassword(Request $req){
         $email = $req->email;
         //send code to this email
-        verifyCode($email);
+        docController::verifyCode($email);
+        return response(["res"=> 1],200);
     }
 
-    function matchCode(Request $req){
-        $verificationcode = Verificationcode::where('email', $req->email)->first();
-        if(!$verificationcode){
+    // function matchCode(Request $req){
+    //     $verificationcode = Verificationcode::where('email', $req->email)->first();
+    //     if(!$verificationcode){
+    //         return response([
+    //             "res" => 'wrong email'
+    //         ], 401);
+    //         if($verificationcode->code != $req->code){
+    //             return response([
+    //                 "res" => 'wrong code'
+    //             ], 401);
+    //         }
+    //     }
+    //     if($result){
+    //         $doctor = Doctor::where('email', $verificationcode->email)->first();
+    //         $token = $doctor->createToken('docToken')->plainTextToken;
+    //         Verificationcode::where('email', $req->email)->delete();
+    //         return ['updatePassToken' => $token, 'res' => 1];
+    //     }else{
+    //         return ['res' => 0];
+    //     }
+    // }
+
+    function changePassword(Request $req){
+        $req->validate([
+            'email' => 'required| string| unique:doctors,email',
+            'password' => 'required| string| min:6'
+        ]);
+        $email = $req->email;
+        $code = $req->code;
+        $newPassword = $req->password;
+
+        $password = Hash::make($req->password);
+  
+
+
+        $verificationCode = Verificationcode::where('email', $req->email)->first();
+        if(!$verificationCode){
             return response([
                 "res" => 'wrong email'
             ], 401);
-            if($verificationcode->code != $req->code){
+            if($verificationCode->code != $req->code){
                 return response([
                     "res" => 'wrong code'
                 ], 401);
             }
         }
-        if($result){
-            $doctor = Doctor::where('email', $verificationcode->email)->first();
-            $token = $doctor->createToken('docToken')->plainTextToken;
-            Verificationcode::where('email', $req->email)->delete();
-            return ['updatePassToken' => $token, 'res' => 1];
-        }else{
-            return ['res' => 0];
-        }
-    }
 
-    function updatePassword(Request $req){
-        //
+        $result = Doctor::where('email', $req->email)->update(['password' => $password]);
+        if($result){
+            Verificationcode::where('email', $req->email)->delete();
+            return response([
+                "res" => 1
+            ],200);
+        }else{
+            return response([
+                "res" => 0
+            ],401);
+        }
     }
 
 
@@ -142,10 +177,10 @@ class docController extends Controller
             ], 401);
         }
 
-        $token = $doctor->createToken('docToken')->plainTextToken;
+        $token = $doctor->createToken('docToken',['doctor'])->plainTextToken;
 
         $response = [
-            'res' => 'logged in',
+            'res' => '1',
             'user' => $doctor,
             'token' => $token
         ];

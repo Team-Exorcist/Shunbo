@@ -25,7 +25,8 @@ Route::get('/doc/test', [docController::class, 'test']);
 Route::post('/doc/register',[docController::class, 'register']);
 Route::post('/doc/login',[docController::class, 'login']);
 Route::post('/doc/verifymail',[docController::class, 'verifyMail']);
-Route::post('/doc/forgotpassword',[docController::class, 'forgotPassword']);
+Route::post('/doc/resetpassword',[docController::class, 'resetPassword']);
+Route::post('/doc/changepassword', [docController::class, 'changePassword']);
 
 //public user
 Route::get('/user/test',[userController::class,'test']);
@@ -35,8 +36,7 @@ Route::post('/user/verifymail', [userController::class, 'verifyMail']);
 //Route::post('user/forgotpassword', [])
 
 
-//protected
-
-Route::group(['middleware' => ['auth:sanctum']], function(){
+//protected doctor
+Route::group(['middleware' => ['auth:sanctum', 'ability:doctor']], function(){
     Route::post('/doc/logout', [docController::class, 'logout']);
 });
