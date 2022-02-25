@@ -69,6 +69,10 @@ class docController extends Controller
     // }
 
     function changePassword(Request $req){
+        $req->validate([
+            'email' => 'required| string| unique:doctors,email',
+            'password' => 'required| string| min:6'
+        ]);
         $email = $req->email;
         $code = $req->code;
         $newPassword = $req->password;
