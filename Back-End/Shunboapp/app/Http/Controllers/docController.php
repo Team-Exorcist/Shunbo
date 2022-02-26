@@ -16,6 +16,59 @@ class docController extends Controller
         return "hello";
     }
 
+
+    function createPost(Request $req){
+
+        $post = new Post();
+        $post->uid = $req->uid;
+        $post->username = $req->username;
+        $post->msg = $req->msg;
+        $post->isdoctor = 1;
+        $result = $post->save();
+
+        if($result){
+            return response(["res" => 1], 200);
+        }else{
+            response(["res" => 0], 401);
+        }
+    }
+
+    function makeComment(Request $req){
+
+        $comment = new Comment();
+        $comment->pid = $req->pid;
+        $comment->uid = $req->uid;
+        $comment->username = $req->username;
+        $comment->msg = $req->msg;
+        $comment->isdoctor = 1;
+
+        $result = $comment->save();
+
+        if($result){
+            return response(["res" => 1], 200);
+        }else{
+            response(["res" => 0], 401);
+        }
+
+    }
+
+    function vote(Request $req){
+
+        $post = Post::find($req->id);
+        $vote = $post->votes + 1;
+
+        $result = Post::where('id', $req->id)->update(['votes' => $vote]);
+
+        if($result){
+            return response(["res" => 1], 200);
+        }else{
+            response(["res" => 0], 401);
+        }
+
+    }
+
+
+
     function sendMail($mailaddress, $code){
 
         $mailbody = [
