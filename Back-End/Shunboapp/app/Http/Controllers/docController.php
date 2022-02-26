@@ -20,7 +20,7 @@ class docController extends Controller
     function createPost(Request $req){
 
         $post = new Post();
-        $post->uid = $req->uid;
+        $post->did = $req->did;
         $post->username = $req->username;
         $post->msg = $req->msg;
         $post->isdoctor = 1;
@@ -37,7 +37,7 @@ class docController extends Controller
 
         $comment = new Comment();
         $comment->pid = $req->pid;
-        $comment->uid = $req->uid;
+        $comment->did = $req->did;
         $comment->username = $req->username;
         $comment->msg = $req->msg;
         $comment->isdoctor = 1;
