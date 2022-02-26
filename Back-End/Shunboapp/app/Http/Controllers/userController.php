@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Post;
+use App\Models\Verificationcode;
 
 use App\Mail\Testmail;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Models\Verificationcode;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
@@ -15,6 +16,14 @@ class userController extends Controller{
     function test(){
         return " user hello";
     }
+
+    function createPost(Request $req){
+        $post = new Post();
+        $post->uid = $req->uid;
+        $post->msg = $req->msg;
+    }
+
+
 
     function sendMail($mailaddress, $code){
 
