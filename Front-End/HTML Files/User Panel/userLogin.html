@@ -23,7 +23,9 @@
           </div>
           <div class="login-wrapper my-auto">
             <h1 class="login-title">Log in</h1>
-            <form action="#">
+
+
+            <form id="loginform" action="#">
               <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" class="form-control" placeholder="Enter your Email">
@@ -32,10 +34,12 @@
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password" class="form-control" placeholder="Enter your Password">
               </div>
-              <input name="login" id="login" class="btn btn-block login-btn" type="button" value="Login">
+              <input name="login" id="login" class="btn btn-block login-btn" type="submit" value="Login">
             </form>
-            <a href="UserResetPassword.html" class="forgot-password-link" >Forgot password?</a>
-            <p class="login-wrapper-footer-text">Don't have an account? <a href="UserRegister.html" class="text-reset">Register here</a></p>
+
+
+            <a href="./resetPassword.html" class="forgot-password-link" >Forgot password?</a>
+            <p class="login-wrapper-footer-text">Don't have an account? <a href="./userRegister.html" class="text-reset">Register here</a></p>
           </div>
         </div>
         <div class="col-sm-8 px-0 d-none d-sm-block">
@@ -44,5 +48,32 @@
       </div>
     </div>
   </main>
+  <script>
+    document.getElementById('loginform').addEventListener('submit', login);
+
+
+       function login(e){
+           e.preventDefault();
+           let email = document.getElementById('email').value;
+           let password = document.getElementById('password').value;
+
+           fetch('http://127.0.0.1:8000/api/user/login', {
+               method : 'POST',
+               headers : {
+                   'Accept' : 'application/json, text/plain, */*',
+                   'Content-type' : 'application/json'
+               },
+               body : JSON.stringify({email:email, password:password})
+           })
+           .then(res => res.json())
+           .then(data => {
+               sessionStorage.setItem('userToken', data.token);
+               if(data.res == 1) window.location.href='./index.html';
+           } 
+                             
+           );
+          
+       }
+  </script>
 </body>
 </html>

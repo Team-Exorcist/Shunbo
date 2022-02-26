@@ -72,7 +72,7 @@ class userController extends Controller{
 
     function changePassword(Request $req){
         $req->validate([
-            'email' => 'required| string| unique:doctors,email',
+            'email' => 'required| string',
             'password' => 'required| string| min:6'
         ]);
         $email = $req->email;
