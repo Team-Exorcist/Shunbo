@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 
 class userController extends Controller{
 
@@ -46,7 +47,18 @@ class userController extends Controller{
         }
     }
 
-    
+    function vote(Request $req){
+        $post = Post::find($req->id);
+        $vote = $post->votes + 1;
+
+        $result = Post::where('id', $req->id)->update(['votes' => $vote]);
+
+        if($result){
+            return response(["res" => 1], 200);
+        }else{
+            response(["res" => 0], 401);
+        }
+    }
 
 
 

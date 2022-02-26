@@ -43,3 +43,5 @@ Route::post('/user/resetpassword', [userController::class, 'resetPassword']);
 Route::post('/user/changepassword', [userController::class, 'changePassword']);
 
 Route::post('/user/createpost', [userController::class, 'createPost']);
+Route::post('/user/makecomment', [userController::class, 'makeComment']);
+Route::post('/user/vote',[userController::class, 'vote']);
