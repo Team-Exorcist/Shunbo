@@ -23,6 +23,7 @@ class userController extends Controller{
         $post = new Post();
         $post->uid = $req->uid;
         $post->msg = $req->msg;
+        $post->isdoctor = 0;
         $result = $post->save();
 
         if($result){
@@ -37,6 +38,7 @@ class userController extends Controller{
         $comment->pid = $req->pid;
         $comment->uid = $req->uid;
         $comment->msg = $req->msg;
+        $comment->isdoctor = 0;
 
         $result = $comment->save();
 
