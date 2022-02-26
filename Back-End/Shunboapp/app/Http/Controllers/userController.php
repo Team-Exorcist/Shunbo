@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Verificationcode;
+use App\Models\Comment;
 
 use App\Mail\Testmail;
 use Illuminate\Http\Request;
@@ -29,6 +30,23 @@ class userController extends Controller{
             response(["res" => 0], 401);
         }
     }
+
+    function makeComment(Request $req){
+        $comment = new Comment();
+        $comment->pid = $req->pid;
+        $comment->uid = $req->uid;
+        $comment->msg = $req->msg;
+
+        $result = $comment->save();
+
+        if($result){
+            return response(["res" => 1], 200);
+        }else{
+            response(["res" => 0], 401);
+        }
+    }
+
+    
 
 
 
