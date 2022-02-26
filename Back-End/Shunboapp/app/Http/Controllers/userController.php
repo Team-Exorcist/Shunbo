@@ -22,7 +22,9 @@ class userController extends Controller{
     function createPost(Request $req){
         $post = new Post();
         $post->uid = $req->uid;
+        $post->username = $req->username;
         $post->msg = $req->msg;
+        $post->isdoctor = 0;
         $result = $post->save();
 
         if($result){
@@ -33,10 +35,13 @@ class userController extends Controller{
     }
 
     function makeComment(Request $req){
+        
         $comment = new Comment();
         $comment->pid = $req->pid;
         $comment->uid = $req->uid;
+        $comment->username = $req->username;
         $comment->msg = $req->msg;
+        $comment->isdoctor = 0;
 
         $result = $comment->save();
 
