@@ -184,10 +184,10 @@ class userController extends Controller{
 
     function register(Request $req){
         $req->validate([
-            'name' => 'required|string|min:6',
+            'name' => ['required', 'string', 'min:4', 'regex:/^([A-Za-z]){4,}/'],
             'email' => 'required| string| email|unique:users,email',
-            'mobile' => 'required| string| max:11| unique:users,mobile| regex:/(01)([3-9]){1}([0-9]){8}/',
-            'password' => 'required| string| min:6'
+            'mobile' => 'required| string| max:11| unique:users,mobile| regex:/^(01)([3-9]){1}([0-9]){8}/',
+            'password' => ['required', 'string', 'max:10', 'regex:/(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}/']
         ]);
 
         $user = new User();
