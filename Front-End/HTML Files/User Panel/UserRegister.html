@@ -13,37 +13,87 @@
   <link rel="stylesheet" href="../../CSS Files/User Panel Designs/UserRegisterDesign.css">
 </head>
 <body>
-  <main>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-6 login-section-wrapper">
-          <div class="brand-wrapper">
-            <img src="../../ICONS/m11.png" alt="logo" class="logo">
-            <h3>Welcome to Shunbo!</h3>
-          </div>
-          <div class="login-wrapper my-auto">
-            <h1 class="login-title">Register Here</h1>
-            <form action="#">
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email">
-              </div>
-              <label for="mobile-number">Mobile Number</label>
-                <input type="number" name="mobile-number" id="mobile-number" class="form-control" placeholder="Enter your mobile number">
-              <div class="form-group mb-4">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password">
-              </div>
-              <input name="login" id="login" class="btn btn-block login-btn" type="button" value="Login">
-            </form>
-            <p class="login-wrapper-footer-text">Already have an account? <a href="UserSignIn.html" class="text-reset" >login here</a></p>
-          </div>
+    <main>
+      <div class="container-fluid">
+          <div class="row">
+              <div class="col-sm-6 login-section-wrapper">
+                  <div class="brand-wrapper">
+                      <img src="../../ICONS/m11.png" alt="logo" class="logo">
+                      <h3>Welcome to Shunbo!</h3>
+                  </div>
+                  <div class="login-wrapper my-auto">
+                      <h1 class="login-title">Register Here</h1>
+                      <form id="registerform">
+                          <div class="form-group">
+                              <!-- <label for="name">Name</label> -->
+                              <input type="text" name="name" id="name" class="form-control" placeholder="Enter your Name">
+                          </div>
+                          <div class="form-group">
+                                <!-- <label for="email">Email</label> -->
+                                <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email">
+                          </div>
+                          <div class="form-group">
+                              <!-- <label for="mobile-number">Mobile Number</label> -->
+                              <input type="number" name="mobile-number" id="mobile" class="form-control" placeholder="Enter your mobile number">
+                          </div>
+                          <div class="form-group">
+                              <!-- <label for="password">Password</label> -->
+                              <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password">
+                          </div>
+                          <div class="form-group">
+                            <!-- <label for="Conrirm password">Password</label> -->
+                            <input type="password" name="password" id="password_confirmation" class="form-control" placeholder="Re-type password">
+                          </div>
+                          <input name="login" id="login" class="btn btn-block login-btn" type="submit" value="Login">
+                      </form>
+                      <p class="login-wrapper-footer-text">Already have an account? <a href="./userLogin.html" class="text-reset" >login here</a></p>
+                  </div>
+                </div>
+                <div class="col-sm-6 px-0 d-none d-sm-block">
+                    <img src="../../ICONS/j.jpg" alt="login image" class="login-img">
+                </div>
+            </div>
         </div>
-        <div class="col-sm-6 px-0 d-none d-sm-block">
-          <img src="../../ICONS/j.jpg" alt="login image" class="login-img">
-        </div>
-      </div>
-    </div>
-  </main>
+    </main>
+
+
+    <script>
+
+      document.getElementById('registerform').addEventListener('submit', register);
+
+
+      function register(e){
+          e.preventDefault();
+          let name = document.getElementById('name').value;
+          let email = document.getElementById('email').value;
+          let mobile = document.getElementById('mobile').value;
+          let password = document.getElementById('password').value;
+          let password_confirmation = document.getElementById('password_confirmation').value;
+
+          sessionStorage.setItem('mailadd', email); 
+
+          if(password != password_confirmation){return;}
+
+
+          fetch('http://127.0.0.1:8000/api/user/register', {
+              method : 'POST',
+              headers : {
+                  'Accept' : 'application/json, text/plain, */*',
+                  'Content-type' : 'application/json'
+              },
+              body : JSON.stringify({name:name, email:email, mobile:mobile, password:password})
+          })
+          .then(res => res.json())
+          .then(data => {
+            if(data.res == 1){
+              console.log(data.res);
+              window.location.href="./verifyMail.html";
+            }
+          }           
+          );
+          //if(sessionStorage.getItem('docToken') == 1) window.location.href="./verifyMail.html";
+      }
+    </script>
+
 </body>
 </html>

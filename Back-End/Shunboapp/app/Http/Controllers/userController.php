@@ -161,7 +161,7 @@ class userController extends Controller{
         if($result){
             return response($response, 200);
         }else{
-            return ["res" => 0];
+            return response(["res" => 0],401);
         }
     }
 
