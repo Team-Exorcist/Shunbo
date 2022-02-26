@@ -2,19 +2,65 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Post;
+use App\Models\Verificationcode;
+use App\Models\Comment;
 
 use App\Mail\Testmail;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Models\Verificationcode;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 
 class userController extends Controller{
 
     function test(){
         return " user hello";
     }
+
+    function createPost(Request $req){
+        $post = new Post();
+        $post->uid = $req->uid;
+        $post->msg = $req->msg;
+        $result = $post->save();
+
+        if($result){
+            return response(["res" => 1], 200);
+        }else{
+            response(["res" => 0], 401);
+        }
+    }
+
+    function makeComment(Request $req){
+        $comment = new Comment();
+        $comment->pid = $req->pid;
+        $comment->uid = $req->uid;
+        $comment->msg = $req->msg;
+
+        $result = $comment->save();
+
+        if($result){
+            return response(["res" => 1], 200);
+        }else{
+            response(["res" => 0], 401);
+        }
+    }
+
+    function vote(Request $req){
+        $post = Post::find($req->id);
+        $vote = $post->votes + 1;
+
+        $result = Post::where('id', $req->id)->update(['votes' => $vote]);
+
+        if($result){
+            return response(["res" => 1], 200);
+        }else{
+            response(["res" => 0], 401);
+        }
+    }
+
+
 
     function sendMail($mailaddress, $code){
 
