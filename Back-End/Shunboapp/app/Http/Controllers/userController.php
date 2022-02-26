@@ -21,6 +21,13 @@ class userController extends Controller{
         $post = new Post();
         $post->uid = $req->uid;
         $post->msg = $req->msg;
+        $result = $post->save();
+
+        if($result){
+            return response(["res" => 1], 200);
+        }else{
+            response(["res" => 0], 401);
+        }
     }
 
 
