@@ -32,9 +32,7 @@
 
                 <!--start error message-->
 
-                <p style="font-weight: lighter;color: red;">
-                  <img src="../../ICONS/er.png" height="25px" width="25px">
-                  Please enter a valid email</p>
+                <div id="emailerror"></div>
 
                 <!--end of error message-->
               </div>
@@ -44,9 +42,7 @@
 
                 <!--start error message-->
 
-                <p style="font-weight: lighter;color: red;">
-                  <img src="../../ICONS/er.png" height="25px" width="25px">
-                  Password must contain at least 6 character numeric letter (0-9) or alphabet (A-Z or a-z)</p>
+
                   
                 <!--end of error message-->
               </div>
@@ -73,6 +69,22 @@
            let email = document.getElementById('email').value;
            let password = document.getElementById('password').value;
 
+           const emailregex = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+
+           if(!emailregex.test(email)){
+                    document.getElementById('emailerror').innerHTML=`<p style="font-weight: lighter;color: red;">
+                  <img src="../../ICONS/er.png" height="25px" width="25px">
+                  Please enter a valid email</p>`;
+                    return;
+            }
+
+            if(!passregex.test(password) || password.length < 8){
+                    document.getElementById('passerror').innerHTML=`<p style="font-weight: lighter;color: red;">
+                  <img src="../../ICONS/er.png" height="25px" width="25px">
+                  Password must contain at least 8 character numeric letter (0-9) or alphabet (A-Z or a-z)</p>`;
+                    return;
+                }
+
            fetch('http://127.0.0.1:8000/api/user/login', {
                method : 'POST',
                headers : {
@@ -82,13 +94,20 @@
                body : JSON.stringify({email:email, password:password})
            })
            .then(res => res.json())
-           .then(data => {
-               sessionStorage.setItem('userToken', data.token);
-               if(data.res == 1) window.location.href='./index.html';
-           } 
-                             
-           );
-          
+           .then(res => {
+                    resStatus = res.status;
+                    if(resStatus >=400) {
+                        return res.text().then(data => {
+                            console.log(data.message);
+                            alert('Invalid Information');   
+                        })
+                    }else{
+                        return res.json().then(data => {
+                          sessionStorage.setItem('userToken', data.token);
+                          if(data.res == 1) window.location.href='./index.html';
+                        }) 
+                  }                   
+                });
        }
   </script>
 </body>
