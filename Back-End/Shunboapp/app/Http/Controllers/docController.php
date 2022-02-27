@@ -171,7 +171,7 @@ class docController extends Controller
             ], 401);
             if($verificationcode->code != $req->code){
                 return response([
-                    "res" => 'wrong code'
+                    "res" => '404'
                 ], 401);
             }
         }

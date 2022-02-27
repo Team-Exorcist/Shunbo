@@ -39,9 +39,7 @@
 
                                     <!--start error message-->
 
-                                    <p style="font-weight: lighter;color: red;text-align: left;">
-                                    <img src="../../ICONS/er.png" height="25px" width="25px">
-                                    Please enter the valid code</p>
+                                    <div id="errormsg"></div>
                   
                                     <!--end of error message-->
                                 </div>
@@ -76,6 +74,11 @@
                     .then(data => {
                         let resp = data.res;
                         if(resp == 1) window.location.href=`./userLogin.html`;
+                        if(resp == 404 || resp == 0) {
+                            document.getElementById('errormsg').innerHTML=`<p style="font-weight: lighter;color: red;text-align: left;">
+                                    <img src="../../ICONS/er.png" height="25px" width="25px">
+                                    Please enter the valid code</p>`;
+                        }
                     });
             }
             
