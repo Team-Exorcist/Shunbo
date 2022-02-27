@@ -164,26 +164,33 @@ class docController extends Controller
 
     function verifyMail(Request $req){
         
+        $codes = $req->code;
         $verificationcode = Verificationcode::where('email', $req->email)->first();
+
         if(!$verificationcode){
             return response([
                 "res" => 'wrong email'
-            ], 401);
-            if($verificationcode->code != $req->code){
-                return response([
-                    "res" => 'wrong code'
-                ], 401);
+            ], 200);
+        }
+        if($verificationcode->code == $req->code){
+            $result = Doctor::where('email', $verificationcode->email)->update(['isverified' => 1]);
+
+            if($result){
+                Verificationcode::where('email', $req->email)->delete();
+                return ['res' => 1];
+            }else{
+                return ['res' => 0];
             }
-        }
-
-        $result = Doctor::where('email', $verificationcode->email)->update(['isverified' => 1]);
-
-        if($result){
-            Verificationcode::where('email', $req->email)->delete();
-            return ['res' => 1];
         }else{
-            return ['res' => 0];
+            return response([
+                "res" => '404',
+            ], 200);
         }
+
+
+
+
+
 
     }
 
@@ -217,7 +224,7 @@ class docController extends Controller
         if($result){
             return response($response, 200);
         }else{
-            return ["res" => 0];
+            return response(["res" => 0],422);
         }
     }
 
