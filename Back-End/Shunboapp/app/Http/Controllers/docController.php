@@ -164,7 +164,9 @@ class docController extends Controller
 
     function verifyMail(Request $req){
         
+        $codes = $req->code;
         $verificationcode = Verificationcode::where('email', $req->email)->first();
+
         if(!$verificationcode){
             return response([
                 "res" => 'wrong email'
@@ -184,6 +186,9 @@ class docController extends Controller
                 "res" => '404',
             ], 200);
         }
+
+
+
 
 
 

@@ -35,7 +35,7 @@
                                 </div> -->
                                 <div class="form-floating mb-3">
                                     <label for="floatingPassword" style="color: black;">Verification Code</label>
-                                    <input type="number" class="form-control rounded-4" id="code" placeholder="Provide verification code">
+                                    <input type="text" id="code" class="form-control rounded-4"  placeholder="Provide verification code">
 
                                     <!--start error message-->
 
@@ -57,19 +57,21 @@
         <script>
             document.getElementById('verify').addEventListener('submit', verifyMail );
 
-            async function verifyMail(e){
+                function verifyMail(e){
                 e.preventDefault();
                 let email = sessionStorage.getItem('mailadd');
-                let code = document.getElementById('code');
+                let code= document.getElementById('code').value;
+                let verification = String(code);
                 let wrongcodemsg = '';
+                console.log(code);
 
-                await fetch('http://127.0.0.1:8000/api/doc/verifymail', {
+                fetch('http://127.0.0.1:8000/api/doc/verifymail', {
                         method : 'POST',
                         headers : {
                             'Accept' : 'application/json, text/plain, */*',
                             'Content-type' : 'application/json'
                         },
-                        body : JSON.stringify({email:email, code:code })
+                        body : JSON.stringify({email:email, code:verification })
                     })
                     .then(res => res.json())
                     .then(data => {

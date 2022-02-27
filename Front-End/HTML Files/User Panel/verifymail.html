@@ -60,7 +60,7 @@
             async function verifyMail(e){
                 e.preventDefault();
                 let email = sessionStorage.getItem('mailadd');
-                let code = document.getElementById('code');
+                let code = document.getElementById('code').value;
 
                 await fetch('http://127.0.0.1:8000/api/user/verifymail', {
                         method : 'POST',
