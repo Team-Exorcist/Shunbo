@@ -125,10 +125,12 @@
                     });
                 } else {
                     return res.json().then((data) => {
-                        sessionStorage.setItem("userToken", data.token);
-                        sessionStorage.setItem("uid", data.user.id);
-                        if (data.res == 1)
+                        if (data.res == 1) {
+                            sessionStorage.setItem("userToken", data.token);
+                            sessionStorage.setItem("uid", data.user.id);
                             window.location.href = "./index.html";
+                        }
+
                     });
                 }
             });

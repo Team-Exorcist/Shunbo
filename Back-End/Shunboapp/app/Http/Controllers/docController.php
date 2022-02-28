@@ -195,11 +195,6 @@ class docController extends Controller
             ], 200);
         }
 
-
-
-
-
-
     }
 
     function register(Request $req){
