@@ -93,9 +93,17 @@ class userController extends Controller{
     //after giving the mail address send an email with code
     function resetPassword(Request $req){
         $email = $req->email;
-        //send code to this email
-        userController::verifyCode($email);
-        return response(["res" => 1], 200);
+        $verificationcode = User::where('email', $req->email)->first();
+        if(!$verificationcode){
+            return response([
+                "res" => '402'
+            ], 401);
+        }else{
+                    //send code to this email
+            userController::verifyCode($email);
+            return response(["res" => 1], 200);
+        }
+
     }
 
 
@@ -162,12 +170,12 @@ class userController extends Controller{
         $verificationcode = Verificationcode::where('email', $req->email)->first();
         if(!$verificationcode){
             return response([
-                "res" => 'wrong email'
+                "res" => '402'
             ], 401);
         }
         if($verificationcode->code != $req->code){
             return response([
-                "res" => 'wrong code'
+                "res" => '404'
             ], 401);
         }
 

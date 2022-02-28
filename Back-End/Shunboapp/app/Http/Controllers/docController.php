@@ -94,9 +94,16 @@ class docController extends Controller
     //after giving the mail address send an email with code
     function resetPassword(Request $req){
         $email = $req->email;
-        //send code to this email
-        docController::verifyCode($email);
-        return response(["res"=> 1],200);
+        $verificationcode = Doctor::where('email', $req->email)->first();
+        if(!$verificationcode){
+            return response([
+                "res" => '402'
+            ], 401);
+        }else{
+                    //send code to this email
+            docController::verifyCode($email);
+            return response(["res" => 1], 200);
+        }
     }
 
     // function matchCode(Request $req){
