@@ -31,9 +31,7 @@
 
                                             <!--start error message-->
 
-                                            <p style="font-weight: lighter;color: red;font-weight: 400;">
-                                            <img src="../../ICONS/er.png" height="25px" width="25px">
-                                            Name can only contain alphabet (A-Z or a-z)</p>
+                                            <div id="nameerror"></div>
 
                                             <!--end of error message-->
                                         </div>
@@ -42,9 +40,7 @@
 
                                             <!--start error message-->
 
-                                            <p style="font-weight: lighter;color: red;font-weight: 400;">
-                                            <img src="../../ICONS/er.png" height="25px" width="25px">
-                                            Please enter a valid email</p>
+                                            <div id="emailerror"></div>
 
                                             <!--end of error message-->
                                         </div>
@@ -52,21 +48,17 @@
                                             <input id="mobile" type="text" placeholder="Mobile Number" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4">
 
                                             <!--start error message-->
-
-                                            <p style="font-weight: lighter;color: red;font-weight: 400;">
-                                            <img src="../../ICONS/er.png" height="25px" width="25px">
-                                            Mobile number must contain 11 digits</p>
-
+                                            <div id="mobileerror"></div>
                                             <!--end of error message-->
                                         </div>
                                         <div class="form-group mb-3">
                                             <input id="password" type="password" placeholder="Password" required="" class="form-control rounded-pill border-0 shadow-sm px-4 ">
 
                                             <!--start error message-->
+                                            <div id="passerror">
 
-                                            <p style="font-weight: lighter;color: red;font-weight: 400;">
-                                            <img src="../../ICONS/er.png" height="25px" width="25px">
-                                            Password must contain at least 6 character numeric letter (0-9) or alphabet (A-Z or a-z)</p>
+                                            </div>
+                                            
                   
                                             <!--end of error message-->
                                         </div>
@@ -74,11 +66,12 @@
                                             <input id="password_confirmation" type="password" placeholder="Re-type Password" required="" class="form-control rounded-pill border-0 shadow-sm px-4 ">
 
                                             <!--start error message-->
+                                                <div id="passmissmatch">
 
-                                            <p style="font-weight: lighter;color: red;font-weight: 400;">
-                                            <img src="../../ICONS/er.png" height="25px" width="25px">
-                                            Password doesn't match</p>
-                  
+                                                </div>
+
+
+                                            
                                             <!--end of error message-->
                                         </div>
                                         <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
@@ -107,15 +100,65 @@
 
             function register(e){
                 e.preventDefault();
+                let resStatus = 0;
                 let name = document.getElementById('name').value;
                 let email = document.getElementById('email').value;
                 let mobile = document.getElementById('mobile').value;
                 let password = document.getElementById('password').value;
                 let password_confirmation = document.getElementById('password_confirmation').value;
 
-                sessionStorage.setItem('mailadd', email); 
 
-                if(password != password_confirmation){return;}
+
+                //validate
+                const passregex = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/);
+                const nameregex = new RegExp(/^[a-z ,.'-]+$/i);
+                const emailregex = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+                const mobileregex = new RegExp(/^(01)([3-9]){1}([0-9]){8}/);
+
+
+                if(!nameregex.test(name)){
+                    document.getElementById('nameerror').innerHTML=`<p style="font-weight: lighter;color: red;font-weight: 400;">
+                                            <img src="../../ICONS/er.png" height="25px" width="25px">
+                                            Name can only contain alphabet (A-Z or a-z)</p>`;
+                    return;
+                }
+
+                if(!emailregex.test(email)){
+                    document.getElementById('emailerror').innerHTML=`<p style="font-weight: lighter;color: red;font-weight: 400;">
+                                            <img src="../../ICONS/er.png" height="25px" width="25px">
+                                            Please enter a valid email</p>`;
+                    return;
+                }
+
+                if(!mobileregex.test(mobile)){
+                    document.getElementById('mobileerror').innerHTML=`<p style="font-weight: lighter;color: red;font-weight: 400;">
+                                            <img src="../../ICONS/er.png" height="25px" width="25px">
+                                            Mobile number must contain 11 digits</p>`;
+                    return;
+                }
+
+                if(!passregex.test(password) || password.length < 8){
+                    document.getElementById('passerror').innerHTML=`<p style="font-weight: lighter;color: red;font-weight: 400;">
+                                            <img src="../../ICONS/er.png" height="25px" width="25px">
+                                            Password must contain at least 8 character atleast 1 numeric letter (0-9) or alphabet (A-Z or a-z)</p>`;
+                    return;
+                }
+
+                if(password != password_confirmation){
+                    document.getElementById('passmissmatch').innerHTML = `<p style='font-weight: lighter;color: red;font-weight: 400;'>
+                                                <img src="../../ICONS/er.png" height="25px" width="25px">
+                                                Passwords do not match</p>`
+                                                return;
+                }
+
+
+
+
+                
+                sessionStorage.setItem('mailadd', email);
+
+               
+
 
 
                 fetch('http://127.0.0.1:8000/api/doc/register', {
@@ -126,10 +169,19 @@
                     },
                     body : JSON.stringify({name:name, email:email, mobile:mobile, password:password})
                 })
-                .then(res => res.json())
-                .then(data =>  
-                    window.location.href="./verifyMail.html"               
-                );
+                .then(res => {
+                    resStatus = res.status;
+                    if(resStatus >=400) {
+                        return res.text().then(data => {
+                            console.log(data.message);
+                            alert('Invalid Information');   
+                        })
+                    }else{
+                        return res.json().then(data => {
+                            window.location.href="./verifyMail.html";   
+                        })
+                    }
+                })  
                 //if(sessionStorage.getItem('docToken') == 1) window.location.href="./verifyMail.html";
             }
         </script>

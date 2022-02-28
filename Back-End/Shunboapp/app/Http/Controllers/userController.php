@@ -164,11 +164,11 @@ class userController extends Controller{
             return response([
                 "res" => 'wrong email'
             ], 401);
-            if($verificationcode->code != $req->code){
-                return response([
-                    "res" => 'wrong code'
-                ], 401);
-            }
+        }
+        if($verificationcode->code != $req->code){
+            return response([
+                "res" => 'wrong code'
+            ], 401);
         }
 
         $result = User::where('email', $verificationcode->email)->update(['isverified' => 1]);
