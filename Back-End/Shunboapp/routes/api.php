@@ -33,6 +33,8 @@ Route::post('/doc/changepassword', [docController::class, 'changePassword']);
 Route::group(['middleware' => ['auth:sanctum', 'ability:doctor']], function(){
     Route::post('/doc/logout', [docController::class, 'logout']);
 });
+Route::post('/doc/getposts',[docController::class, 'getPosts']);
+
 
 //public user
 Route::get('/user/test',[userController::class,'test']);
@@ -46,3 +48,4 @@ Route::post('/user/createpost', [userController::class, 'createPost']);
 Route::post('/user/makecomment', [userController::class, 'makeComment']);
 Route::post('/user/vote',[userController::class, 'vote']);
 Route::post('/user/makeappointment', [userController::class, 'makeAppointment']);
+Route::post('/user/getposts',[userController::class, 'getPosts']);

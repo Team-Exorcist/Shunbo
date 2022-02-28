@@ -16,6 +16,15 @@ class docController extends Controller
         return "hello";
     }
 
+    function getPosts(){
+        $posts = DB::table('posts')->get();
+        if($posts){
+            return $posts;
+        }else{
+            return ['res' => 0];
+        }
+        
+    }
 
     function createPost(Request $req){
 

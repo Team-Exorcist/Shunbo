@@ -20,9 +20,23 @@ class userController extends Controller{
         return " user hello";
     }
 
+    function getPosts(){
+        $posts = DB::table('posts')->orderByDesc('created_at')->get();
+        if($posts){
+            return $posts;
+        }else{
+            return ['res' => 0];
+        }
+        
+    }
+
     function getDoctorList(){
         $doctors = DB::table('doctors')->get();
-        return $doctors;
+        if($doctors){
+            return $doctors;
+        }else{
+            return ['res' => 0];
+        }
     }
 
     function isDocFree($reqtime, $docID, $date){
