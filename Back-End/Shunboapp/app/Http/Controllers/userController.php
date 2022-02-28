@@ -25,13 +25,36 @@ class userController extends Controller{
         return $doctors;
     }
 
+    function isDocFree($reqtime, $docID, $date){
+        $times = Appointment::where('did', $docID)->where('date', $date)->pluck('time');
+
+        foreach($times as $time){
+            if($time == $reqtime){
+                return FALSE;
+            }
+        }
+        return TRUE;
+
+        //could be used in another function
+        // $freetime = [];
+        // for($i = 1; $i <= 8; $i++ ){
+        //     if(userController::isDocFree($i,  $req->did, $req->date)){
+        //         $freetime['time'.$i] = $i;
+        //     }
+        // }
+    }
+
     function makeAppointment(Request $req){
+
+        if($req->time < 1 || $req->time > 8){
+            return ['res' => 0];
+        }
 
         $times = Appointment::where('did', $req->did)->where('date', $req->date)->pluck('time');
 
         foreach($times as $time){
             if($req->time == $time){
-                return response(["res" => 0],300);
+                return response(['res'=> 0],300);
             }
         }
 
