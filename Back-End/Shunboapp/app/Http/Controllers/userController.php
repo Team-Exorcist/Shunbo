@@ -196,7 +196,7 @@ class userController extends Controller{
             'name' => array('required', 'string', 'min:4', 'regex:/^([A-Za-z]){4,}/'),
             'email' => 'required| string| email|unique:users,email',
             'mobile' => 'required| string| max:11| unique:users,mobile| regex:/^(01)([3-9]){1}([0-9]){8}/',
-            'password' => array('required', 'string', 'max:10', 'regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/')
+            'password' => array('required', 'string', 'regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/')
         ]);
 
         $user = new User();
