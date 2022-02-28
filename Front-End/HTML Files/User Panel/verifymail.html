@@ -34,8 +34,8 @@
                                     <input type="email" class="form-control rounded-5" id="email" placeholder="Mail provided during Sign Up">
                                 </div> -->
                                 <div class="form-floating mb-3">
-                                    <label for="floatingPassword" style="color: black;">Verification Code</label>
-                                    <input type="number" class="form-control rounded-4" id="code" placeholder="Provide verification code">
+                                    <label  style="color: black;">Verification Code</label>
+                                    <input type="number" name="mobile-number" id="mobile" class="form-control" placeholder="Enter your mobile number">
 
                                     <!--start error message-->
 
@@ -62,7 +62,7 @@
             async function verifyMail(e){
                 e.preventDefault();
                 let email = sessionStorage.getItem('mailadd');
-                let code = document.getElementById('code');
+                let code = document.getElementById('mobile');
 
                 await fetch('http://127.0.0.1:8000/api/user/verifymail', {
                         method : 'POST',
