@@ -131,7 +131,7 @@ class docController extends Controller
     function changePassword(Request $req){
         $req->validate([
             'email' => 'required| string',
-            'password' => 'required| string| min:6'
+            'password' => 'required| string| min:8'
         ]);
         $email = $req->email;
         $code = $req->code;
@@ -146,11 +146,12 @@ class docController extends Controller
             return response([
                 "res" => 'wrong email'
             ], 401);
-            if($verificationCode->code != $req->code){
-                return response([
-                    "res" => 'wrong code'
-                ], 401);
-            }
+
+        }
+        if($verificationCode->code != $req->code){
+            return response([
+                "res" => '404'
+            ], 401);
         }
 
         $result = Doctor::where('email', $req->email)->update(['password' => $password]);
