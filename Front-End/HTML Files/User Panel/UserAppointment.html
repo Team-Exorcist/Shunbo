@@ -51,37 +51,34 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <select class="form-select" id="gender" aria-label="Default select example"
+                        <select required class="form-select" id="gender" aria-label="Default select example"
                             style="width: 90%;color: gray;">
                             <option selected>Select your gender</option>
                             <option value="1">Male</option>
                             <option value="2">Female</option>
-                            <option value="3">Other</option>
+                            <option value="3">Rather not say</option>
                         </select>
-                        <select class="form-select" id="appt_time" aria-label="Default select example"
+                        <select required class="form-select" id="appt_time" aria-label="Default select example"
                             style="width: 90%;color: gray;">
                             <option selected>Select the appointment time</option>
-                            <option value="4">9.00am to 10.00am</option>
-                            <option value="5">10.01am to 11.00am</option>
-                            <option value="6">11.01am to 12.00pm</option>
-                            <option value="7">12.01pm to 1.00pm</option>
-                            <option value="8">3.00pm to 4.00pm</option>
-                            <option value="9">4.01pm to 5.00pm</option>
-                            <option value="10">5.01pm to 6.00pm</option>
-                            <option value="11">6.01pm to 7.00pm</option>
-                            <option value="12">7.01pm to 8.00pm</option>
-                            <option value="13">8.01pm to 9.00pm</option>
-                            <option value="14">9.01pm to 10.00pm</option>
+                            <option value="1">9.00am to 10.00am</option>
+                            <option value="2">10.01am to 11.00am</option>
+                            <option value="3">11.01am to 12.00pm</option>
+                            <option value="4">3.00pm to 4.00pm</option>
+                            <option value="5">4.01pm to 5.00pm</option>
+                            <option value="6">5.01pm to 6.00pm</option>
+                            <option value="7">7.01pm to 8.00pm</option>
+                            <option value="8">8.01pm to 9.00pm</option>
+
                         </select>
                     </div>
-                    <textarea name="" id="" placeholder="Your Present Address" class="form-control"
-                        style="height: 100px;"></textarea>
-                    <form action="">
-                        <div class="form-row">
-                            <button type="submit"><a href="#" style="color: brown;"> Confirm</a></button>
-                            <button type="submit"><a href="#" style="color: brown;">Cancel</a></button>
-                        </div>
-                    </form>
+                    <!-- <textarea name="" id="" placeholder="Your Present Address" class="form-control"
+                        style="height: 100px;"></textarea> -->
+
+                    <div class="form-row">
+                        <button type="submit"><a href="#" style="color: brown;"> Confirm</a></button>
+                        <button type="submit"><a href="#" style="color: brown;">Cancel</a></button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -90,10 +87,10 @@
 
 
     <script>
-        if (!sessionStorage.getItem("uid")) {
-            //redirect to newsfeed
-            window.location.href = `./newsfeed.html`;
-        }
+        // if (!sessionStorage.getItem("uid")) {
+        //     //redirect to newsfeed
+        //     window.location.href = `./userLogin.html`;
+        // }
     </script>
 </body>
 

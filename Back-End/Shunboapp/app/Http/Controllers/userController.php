@@ -246,7 +246,6 @@ class userController extends Controller{
 
     function logout(Request $req){
         auth()->user()->tokens()->delete();
-
         return [
             "res" => "logged out"
         ];
