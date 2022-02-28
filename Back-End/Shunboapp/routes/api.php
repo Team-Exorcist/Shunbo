@@ -45,3 +45,4 @@ Route::post('/user/changepassword', [userController::class, 'changePassword']);
 Route::post('/user/createpost', [userController::class, 'createPost']);
 Route::post('/user/makecomment', [userController::class, 'makeComment']);
 Route::post('/user/vote',[userController::class, 'vote']);
+Route::post('/user/makeappointment', [userController::class, 'makeAppointment']);

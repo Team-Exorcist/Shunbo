@@ -27,9 +27,13 @@ class userController extends Controller{
 
     function makeAppointment(Request $req){
 
+        $times = Appointment::where('did', $req->did)->where('date', $req->date)->pluck('time');
 
-        //checkif doc is free
-        $isfree = Appointment::where('did', $req->did)->where();
+        foreach($times as $time){
+            if($req->time == $time){
+                return response(["res" => 0],300);
+            }
+        }
 
         $appointment = new Appointment();
 
@@ -37,11 +41,17 @@ class userController extends Controller{
         $appointment->uid = $req->uid;
         $appointment->dname = $req->dname;
         $appointment->uname = $req->uname;
-        $appointment->gender = $req->gender;
+        $appointment->ugender = $req->ugender;
         $appointment->time = $req->time;
         $appointment->date = $req->date;
 
-        return $appointment->save();
+        $result = $appointment->save();
+
+        if($result){
+            return response(['res' => 1],200);
+        }else{
+            return response(['res' => 0],200);
+        }
 
     }
 
