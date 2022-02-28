@@ -20,20 +20,18 @@
                     <img src="../../ICONS/apvs.jpg" height="500px" width="700px" alt="">
                 </div>
 
-                <form action="">
+                <form id="appointmentform" method="post">
                     <!--error message-->
-                    <div style="background-color: red;width: 400px;height: 50px;margin-left: 23%;margin-bottom: 5%;">
-                        <!--error mssg shows here-->
-                    </div>
+                    <div id="error"></div>
                     <!--end of error mssg-->
 
                     <h3>Set your Appointment </h3>
                     <div class="form-row">
-                        <input type="text" class="form-control" placeholder="Enter your Name">
-                        <input type="text" class="form-control" placeholder="Enter your Mail">
+                        <input id="name" type="text" class="form-control" placeholder="Enter your Name">
+                        <input id="email" type="email" class="form-control" placeholder="Enter your Mail">
                     </div>
                     <div class="form-row">
-                        <input type="text" class="form-control" placeholder="Mobile Number">
+                        <input id="mobile" type="text" class="form-control" placeholder="Mobile Number">
                         <div class="form-holder">
                             <!-- <select name="" id="" class="form-control">
                                     <option value="" disabled selected>Choose Your Class</option>
@@ -49,7 +47,7 @@
                             <!-- 							
                                     <label for="formGroupExampleInput2">Enter the date</label> -->
                             <p style="color: darkgray;font-size: 16px;">Appointment date:</p>
-                            <input type="date" name="begin" placeholder="dd-mm-yyyy" value="" min="1997-01-01"
+                            <input required id="date" type="date" placeholder="dd-mm-yyyy" value="" min="2022-1-1"
                                 max="2030-12-31">
                             <!-- <input type="date" name="begin"
                                     placeholder="dd-mm-yyyy" value=""
@@ -58,15 +56,15 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <select required class="form-select" id="gender" aria-label="Default select example"
-                            style="width: 90%;color: gray;">
+                        <select itemid="gender" required class="form-select" id="gender"
+                            aria-label="Default select example" style="width: 90%;color: gray;">
                             <option selected>Select your gender</option>
-                            <option value="1">Male</option>
-                            <option value="2">Female</option>
-                            <option value="3">Rather not say</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Hidden">Rather not say</option>
                         </select>
-                        <select required class="form-select" id="appt_time" aria-label="Default select example"
-                            style="width: 90%;color: gray;">
+                        <select id="time" required class="form-select" id="appt_time"
+                            aria-label="Default select example" style="width: 90%;color: gray;">
                             <option selected>Select the appointment time</option>
                             <option value="1">9.00am to 10.00am</option>
                             <option value="2">10.01am to 11.00am</option>
@@ -83,8 +81,8 @@
                         style="height: 100px;"></textarea> -->
 
                     <div class="form-row">
-                        <button type="submit"><a href="#" style="color: brown;"> Confirm</a></button>
-                        <button type="submit"><a href="#" style="color: brown;">Cancel</a></button>
+                        <button type="submit" style="color: brown;"> Confirm</button>
+                        <button><a href="#" style="color: brown;">Cancel</a></button>
                     </div>
                 </form>
             </div>
@@ -98,6 +96,84 @@
         //     //redirect to newsfeed
         //     window.location.href = `./userLogin.html`;
         // }
+
+        document.getElementById("appointmentform").addEventListener("submit", makeAppointment);
+
+        function makeAppointment(e) {
+            e.preventDefault();
+
+            //let uid = sessionStorage.getItem("uid");
+            let uid = 8;
+            let did = 30;
+            let dname = "docvto";
+
+            let uname = document.getElementById('name').value;
+            let email = document.getElementById('email').value;
+            let mobile = document.getElementById('mobile').value;
+            let date = document.getElementById('date').value;
+            let ugender = document.getElementById('gender').value;
+            let time = document.getElementById('time').value;
+
+            const nameregex = new RegExp(/^[a-z ,.'-]+$/i);
+            const emailregex = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+            const mobileregex = new RegExp(/^(01)([3-9]){1}([0-9]){8}/);
+
+            if (!nameregex.test(uname)) {
+                document.getElementById('error').innerHTML = `
+                    <div style="background-color: red;width: 400px;height: 50px;margin-left: 23%;margin-bottom: 5%;">
+                        <h6 style="text-align: center; color: white; padding-top: 17px;">Enter a valid Name</h6>
+                    </div>`;
+                return;
+            }
+
+            if (!emailregex.test(email)) {
+                document.getElementById('error').innerHTML = `
+                    <div style="background-color: red;width: 400px;height: 50px;margin-left: 23%;margin-bottom: 5%;">
+                        <h6 style="text-align: center; color: white; padding-top: 17px;">Enter a Valid Email address</h6>
+                    </div>`;
+                return;
+            }
+
+            if (!mobileregex.test(mobile)) {
+                document.getElementById('error').innerHTML = `
+                    <div style="background-color: red;width: 400px;height: 50px;margin-left: 23%;margin-bottom: 5%;">
+                        <h6 style="text-align: center; color: white; padding-top: 17px;">Enter a Valid Number</h6>
+                    </div>`;
+                return;
+            }
+
+            fetch('http://127.0.0.1:8000/api/user/makeappointment', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        uname: uname,
+                        uid: uid,
+                        did: did,
+                        date: date,
+                        ugender: ugender,
+                        time: time,
+                        dname: dname
+                    })
+                })
+                .then(res => {
+                    resStatus = res.status;
+                    if (resStatus >= 400) {
+                        return res.text().then(data => {
+                            console.log(data.message);
+                            alert('Invalid Information');
+                        })
+                    } else {
+                        return res.json().then(data => {
+                            console.log(data.res);
+                            window.location.href = "./verifyMail.html";
+                        })
+                    }
+                })
+
+        }
     </script>
 </body>
 

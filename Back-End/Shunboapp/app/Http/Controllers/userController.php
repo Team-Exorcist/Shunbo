@@ -47,7 +47,7 @@ class userController extends Controller{
     function makeAppointment(Request $req){
 
         if($req->time < 1 || $req->time > 8){
-            return ['res' => 0];
+            return response(['res' => 0] , 300);
         }
 
         $times = Appointment::where('did', $req->did)->where('date', $req->date)->pluck('time');
