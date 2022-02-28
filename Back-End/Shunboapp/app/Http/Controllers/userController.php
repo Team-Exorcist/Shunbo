@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Models\Post;
 use App\Models\Verificationcode;
 use App\Models\Comment;
+use App\Models\Appointment;
 
 use App\Mail\Testmail;
 use Illuminate\Http\Request;
@@ -17,6 +18,41 @@ class userController extends Controller{
 
     function test(){
         return " user hello";
+    }
+
+    function getDoctorList(){
+        $doctors = DB::table('doctors')->get();
+        return $doctors;
+    }
+
+    function makeAppointment(Request $req){
+
+        $times = Appointment::where('did', $req->did)->where('date', $req->date)->pluck('time');
+
+        foreach($times as $time){
+            if($req->time == $time){
+                return response(["res" => 0],300);
+            }
+        }
+
+        $appointment = new Appointment();
+
+        $appointment->did = $req->did;
+        $appointment->uid = $req->uid;
+        $appointment->dname = $req->dname;
+        $appointment->uname = $req->uname;
+        $appointment->ugender = $req->ugender;
+        $appointment->time = $req->time;
+        $appointment->date = $req->date;
+
+        $result = $appointment->save();
+
+        if($result){
+            return response(['res' => 1],200);
+        }else{
+            return response(['res' => 0],200);
+        }
+
     }
 
     function createPost(Request $req){
