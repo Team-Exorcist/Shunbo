@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Models\Post;
 use App\Models\Verificationcode;
 use App\Models\Comment;
+use App\Models\Appointment;
 
 use App\Mail\Testmail;
 use Illuminate\Http\Request;
@@ -17,6 +18,31 @@ class userController extends Controller{
 
     function test(){
         return " user hello";
+    }
+
+    function getDoctorList(){
+        $doctors = DB::table('doctors')->get();
+        return $doctors;
+    }
+
+    function makeAppointment(Request $req){
+
+
+        //checkif doc is free
+        $isfree = Appointment::where('did', $req->did)->where();
+
+        $appointment = new Appointment();
+
+        $appointment->did = $req->did;
+        $appointment->uid = $req->uid;
+        $appointment->dname = $req->dname;
+        $appointment->uname = $req->uname;
+        $appointment->gender = $req->gender;
+        $appointment->time = $req->time;
+        $appointment->date = $req->date;
+
+        return $appointment->save();
+
     }
 
     function createPost(Request $req){
