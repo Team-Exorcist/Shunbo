@@ -42,7 +42,7 @@
 
                 <!--start error message-->
 
-
+                <div id="passerror"></div>
                   
                 <!--end of error message-->
               </div>
@@ -80,7 +80,7 @@
             }
 
             if(!passregex.test(password) || password.length < 8){
-                    document.getElementById('passerror').innerHTML=`<p style="font-weight: lighter;color: red;">
+                  document.getElementById('passerror').innerHTML=`<p style="font-weight: lighter;color: red;">
                   <img src="../../ICONS/er.png" height="25px" width="25px">
                   Password must contain at least 8 character numeric letter (0-9) or alphabet (A-Z or a-z)</p>`;
                     return;
@@ -94,7 +94,6 @@
                },
                body : JSON.stringify({email:email, password:password})
            })
-           .then(res => res.json())
            .then(res => {
                     resStatus = res.status;
                     if(resStatus >=400) {
@@ -105,6 +104,7 @@
                     }else{
                         return res.json().then(data => {
                           sessionStorage.setItem('userToken', data.token);
+                          sessionStorage.setItem('uid', data.user.id);
                           if(data.res == 1) window.location.href='./index.html';
                         }) 
                   }                   
