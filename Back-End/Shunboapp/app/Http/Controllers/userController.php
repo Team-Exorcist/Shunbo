@@ -48,6 +48,24 @@ class userController extends Controller{
         }  
     }
 
+    function getFullPost(){
+        $posts =  userController::getPosts();
+        foreach($posts as $post){
+            $pid = $post->id;
+            $puid = $post->uid;
+            $pdid = $post->did;
+            $pusername = $post->username;
+            $pmsg = $post->msg;
+            $pvotes = $post->votes;
+            $pisdoctor = $post->isdoctor;
+            $pupdated_at = $post->updated_at;
+            $pcreated_at = $post->created_at;
+            $comments = userController::getComments($pid);
+
+            $mainpost = array("pid" => $pid, "puid" => $puid);
+        }
+    }
+
     function getDoctorList(){
         $doctors = DB::table('doctors')->get();
         if($doctors){
