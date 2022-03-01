@@ -388,8 +388,8 @@
 															<div class="post-comt-box">
 																<form method="post">
 																	<textarea placeholder="Post your comment"
-																		style="width: 510px;margin-bottom:-6px ;"></textarea><button
-																		type="submit" id="comment"
+																		style="width: 510px;margin-bottom:-6px ;"></textarea>
+																	<button type="submit" id="comment"
 																		class="btn btn-primary">Comment</button>
 
 																	<!-- <button type="submit"></button>-->
@@ -615,6 +615,7 @@
 		let uid = sessionStorage.getItem('uid');
 
 		document.getElementById('createpostform').addEventListener('submit', createPost);
+		document.getElementById('commentform').addEventListener('submit', comment);
 
 		function createPost(e) {
 			e.preventDefault();
@@ -659,6 +660,30 @@
 
 		}
 
+		function comment(e) {
+			e.preventDefault();
+			let pid = document.getElementById('cpid').value;
+			let thecomment = document.getElementById('thecomment').value;
+
+			fetch('http://127.0.0.1:8000/api/user/makecomment', {
+					method: "POST",
+					headers: {
+						'Accept': "application/json, text/plain, */*",
+						"Content-type": "application/json",
+						"Authorization": "Bearer " + token
+					},
+					body: JSON.stringify({
+						uid: uid,
+						msg: thecomment,
+						pid: pid
+					})
+				})
+				.then(res => res.json())
+				.then(data => {
+					console.log(data.res);
+				})
+		}
+
 		function logout(e) {
 			e.preventDefault();
 			let token = sessionStorage.getItem('userToken');
@@ -698,6 +723,7 @@
 			.then(data => data.forEach(post => {
 
 				let allcomment = '';
+				let thepostid = post.pid;
 				post.comments.forEach(comment => {
 					allcomment += `
 					<li>
@@ -765,17 +791,19 @@
 															<a href="#" title="" class="showmore underline">more
 																comments</a>
 														</li>-->
+														
 														<li class="post-comment">
 															<div class="comet-avatar">
 																<img src="../../ICONS/p2.png" height="45px" width="45px"
 																	alt="">
 															</div>
 															<div class="post-comt-box">
-																<form method="post">
-																	<textarea
-																		placeholder="Post your comment"></textarea>
-
-																	<!-- <button type="submit"></button>-->
+																<form id="commentform" method="post">
+																	<textarea id="thecomment" placeholder="Post your comment"
+																		style="width: 510px;margin-bottom:-6px ;"></textarea>
+																	<button type="submit"
+																	<input id="cpid" value="${post.pid}" hidden/>
+																		class="btn btn-primary">Comment</button>
 																</form>
 															</div>
 														</li>
