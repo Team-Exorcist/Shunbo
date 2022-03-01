@@ -56,7 +56,7 @@ Route::group(['middleware' => ['auth:sanctum', 'ability:user']], function(){
     Route::get('/user/getcomments/{pid}',[userController::class, 'getComments']);
     Route::get('/user/getdoctorlist',[userController::class, 'getDoctorList']);
     Route::get('/user/getappointments/{uid}',[userController::class, 'getAppointments']);
+    Route::get('/user/getfullpost',[userController::class, 'getFullPost']);
 });
 
 
-Route::get('/user/getfullpost',[userController::class, 'getFullPost']);

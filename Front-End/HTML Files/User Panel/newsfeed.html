@@ -602,6 +602,29 @@
 	<script>
 		let token = sessionStorage.getItem('userToken');
 		document.getElementById('logoutBut').addEventListener('click', logout);
+		let uid = sessionStorage.getItem('uid');
+
+
+		function createPost(e) {
+			e.preventDefault();
+			let postmsg = '';
+			fetch('http://127.0.0.1:8000/api/user/createpost', {
+					method: "POST",
+					headers: {
+						'Accept': "application/json, text/plain, */*",
+						"Content-type": "application/json",
+						"Authorization": "Bearer " + token
+					},
+					body: JSON.stringify({
+						uid: uid,
+						msg: postmsg
+					})
+				})
+				.then(res => res.json())
+				.then(data => {
+					console.log(data.res);
+				})
+		}
 
 		function logout(e) {
 			e.preventDefault();
