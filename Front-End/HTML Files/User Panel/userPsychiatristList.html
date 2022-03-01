@@ -418,6 +418,9 @@
 					'Content-type': 'application/json',
 					'Authorization': 'Bearer ' + token
 				},
+			}).then(res => {
+				console.log(res);
+				return res;
 			})
 			.then(res => res.json())
 			.then(data => data.forEach(doctor => {
