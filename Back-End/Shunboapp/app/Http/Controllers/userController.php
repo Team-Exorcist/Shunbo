@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Doctor;
 use App\Models\Post;
 use App\Models\Verificationcode;
 use App\Models\Comment;
@@ -72,6 +73,8 @@ class userController extends Controller{
             return response(['res' => 0] , 300);
         }
 
+        $doctor = Doctor::find($req->did);
+        $dname = $doctor->name;
         $times = Appointment::where('did', $req->did)->where('date', $req->date)->pluck('time');
 
         foreach($times as $time){
@@ -84,7 +87,7 @@ class userController extends Controller{
 
         $appointment->did = $req->did;
         $appointment->uid = $req->uid;
-        $appointment->dname = $req->dname;
+        $appointment->dname = $dname;
         $appointment->uname = $req->uname;
         $appointment->ugender = $req->ugender;
         $appointment->time = $req->time;

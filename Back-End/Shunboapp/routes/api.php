@@ -50,3 +50,4 @@ Route::post('/user/vote/{pid}',[userController::class, 'vote']);
 Route::post('/user/makeappointment', [userController::class, 'makeAppointment']);
 Route::get('/user/getposts',[userController::class, 'getPosts']);
 Route::get('/user/getcomments/{pid}',[userController::class, 'getComments']);
+Route::get('/user/getdoctorlist',[userController::class, 'getDoctorList']);
