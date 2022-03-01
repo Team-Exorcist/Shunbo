@@ -16,71 +16,110 @@ class docController extends Controller
         return "hello";
     }
 
-    function getComments($pid){
-        $comments = DB::table('comments')->where('pid', $pid)->orderByDesc('created_at')->get();
-        if($comments){
-            return $comments;
-        }else{
-            return ['res' => 0];
-        }  
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function getPosts(){
+    $posts = DB::table('posts')->orderByDesc('created_at')->get();
+    if($posts){
+        return $posts;
+    }else{
+        return ['res' => 0];
+    }  
+}
+
+function getComments($pid){
+    $comments = DB::table('comments')->where('pid', $pid)->orderByDesc('created_at')->get();
+    if($comments){
+        return $comments;
+    }else{
+        return ['res' => 0];
+    }  
+}
+
+function getFullPost(){
+    $listofposts = [];
+    $posts =  docController::getPosts();
+    foreach($posts as $post){
+        $pid = $post->id;
+        $puid = $post->uid;
+        $pdid = $post->did;
+        $pusername = $post->username;
+        $pmsg = $post->msg;
+        $pvotes = $post->votes;
+        $pisdoctor = $post->isdoctor;
+        $pupdated_at = $post->updated_at;
+        $pcreated_at = $post->created_at;
+        $comments = docController::getComments($pid);
+
+        $mainpost = array("pid" => $pid, "puid" => $puid, "pdid" => $pdid, "pusername" => $pusername,
+                            "pmsg" => $pmsg, "pvotes" => $pvotes, "pisdoctor" => $pisdoctor, "pupdated_at" =>$pupdated_at,
+                            "pcreated_at" => $pcreated_at, "comments" => $comments);
+
+        array_push($listofposts, $mainpost);
     }
+    return $listofposts;
+}
 
-    function getPosts(){
-        $posts = DB::table('posts')->get();
-        if($posts){
-            return $posts;
-        }else{
-            return ['res' => 0];
-        }
-        
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function createPost(Request $req){
+
+    $user = Doctor::find($req->uid);
+    $username = $user->name;
+
+    $post = new Post();
+    $post->uid = $req->uid;
+    $post->username = $username;
+    $post->msg = $req->msg;
+    $post->isdoctor = 1;
+    $result = $post->save();
+
+    if($result){
+        return response(["res" => 1], 200);
+    }else{
+        response(["res" => 0], 401);
     }
+}
 
-    function createPost(Request $req){
+function makeComment(Request $req){
+    
 
-        $post = new Post();
-        $post->did = $req->did;
-        $post->username = $req->username;
-        $post->msg = $req->msg;
-        $post->isdoctor = 1;
-        $result = $post->save();
+    $user = Doctor::find($req->uid);
+    $username = $user->name;
 
-        if($result){
-            return response(["res" => 1], 200);
-        }else{
-            response(["res" => 0], 401);
-        }
+    $comment = new Comment();
+    $comment->pid = $req->pid;
+    $comment->uid = $req->uid;
+    $comment->username = $username;
+    $comment->msg = $req->msg;
+    $comment->isdoctor = 1;
+
+    $result = $comment->save();
+
+    if($result){
+        return response(["res" => 1], 200);
+    }else{
+        response(["res" => 0], 200);
     }
+}
 
-    function makeComment(Request $req){
+function vote($pid){
+    $post = Post::find($pid);
+    $vote = $post->votes + 1;
 
-        $comment = new Comment();
-        $comment->pid = $req->pid;
-        $comment->did = $req->did;
-        $comment->username = $req->username;
-        $comment->msg = $req->msg;
-        $comment->isdoctor = 1;
+    $result = Post::where('id', $pid)->update(['votes' => $vote]);
 
-        $result = $comment->save();
-
-        if($result){
-            return response(["res" => 1], 200);
-        }else{
-            response(["res" => 0], 401);
-        }
-
+    if($result){
+        return response(["res" => 1], 200);
+    }else{
+        response(["res" => 0], 401);
     }
-    function vote($pid){
-        $post = Post::find($pid);
-        $vote = $post->votes + 1;
+}
 
-        $result = Post::where('id', $pid)->update(['votes' => $vote]);
-
-        if($result){
-            return response(["res" => 1], 200);
-        }else{
-            response(["res" => 0], 401);
-        }
-    }
+///////////////////////////////////////////////////////////////////////
 
 
 

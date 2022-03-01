@@ -144,6 +144,8 @@ class userController extends Controller{
 
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+
     function createPost(Request $req){
 
         $user = User::find($req->uid);
@@ -198,6 +200,7 @@ class userController extends Controller{
         }
     }
 
+    ///////////////////////////////////////////////////////////////////////
 
 
     function sendMail($mailaddress, $code){
