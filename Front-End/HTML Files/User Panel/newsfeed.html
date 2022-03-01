@@ -337,8 +337,12 @@
 															<li>
 																<span class="like" data-toggle="tooltip" title="like">
 																	<!-- <i class="ti-heart"></i> -->
-																	<i class="fa fa-hand-peace-o"
-																		aria-hidden="true"></i>
+																	<button id="voteId3" style="border: none;"
+																		onclick="vote(this.id)">
+																		<i class="fa fa-hand-peace-o"
+																			aria-hidden="true"></i>
+																	</button>
+
 
 																	<ins>2.2k</ins>
 																</span>
@@ -630,6 +634,28 @@
 				})
 		}
 
+		function vote(vid) {
+			pid = vid.slice(6);
+			console.log(pid);
+			fetch('http://127.0.0.1:8000/api/user/vote/' + pid, {
+					method: "POST",
+					headers: {
+						'Accept': "application/json, text/plain, */*",
+						"Content-type": "application/json",
+						"Authorization": "Bearer " + token
+					},
+					body: JSON.stringify({
+						uid: uid,
+						msg: postmsg
+					})
+				})
+				.then(res => res.json())
+				.then(data => {
+					console.log(data.res);
+				})
+
+		}
+
 		function logout(e) {
 			e.preventDefault();
 			let token = sessionStorage.getItem('userToken');
@@ -714,8 +740,11 @@
 															<li>
 																<span class="like" data-toggle="tooltip" title="like">
 																	<!-- <i class="ti-heart"></i> -->
-																	<i class="fa fa-hand-peace-o"
-																		aria-hidden="true"></i>
+																	<button id="voteId${post.pid}" style="border: none;"
+																		onclick="vote(this.id)">
+																		<i class="fa fa-hand-peace-o"
+																			aria-hidden="true"></i>
+																	</button>
 
 																	<ins>${post.pvotes}</ins>
 																</span>
