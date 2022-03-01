@@ -376,7 +376,7 @@
 																	<textarea
 																		placeholder="Post your comment"></textarea>
 
-																	<!-- <button type="submit"></button> -->
+																	<!-- <button type="submit"></button>-->
 																</form>
 															</div>
 														</li>
@@ -384,8 +384,9 @@
 												</div>
 											</div>
 										</div>
-										<!--next post-->
-										<!-- <div class="central-meta item">
+									</div>
+									<!--next post-->
+									<!-- <div class="central-meta item">
 									<div class="user-post">
 										<div class="friend-info">
 											<figure>
@@ -537,21 +538,21 @@
 										</div>
 									</div>
 								</div> -->
-
-									</div>
-								</div><!-- centerl meta -->
-							</div>
-							<!-- friends list sidebar -->
-							</aside>
-						</div><!-- sidebar -->
-					</div>
+									<div id="poste"></div>
+								</div>
+							</div><!-- centerl meta -->
+						</div>
+						<!-- friends list sidebar -->
+						</aside>
+					</div><!-- sidebar -->
 				</div>
 			</div>
 		</div>
 		</div>
+		</div>
 	</section>
 
-	<div class="side-panel">
+	<!-- <div class="side-panel">
 
 		<h4 class="panel-title">Account Setting</h4>
 		<form method="post">
@@ -586,11 +587,157 @@
 				<label for="switch111" data-on-label="ON" data-off-label="OFF"></label>
 			</div>
 		</form>
-	</div>
+	</div> -->
 	<!-- side panel -->
 
 	<script src="main.min.js"></script>
 	<script src="script.js"></script>
+
+	<script>
+		fetch('http://127.0.0.1:8000/api/user/getposts', {
+				method: 'GET',
+				// headers: {
+				// 	'Accept': 'application/json, text/plain, */*',
+				// 	'Content-type': 'application/json'
+				// },
+			})
+			.then(res => res.json())
+			.then(data => data.forEach(post => {
+				let pid = post.id;
+				let name = post.username;
+				let votes = post.votes;
+				let msg = post.msg;
+				let time = post.created_at;
+				let output = ``;
+				output += `<div class="central-meta item"> 
+					<div class = "user-post" >
+					<div class = "friend-info" > 
+							<figure>
+								<img src="../../ICONS/p2.png" height="400px" width="500px" alt="">
+							</figure>
+												<div class="friend-name">
+													<ins><a href="time-line.html" title="">${name}</a></ins>
+													<span>published: ${time}</span>
+												</div>
+												<div class="post-meta">
+
+													<div class="description">
+
+														<p>
+															${msg}
+														</p>
+													</div>
+													<div class="we-video-info">
+														<ul>
+
+															<li>
+																<span class="like" data-toggle="tooltip" title="like">
+																	<!-- <i class="ti-heart"></i> -->
+																	<i class="fa fa-hand-peace-o"
+																		aria-hidden="true"></i>
+
+																	<ins id="voteId${pid}" >${votes}</ins>
+																</span>
+															</li>
+														</ul>
+
+													</div>
+												</div>						
+		                `;
+				fetch('http://127.0.0.1:8000/api/user/getcomments/' + pid, {
+						method: 'GET',
+						// headers: {
+						// 	'Accept': 'application/json, text/plain, */*',
+						// 	'Content-type': 'application/json'
+						// },
+					})
+					.then(res => res.json())
+					.then((res) => {
+						console.log(res);
+						return res;
+					})
+					.then(data => {
+						data.forEach(comment => {
+							let username = comment.username;
+							let cmsg = comment.msg;
+							let ctime = comment.created_at;
+							output += `<div class="coment-area">
+													<ul class="we-comet">
+														<li>
+															<div class="comet-avatar">
+																<img src="../../ICONS/p2.png" height="45px" width="45px"
+																	alt="">
+															</div>
+															<div class="we-comment">
+																<div class="coment-head">
+																	<h5><a href="time-line.html" title="">${username}</a></h5>
+																	<span>${ctime}</span>
+																	<a class="we-reply" href="#" title="Reply"><i
+																			class="fa fa-reply"></i></a>
+																</div>
+																<p>${cmsg}</p>
+															</div>
+
+														</li>
+
+														<li>
+															<a href="#" title="" class="showmore underline">more
+																comments</a>
+														</li>
+														`;
+							//document.getElementById('poste').innerHTML = output;
+						})
+						output += `<li class="post-comment">
+															<div class="comet-avatar">
+																<img src="../../ICONS/p2.png" height="45px" width="45px"
+																	alt="">
+															</div>
+															<div class="post-comt-box">
+																<form method="post">
+																	<textarea
+																		placeholder="Post your comment"></textarea>
+
+																	<!-- <button type="submit"></button>-->
+																</form>
+															</div>
+														</li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>`;
+						document.getElementById('poste').innerHTML = output;
+					})
+			}))
+
+
+
+
+
+
+		// const url = 'https://api.spacexdata.com/v4';
+
+		// const result = fetch(`${url}/launches/latest`, {
+		// 		method: 'get'
+		// 	})
+		// 	.then(response => response.json()) // pass the data as promise to next then block
+		// 	.then(data => {
+		// 		const rocketId = data.rocket;
+
+		// 		console.log(rocketId, '\n');
+
+		// 		return fetch(`${url}/rockets/${rocketId}`); // make a 2nd request and return a promise
+		// 	})
+		// 	.then(response => response.json())
+		// 	.catch(err => {
+		// 		console.error('Request failed', err)
+		// 	})
+
+		// // I'm using the result const to show that you can continue to extend the chain from the returned promise
+		// result.then(r => {
+		// 	console.log(r.first_stage); // 2nd request result first_stage property
+		// });
+	</script>
 
 
 </body>

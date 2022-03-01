@@ -26,8 +26,16 @@ class userController extends Controller{
             return $posts;
         }else{
             return ['res' => 0];
-        }
-        
+        }  
+    }
+
+    function getComments($pid){
+        $comments = DB::table('comments')->where('pid', $pid)->orderByDesc('created_at')->get();
+        if($comments){
+            return $comments;
+        }else{
+            return ['res' => 0];
+        }  
     }
 
     function getDoctorList(){
