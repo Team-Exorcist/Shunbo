@@ -302,7 +302,7 @@
 									</div>
 								</div>
 								<!-- add post new box -->
-								<div class="loadMore">
+								<!-- <div class="loadMore">
 									<div class="central-meta item">
 										<div class="user-post">
 											<div class="friend-info">
@@ -328,65 +328,64 @@
 														<ul>
 
 															<li>
-																<span class="like" data-toggle="tooltip" title="like">
-																	<!-- <i class="ti-heart"></i> -->
-																	<i class="fa fa-hand-peace-o"
-																		aria-hidden="true"></i>
+																<button id="voteId1" onclick="upVote(this.id)"
+																	style="border: none; color: transparent;">
+																	<span class="like" data-toggle="tooltip"
+																		title="like">
+																		<!-- <i class="ti-heart"></i> 
+								<i class="fa fa-hand-peace-o" aria-hidden="true"></i>
 
-																	<ins>2.2k</ins>
-																</span>
-															</li>
-														</ul>
+								<ins>2.2k</ins>
+								</span>
+								</button>
+								</li>
+								</ul>
 
-													</div>
-												</div>
-												<div class="coment-area">
-													<ul class="we-comet">
-														<li>
-															<div class="comet-avatar">
-																<img src="../../ICONS/p2.png" height="45px" width="45px"
-																	alt="">
-															</div>
-															<div class="we-comment">
-																<div class="coment-head">
-																	<h5><a href="time-line.html" title="">Shahriar
-																			Haque</a></h5>
-																	<span>1 year ago</span>
-																	<a class="we-reply" href="#" title="Reply"><i
-																			class="fa fa-reply"></i></a>
-																</div>
-																<p>we are working for the dance and sing songs. this car
-																	is very awesome for the youngster. please vote this
-																	car and like our post</p>
-															</div>
-
-														</li>
-
-														<li>
-															<a href="#" title="" class="showmore underline">more
-																comments</a>
-														</li>
-														<li class="post-comment">
-															<div class="comet-avatar">
-																<img src="../../ICONS/p2.png" height="45px" width="45px"
-																	alt="">
-															</div>
-															<div class="post-comt-box">
-																<form method="post">
-																	<textarea
-																		placeholder="Post your comment"></textarea>
-
-																	<!-- <button type="submit"></button>-->
-																</form>
-															</div>
-														</li>
-													</ul>
-												</div>
-											</div>
-										</div>
+							</div>
+						</div>
+						<div class="coment-area">
+							<ul class="we-comet">
+								<li>
+									<div class="comet-avatar">
+										<img src="../../ICONS/p2.png" height="45px" width="45px" alt="">
 									</div>
-									<!--next post-->
-									<!-- <div class="central-meta item">
+									<div class="we-comment">
+										<div class="coment-head">
+											<h5><a href="time-line.html" title="">Shahriar
+													Haque</a></h5>
+											<span>1 year ago</span>
+											<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
+										</div>
+										<p>we are working for the dance and sing songs. this car
+											is very awesome for the youngster. please vote this
+											car and like our post</p>
+									</div>
+
+								</li>
+
+								<li>
+									<a href="#" title="" class="showmore underline">more
+										comments</a>
+								</li>
+								<li class="post-comment">
+									<div class="comet-avatar">
+										<img src="../../ICONS/p2.png" height="45px" width="45px" alt="">
+									</div>
+									<div class="post-comt-box">
+										<form method="post">
+											<textarea placeholder="Post your comment"></textarea>
+
+											<!-- <button type="submit"></button>
+										</form>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div> -->
+								<!--next post-->
+								<!-- <div class="central-meta item">
 									<div class="user-post">
 										<div class="friend-info">
 											<figure>
@@ -538,15 +537,15 @@
 										</div>
 									</div>
 								</div> -->
-									<div id="poste"></div>
-								</div>
-							</div><!-- centerl meta -->
-						</div>
-						<!-- friends list sidebar -->
-						</aside>
-					</div><!-- sidebar -->
-				</div>
+								<div id="poste"></div>
+							</div>
+						</div><!-- centerl meta -->
+					</div>
+					<!-- friends list sidebar -->
+					</aside>
+				</div><!-- sidebar -->
 			</div>
+		</div>
 		</div>
 		</div>
 		</div>
@@ -631,13 +630,15 @@
 														<ul>
 
 															<li>
+															<button id="voteId1" style="border:none;" onclick="upVote(this.id)"
 																<span class="like" data-toggle="tooltip" title="like">
 																	<!-- <i class="ti-heart"></i> -->
 																	<i class="fa fa-hand-peace-o"
 																		aria-hidden="true"></i>
 
-																	<ins id="voteId${pid}" >${votes}</ins>
+																	<ins>${votes}</ins>
 																</span>
+															</button>
 															</li>
 														</ul>
 
@@ -680,10 +681,10 @@
 
 														</li>
 
-														<li>
+														<!--<li>
 															<a href="#" title="" class="showmore underline">more
 																comments</a>
-														</li>
+														</li>-->
 														`;
 							//document.getElementById('poste').innerHTML = output;
 						})
@@ -694,10 +695,10 @@
 															</div>
 															<div class="post-comt-box">
 																<form method="post">
-																	<textarea
+																	<textarea type="text"
 																		placeholder="Post your comment"></textarea>
 
-																	<!-- <button type="submit"></button>-->
+																	<button type="submit"></button>
 																</form>
 															</div>
 														</li>
@@ -711,7 +712,22 @@
 			}))
 
 
-
+		function upVote(postid) {
+			//e.preventDefault();
+			npid = postid.slice(6);
+			console.log(npid);
+			fetch('http://127.0.0.1:8000/api/user/vote/' + npid, {
+					method: 'POST',
+					headers: {
+						'Accept': 'application/json, text/plain, */*',
+						'Content-type': 'application/json'
+					},
+				})
+				.then(res => res.json())
+				.then((data) => {
+					console.log(data.res);
+				})
+		}
 
 
 

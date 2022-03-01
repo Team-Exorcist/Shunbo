@@ -133,11 +133,11 @@ class userController extends Controller{
         }
     }
 
-    function vote(Request $req){
-        $post = Post::find($req->id);
+    function vote($pid){
+        $post = Post::find($pid);
         $vote = $post->votes + 1;
 
-        $result = Post::where('id', $req->id)->update(['votes' => $vote]);
+        $result = Post::where('id', $pid)->update(['votes' => $vote]);
 
         if($result){
             return response(["res" => 1], 200);

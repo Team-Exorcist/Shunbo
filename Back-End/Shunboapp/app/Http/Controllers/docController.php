@@ -16,6 +16,15 @@ class docController extends Controller
         return "hello";
     }
 
+    function getComments($pid){
+        $comments = DB::table('comments')->where('pid', $pid)->orderByDesc('created_at')->get();
+        if($comments){
+            return $comments;
+        }else{
+            return ['res' => 0];
+        }  
+    }
+
     function getPosts(){
         $posts = DB::table('posts')->get();
         if($posts){
@@ -60,21 +69,19 @@ class docController extends Controller
         }
 
     }
-
-    function vote(Request $req){
-
-        $post = Post::find($req->id);
+    function vote($pid){
+        $post = Post::find($pid);
         $vote = $post->votes + 1;
 
-        $result = Post::where('id', $req->id)->update(['votes' => $vote]);
+        $result = Post::where('id', $pid)->update(['votes' => $vote]);
 
         if($result){
             return response(["res" => 1], 200);
         }else{
             response(["res" => 0], 401);
         }
-
     }
+
 
 
 
