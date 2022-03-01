@@ -101,9 +101,13 @@ class userController extends Controller{
     }
 
     function createPost(Request $req){
+
+        $user = User::find($req->uid);
+        $username = $user->name;
+
         $post = new Post();
         $post->uid = $req->uid;
-        $post->username = $req->username;
+        $post->username = $username;
         $post->msg = $req->msg;
         $post->isdoctor = 0;
         $result = $post->save();
@@ -117,10 +121,14 @@ class userController extends Controller{
 
     function makeComment(Request $req){
         
+
+        $user = User::find($req->uid);
+        $username = $user->name;
+
         $comment = new Comment();
         $comment->pid = $req->pid;
         $comment->uid = $req->uid;
-        $comment->username = $req->username;
+        $comment->username = $username;
         $comment->msg = $req->msg;
         $comment->isdoctor = 0;
 
@@ -129,7 +137,7 @@ class userController extends Controller{
         if($result){
             return response(["res" => 1], 200);
         }else{
-            response(["res" => 0], 401);
+            response(["res" => 0], 200);
         }
     }
 

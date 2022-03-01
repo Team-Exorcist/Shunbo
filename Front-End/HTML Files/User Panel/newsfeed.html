@@ -302,7 +302,8 @@
 									</div>
 								</div>
 								<!-- add post new box -->
-								<!-- <div class="loadMore">
+								<div class="loadMore">
+									<div class="poste"></div>
 									<div class="central-meta item">
 										<div class="user-post">
 											<div class="friend-info">
@@ -328,64 +329,65 @@
 														<ul>
 
 															<li>
-																<button id="voteId1" onclick="upVote(this.id)"
-																	style="border: none; color: transparent;">
-																	<span class="like" data-toggle="tooltip"
-																		title="like">
-																		<!-- <i class="ti-heart"></i> 
-								<i class="fa fa-hand-peace-o" aria-hidden="true"></i>
+																<span class="like" data-toggle="tooltip" title="like">
+																	<!-- <i class="ti-heart"></i> -->
+																	<i class="fa fa-hand-peace-o"
+																		aria-hidden="true"></i>
 
-								<ins>2.2k</ins>
-								</span>
-								</button>
-								</li>
-								</ul>
+																	<ins>2.2k</ins>
+																</span>
+															</li>
+														</ul>
 
-							</div>
-						</div>
-						<div class="coment-area">
-							<ul class="we-comet">
-								<li>
-									<div class="comet-avatar">
-										<img src="../../ICONS/p2.png" height="45px" width="45px" alt="">
-									</div>
-									<div class="we-comment">
-										<div class="coment-head">
-											<h5><a href="time-line.html" title="">Shahriar
-													Haque</a></h5>
-											<span>1 year ago</span>
-											<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
+													</div>
+												</div>
+												<div class="coment-area">
+													<ul class="we-comet">
+														<li>
+															<div class="comet-avatar">
+																<img src="../../ICONS/p2.png" height="45px" width="45px"
+																	alt="">
+															</div>
+															<div class="we-comment">
+																<div class="coment-head">
+																	<h5><a href="time-line.html" title="">Shahriar
+																			Haque</a></h5>
+																	<span>1 year ago</span>
+																	<a class="we-reply" href="#" title="Reply"><i
+																			class="fa fa-reply"></i></a>
+																</div>
+																<p>we are working for the dance and sing songs. this car
+																	is very awesome for the youngster. please vote this
+																	car and like our post</p>
+															</div>
+
+														</li>
+
+														<li>
+															<a href="#" title="" class="showmore underline">more
+																comments</a>
+														</li>
+														<li class="post-comment">
+															<div class="comet-avatar">
+																<img src="../../ICONS/p2.png" height="45px" width="45px"
+																	alt="">
+															</div>
+															<div class="post-comt-box">
+																<form method="post">
+																	<textarea
+																		placeholder="Post your comment"></textarea>
+
+																	<!-- <button type="submit"></button>-->
+																</form>
+															</div>
+														</li>
+													</ul>
+												</div>
+											</div>
 										</div>
-										<p>we are working for the dance and sing songs. this car
-											is very awesome for the youngster. please vote this
-											car and like our post</p>
 									</div>
-
-								</li>
-
-								<li>
-									<a href="#" title="" class="showmore underline">more
-										comments</a>
-								</li>
-								<li class="post-comment">
-									<div class="comet-avatar">
-										<img src="../../ICONS/p2.png" height="45px" width="45px" alt="">
-									</div>
-									<div class="post-comt-box">
-										<form method="post">
-											<textarea placeholder="Post your comment"></textarea>
-
-											<!-- <button type="submit"></button>
-										</form>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div> -->
-								<!--next post-->
-								<!-- <div class="central-meta item">
+									<!--next post-->
+									<!-- <div class="central-meta item">
 									<div class="user-post">
 										<div class="friend-info">
 											<figure>
@@ -537,15 +539,15 @@
 										</div>
 									</div>
 								</div> -->
-								<div id="poste"></div>
-							</div>
-						</div><!-- centerl meta -->
-					</div>
-					<!-- friends list sidebar -->
-					</aside>
-				</div><!-- sidebar -->
+
+								</div>
+							</div><!-- centerl meta -->
+						</div>
+						<!-- friends list sidebar -->
+						</aside>
+					</div><!-- sidebar -->
+				</div>
 			</div>
-		</div>
 		</div>
 		</div>
 		</div>
@@ -595,164 +597,73 @@
 	<script>
 		fetch('http://127.0.0.1:8000/api/user/getposts', {
 				method: 'GET',
-				// headers: {
-				// 	'Accept': 'application/json, text/plain, */*',
-				// 	'Content-type': 'application/json'
-				// },
+				headers: {
+					'Accept': 'application/json, text/plain, */*',
+					'Content-type': 'application/json'
+				},
 			})
 			.then(res => res.json())
-			.then(data => data.forEach(post => {
-				let pid = post.id;
-				let name = post.username;
-				let votes = post.votes;
-				let msg = post.msg;
-				let time = post.created_at;
-				let output = ``;
-				output += `<div class="central-meta item"> 
-					<div class = "user-post" >
-					<div class = "friend-info" > 
-							<figure>
-								<img src="../../ICONS/p2.png" height="400px" width="500px" alt="">
-							</figure>
-												<div class="friend-name">
-													<ins><a href="time-line.html" title="">${name}</a></ins>
-													<span>published: ${time}</span>
-												</div>
-												<div class="post-meta">
-
-													<div class="description">
-
-														<p>
-															${msg}
-														</p>
-													</div>
-													<div class="we-video-info">
-														<ul>
-
-															<li>
-															<button id="voteId1" style="border:none;" onclick="upVote(this.id)"
-																<span class="like" data-toggle="tooltip" title="like">
-																	<!-- <i class="ti-heart"></i> -->
-																	<i class="fa fa-hand-peace-o"
-																		aria-hidden="true"></i>
-
-																	<ins>${votes}</ins>
-																</span>
-															</button>
-															</li>
-														</ul>
-
-													</div>
-												</div>						
+			.then(data.forEach(post => {
+				let output = '';
+				output += `
 		                `;
-				fetch('http://127.0.0.1:8000/api/user/getcomments/' + pid, {
-						method: 'GET',
-						// headers: {
-						// 	'Accept': 'application/json, text/plain, */*',
-						// 	'Content-type': 'application/json'
-						// },
+			}));
+
+
+
+
+		fetch('http://127.0.0.1:8000/api/user/getcomments', {
+				method: 'GET',
+				headers: {
+					'Accept': 'application/json, text/plain, */*',
+					'Content-type': 'application/json'
+				},
+				body: JSON.stringify({
+
+				}),
+			})
+			.then(res => {
+				resStatus = res.status;
+				if (resStatus >= 400) {
+					return res.text().then(data => {
+						console.log(data.message);
+						alert('Internal Error');
 					})
-					.then(res => res.json())
-					.then((res) => {
-						console.log(res);
-						return res;
-					})
-					.then(data => {
-						data.forEach(comment => {
-							let username = comment.username;
-							let cmsg = comment.msg;
-							let ctime = comment.created_at;
-							output += `<div class="coment-area">
-													<ul class="we-comet">
-														<li>
-															<div class="comet-avatar">
-																<img src="../../ICONS/p2.png" height="45px" width="45px"
-																	alt="">
-															</div>
-															<div class="we-comment">
-																<div class="coment-head">
-																	<h5><a href="time-line.html" title="">${username}</a></h5>
-																	<span>${ctime}</span>
-																	<a class="we-reply" href="#" title="Reply"><i
-																			class="fa fa-reply"></i></a>
-																</div>
-																<p>${cmsg}</p>
-															</div>
-
-														</li>
-
-														<!--<li>
-															<a href="#" title="" class="showmore underline">more
-																comments</a>
-														</li>-->
-														`;
-							//document.getElementById('poste').innerHTML = output;
-						})
-						output += `<li class="post-comment">
-															<div class="comet-avatar">
-																<img src="../../ICONS/p2.png" height="45px" width="45px"
-																	alt="">
-															</div>
-															<div class="post-comt-box">
-																<form method="post">
-																	<textarea type="text"
-																		placeholder="Post your comment"></textarea>
-
-																	<button type="submit"></button>
-																</form>
-															</div>
-														</li>
-													</ul>
-												</div>
-											</div>
-										</div>
-									</div>`;
-						document.getElementById('poste').innerHTML = output;
-					})
-			}))
-
-
-		function upVote(postid) {
-			//e.preventDefault();
-			npid = postid.slice(6);
-			console.log(npid);
-			fetch('http://127.0.0.1:8000/api/user/vote/' + npid, {
-					method: 'POST',
-					headers: {
-						'Accept': 'application/json, text/plain, */*',
-						'Content-type': 'application/json'
-					},
-				})
-				.then(res => res.json())
-				.then((data) => {
-					console.log(data.res);
-				})
-		}
+				} else {
+					return res.json().then(data.forEach(post => {
+						let output = '';
+						output += `
+		                `;
+					}))
+				}
+			})
 
 
 
-		// const url = 'https://api.spacexdata.com/v4';
 
-		// const result = fetch(`${url}/launches/latest`, {
-		// 		method: 'get'
-		// 	})
-		// 	.then(response => response.json()) // pass the data as promise to next then block
-		// 	.then(data => {
-		// 		const rocketId = data.rocket;
 
-		// 		console.log(rocketId, '\n');
+		const url = 'https://api.spacexdata.com/v4';
 
-		// 		return fetch(`${url}/rockets/${rocketId}`); // make a 2nd request and return a promise
-		// 	})
-		// 	.then(response => response.json())
-		// 	.catch(err => {
-		// 		console.error('Request failed', err)
-		// 	})
+		const result = fetch(`${url}/launches/latest`, {
+				method: 'get'
+			})
+			.then(response => response.json()) // pass the data as promise to next then block
+			.then(data => {
+				const rocketId = data.rocket;
 
-		// // I'm using the result const to show that you can continue to extend the chain from the returned promise
-		// result.then(r => {
-		// 	console.log(r.first_stage); // 2nd request result first_stage property
-		// });
+				console.log(rocketId, '\n');
+
+				return fetch(`${url}/rockets/${rocketId}`); // make a 2nd request and return a promise
+			})
+			.then(response => response.json())
+			.catch(err => {
+				console.error('Request failed', err)
+			})
+
+		// I'm using the result const to show that you can continue to extend the chain from the returned promise
+		result.then(r => {
+			console.log(r.first_stage); // 2nd request result first_stage property
+		});
 	</script>
 
 
