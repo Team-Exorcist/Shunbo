@@ -269,7 +269,7 @@
 											<li>
 												<!-- <i class="ti-comments-smiley"></i> -->
 												<img src="../../ICONS/aps.png" height="28px" width="28px" alt="">
-												<a href="" title="">My Appointments</a>
+												<a href="./userAppointmentList.html" title="">My Appointments</a>
 											</li>
 											<li>
 												<!-- <i class="ti-bell"></i> -->
@@ -339,11 +339,14 @@
 
 															<li>
 																<span class="like" data-toggle="tooltip" title="like">
-																	<!-- <i class="ti-heart"></i> -->
+
 																	<button id="voteId3" style="border: none;"
 																		onclick="vote(this.id)">
-																		<img src="../../ICONS/l.png" width="30px"
-																			height="30px" alt="">
+																		<!-- <img src="../../ICONS/l.png" width="30px"
+																			height="30px" alt=""> -->
+																		<!-- <i class="ti-heart"></i> -->
+																		<i style="color: red;" class="fa fa-heart"
+																			aria-hidden="true"></i>
 																	</button>
 
 
@@ -618,7 +621,7 @@
 		let uid = sessionStorage.getItem('uid');
 
 		document.getElementById('createpostform').addEventListener('submit', createPost);
-		document.getElementById('commentform').addEventListener('submit', comment);
+		// document.getElementById('commentform').addEventListener('submit', comment);
 
 		function createPost(e) {
 			e.preventDefault();
@@ -774,11 +777,11 @@
 																	<!-- <i class="ti-heart"></i> -->
 																	<button id="voteId${post.pid}" style="border: none;"
 																		onclick="vote(this.id)">
-																		<i class="fa fa-hand-peace-o"
+																		<i style="color: red;" class="fa fa-heart"
 																			aria-hidden="true"></i>
 																	</button>
 
-																	<ins>${post.pvotes}</ins>
+																	<ins style="margin-left: 15px;">${post.pvotes}</ins>
 																</span>
 															</li>
 														</ul>
@@ -804,8 +807,9 @@
 																<form id="commentform" method="post">
 																	<textarea id="thecomment" placeholder="Post your comment"
 																		style="width: 510px;margin-bottom:-6px ;"></textarea>
-																	<button type="submit"
+
 																	<input id="cpid" value="${post.pid}" hidden/>
+																	<button type="submit" id="comment"
 																		class="btn btn-primary">Comment</button>
 																</form>
 															</div>
