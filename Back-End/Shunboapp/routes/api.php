@@ -59,3 +59,4 @@ Route::group(['middleware' => ['auth:sanctum', 'ability:user']], function(){
 });
 
 
+Route::get('/user/getfullpost',[userController::class, 'getFullPost']);

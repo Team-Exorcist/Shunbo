@@ -30,6 +30,9 @@ class userController extends Controller{
         }
     }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     function getPosts(){
         $posts = DB::table('posts')->orderByDesc('created_at')->get();
         if($posts){
@@ -49,6 +52,7 @@ class userController extends Controller{
     }
 
     function getFullPost(){
+        $listofposts = [];
         $posts =  userController::getPosts();
         foreach($posts as $post){
             $pid = $post->id;
@@ -63,9 +67,18 @@ class userController extends Controller{
             $comments = userController::getComments($pid);
 
             $mainpost = array("pid" => $pid, "puid" => $puid, "pdid" => $pdid, "pusername" => $pusername,
-                                "pmsg");
+                                "pmsg" => $pmsg, "pvotes" => $pvotes, "pisdoctor" => $pisdoctor, "pupdated_at" =>$pupdated_at,
+                                "pcreated_at" => $pcreated_at, "comments" => $comments);
+
+            array_push($listofposts, $mainpost);
         }
+        return $listofposts;
     }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     function getDoctorList(){
         $doctors = DB::table('doctors')->get();

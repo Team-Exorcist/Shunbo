@@ -308,7 +308,7 @@
 								</div>
 								<!-- add post new box -->
 								<div class="loadMore">
-									<div class="poste"></div>
+									<div id="poste"></div>
 									<div class="central-meta item">
 										<div class="user-post">
 											<div class="friend-info">
@@ -600,6 +600,7 @@
 	<script src="script.js"></script>
 
 	<script>
+		let token = sessionStorage.getItem('userToken');
 		document.getElementById('logoutBut').addEventListener('click', logout);
 
 		function logout(e) {
@@ -613,10 +614,8 @@
 						"Content-type": "application/json",
 						"Authorization": "Bearer " + token
 					},
-				}).then((res) =>
-					res.json())
+				}).then((res) => res.json())
 				.then(data => {
-
 					console.log('logged out');
 					sessionStorage.removeItem("uid");
 					sessionStorage.removeItem("userToken");
@@ -625,48 +624,116 @@
 			console.log(sessionStorage.getItem("uid"));
 		}
 
-		// fetch('http://127.0.0.1:8000/api/user/getposts', {
-		// 		method: 'GET',
-		// 		headers: {
-		// 			'Accept': 'application/json, text/plain, */*',
-		// 			'Content-type': 'application/json'
-		// 		},
-		// 	})
-		// 	.then(res => res.json())
-		// 	.then(data.forEach(post => {
-		// 		let output = '';
-		// 		output += `
-		//                 `;
-		// 	}));
+
+		let output = '<div></div>';
+		fetch('http://127.0.0.1:8000/api/user/getfullpost', {
+				method: 'GET',
+				headers: {
+					'Accept': 'application/json, text/plain, */*',
+					'Content-type': 'application/json',
+					'Authorization': "Bearer " + token
+				},
+			})
+			.then(res => res.json())
+			.then(res => {
+				console.log(res);
+				return res;
+			})
+			.then(data => data.forEach(post => {
+
+				let allcomment = '';
+				post.comments.forEach(comment => {
+					allcomment += `
+					<li>
+						<div class="comet-avatar">
+						<img src="../../ICONS/p2.png" height="45px" width="45px"
+								alt="">
+						</div>
+						<div class="we-comment">
+							<div class="coment-head">
+								<h5>${comment.username}</h5>
+								<span>${comment.created_at}</span>
+								<i class="fa fa-reply"></i></a>
+							</div>
+						<p>${comment.msg}</p>
+						</div>
+					</li>
+					`;
+				})
+
+
+				output += `
+				<div class="central-meta item">
+										<div class="user-post">
+											<div class="friend-info">
+												<figure>
+													<img src="../../ICONS/p2.png" height="400px" width="500px" alt="">
+												</figure>
+												<div class="friend-name">
+													<ins><a href="time-line.html" title="">${post.pusername}</a></ins>
+													<span>published: ${post.pcreated_at}</span>
+												</div>
+												<div class="post-meta">
+
+													<div class="description">
+
+														<p>
+															${post.pmsg}
+														</p>
+													</div>
+													<div class="we-video-info">
+														<ul>
+
+															<li>
+																<span class="like" data-toggle="tooltip" title="like">
+																	<!-- <i class="ti-heart"></i> -->
+																	<i class="fa fa-hand-peace-o"
+																		aria-hidden="true"></i>
+
+																	<ins>${post.pvotes}</ins>
+																</span>
+															</li>
+														</ul>
+
+													</div>
+												</div>
+												<div class="coment-area">
+													<ul class="we-comet">` +
+
+					allcomment + `
+
+														<!--<li>
+															<a href="#" title="" class="showmore underline">more
+																comments</a>
+														</li>-->
+														<li class="post-comment">
+															<div class="comet-avatar">
+																<img src="../../ICONS/p2.png" height="45px" width="45px"
+																	alt="">
+															</div>
+															<div class="post-comt-box">
+																<form method="post">
+																	<textarea
+																		placeholder="Post your comment"></textarea>
+
+																	<!-- <button type="submit"></button>-->
+																</form>
+															</div>
+														</li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+		                `;
+
+				document.getElementById('poste').innerHTML = output;
+			}));
 
 
 
 
-		// fetch('http://127.0.0.1:8000/api/user/getcomments', {
-		// 		method: 'GET',
-		// 		headers: {
-		// 			'Accept': 'application/json, text/plain, */*',
-		// 			'Content-type': 'application/json'
-		// 		},
-		// 		body: JSON.stringify({
 
-		// 		}),
-		// 	})
-		// 	.then(res => {
-		// 		resStatus = res.status;
-		// 		if (resStatus >= 400) {
-		// 			return res.text().then(data => {
-		// 				console.log(data.message);
-		// 				alert('Internal Error');
-		// 			})
-		// 		} else {
-		// 			return res.json().then(data.forEach(post => {
-		// 				let output = '';
-		// 				output += `
-		//                 `;
-		// 			}))
-		// 		}
-		// 	})
 
 
 
