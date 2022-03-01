@@ -21,6 +21,15 @@ class userController extends Controller{
         return " user hello";
     }
 
+    function getAppointments($uid){
+        $app = DB::table('appointments')->orderByDesc('created_at')-get();
+        if($app){
+            return $app;
+        }else{
+            return ['res' => 0];
+        }
+    }
+
     function getPosts(){
         $posts = DB::table('posts')->orderByDesc('created_at')->get();
         if($posts){

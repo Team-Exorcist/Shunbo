@@ -10,6 +10,12 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../CSS Files/User Panel Designs/UserProfileDesign.css">
+
+    <script>
+        if (!sessionStorage.getItem("uid")) {
+            window.location.href = `./userLogin.html`;
+        }
+    </script>
 </head>
 
 <body>
@@ -91,12 +97,8 @@
 
 
 
-    <script>
-        // if (!sessionStorage.getItem("uid")) {
-        //     //redirect to newsfeed
-        //     window.location.href = `./userLogin.html`;
-        // }
 
+    <script>
         document.getElementById("appointmentform").addEventListener("submit", makeAppointment);
 
         function makeAppointment(e) {

@@ -13,6 +13,11 @@
 	<link rel="stylesheet" href="../../CSS Files/User Panel Designs/color.css">
 	<link rel="stylesheet" href="../../CSS Files/User Panel Designs/responsive.css">
 	<title>News Feed</title>
+	<script>
+		if (!sessionStorage.getItem("uid")) {
+			window.location.href = `./userLogin.html`;
+		}
+	</script>
 
 </head>
 

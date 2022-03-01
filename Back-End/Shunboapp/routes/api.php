@@ -32,8 +32,8 @@ Route::post('/doc/changepassword', [docController::class, 'changePassword']);
 //protected doctor
 Route::group(['middleware' => ['auth:sanctum', 'ability:doctor']], function(){
     Route::post('/doc/logout', [docController::class, 'logout']);
+    Route::get('/doc/getposts',[docController::class, 'getPosts']);
 });
-Route::get('/doc/getposts',[docController::class, 'getPosts']);
 
 
 //public user
@@ -44,10 +44,18 @@ Route::post('/user/verifymail', [userController::class, 'verifyMail']);
 Route::post('/user/resetpassword', [userController::class, 'resetPassword']);
 Route::post('/user/changepassword', [userController::class, 'changePassword']);
 
-Route::post('/user/createpost', [userController::class, 'createPost']);
-Route::post('/user/makecomment', [userController::class, 'makeComment']);
-Route::post('/user/vote/{pid}',[userController::class, 'vote']);
-Route::post('/user/makeappointment', [userController::class, 'makeAppointment']);
-Route::get('/user/getposts',[userController::class, 'getPosts']);
-Route::get('/user/getcomments/{pid}',[userController::class, 'getComments']);
-Route::get('/user/getdoctorlist',[userController::class, 'getDoctorList']);
+
+//protected user
+Route::group(['middleware' => ['auth:sanctum', 'ability:user']], function(){
+    Route::post('/doc/logout', [docController::class, 'logout']);
+    Route::post('/user/createpost', [userController::class, 'createPost']);
+    Route::post('/user/makecomment', [userController::class, 'makeComment']);
+    Route::post('/user/vote/{pid}',[userController::class, 'vote']);
+    Route::post('/user/makeappointment', [userController::class, 'makeAppointment']);
+    Route::get('/user/getposts',[userController::class, 'getPosts']);
+    Route::get('/user/getcomments/{pid}',[userController::class, 'getComments']);
+    Route::get('/user/getdoctorlist',[userController::class, 'getDoctorList']);
+    Route::get('/user/getappointments/{uid}',[userController::class, 'getAppointments']);
+});
+
+
