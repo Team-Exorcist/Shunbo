@@ -105,10 +105,9 @@
         function makeAppointment(e) {
             e.preventDefault();
 
-            //let uid = sessionStorage.getItem("uid");
-            let uid = 8;
-            let did = sessionStorage.getItem('selectedDoc');
-            //let dname = "docvto";
+            let uid = sessionStorage.getItem("uid");
+            let did = sessionStorage.getItem('selectedDocId');
+
 
             let uname = document.getElementById('name').value;
             let email = document.getElementById('email').value;
@@ -145,6 +144,9 @@
                 return;
             }
 
+            console.log(token);
+            console.log(did);
+
             fetch('http://127.0.0.1:8000/api/user/makeappointment', {
                     method: 'POST',
                     headers: {
@@ -161,25 +163,19 @@
                         time: time,
                     })
                 })
-                .then(res => {
-                    resStatus = res.status;
-                    if (resStatus >= 400) {
-                        return res.text().then(data => {
-                            console.log(data.message);
-                            alert('Invalid Information');
-                        })
-                    } else {
-                        return res.json().then(data => {
-                            console.log(data.res);
-                            document.getElementById('error').innerHTML = `
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data.res);
+                    if (data.res == 1) {
+                        document.getElementById('error').innerHTML = `
                             <div style="background-color: yellowgreen;width: 400px;height: 50px;margin-left: 23%;margin-bottom: 5%;">
                                 <h6 style="text-align: center; color: white; padding-top: 17px;">Success!</h6>
                             </div>`;
-                            return;
-                        })
                     }
-                })
 
+
+                    return;
+                })
         }
     </script>
 </body>

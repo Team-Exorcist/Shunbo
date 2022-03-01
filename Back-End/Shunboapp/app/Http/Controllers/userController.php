@@ -62,7 +62,8 @@ class userController extends Controller{
             $pcreated_at = $post->created_at;
             $comments = userController::getComments($pid);
 
-            $mainpost = array("pid" => $pid, "puid" => $puid);
+            $mainpost = array("pid" => $pid, "puid" => $puid, "pdid" => $pdid, "pusername" => $pusername,
+                                "pmsg");
         }
     }
 
