@@ -22,7 +22,7 @@ class userController extends Controller{
     }
 
     function getAppointments($uid){
-        $app = DB::table('appointments')->orderByDesc('created_at')-get();
+        $app = DB::table('appointments')->where('uid', $uid)->orderByDesc('created_at')->get();
         if($app){
             return $app;
         }else{
