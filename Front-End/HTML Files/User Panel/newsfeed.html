@@ -291,8 +291,9 @@
 											<img src="../../ICONS/p2.png" height="400px" width="400px" alt="">
 										</figure>
 										<div class="newpst-input">
-											<form method="post">
-												<textarea rows="2" placeholder="Create a post..."></textarea>
+											<form id="createpostform" method="post">
+												<textarea id="postmsg" rows="2"
+													placeholder="Create a post..."></textarea>
 												<div class="attachments">
 													<ul>
 
@@ -379,8 +380,10 @@
 															</div>
 															<div class="post-comt-box">
 																<form method="post">
-																	<textarea
-																		placeholder="Post your comment" style="width: 510px;"></textarea><button type="submit" id="comment" class="btn btn-primary">Comment</button>
+																	<textarea placeholder="Post your comment"
+																		style="width: 510px;"></textarea><button
+																		type="submit" id="comment"
+																		class="btn btn-primary">Comment</button>
 
 																	<!-- <button type="submit"></button>-->
 																</form>
@@ -604,10 +607,11 @@
 		document.getElementById('logoutBut').addEventListener('click', logout);
 		let uid = sessionStorage.getItem('uid');
 
+		document.getElementById('createpostform').addEventListener('submit', createPost);
 
 		function createPost(e) {
 			e.preventDefault();
-			let postmsg = '';
+			let postmsg = document.getElementById('postmsg').value;
 			fetch('http://127.0.0.1:8000/api/user/createpost', {
 					method: "POST",
 					headers: {
