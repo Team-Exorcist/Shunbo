@@ -99,6 +99,7 @@
 
 
     <script>
+        let token = sessionStorage.getItem('userToken');
         document.getElementById("appointmentform").addEventListener("submit", makeAppointment);
 
         function makeAppointment(e) {
@@ -148,7 +149,8 @@
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json, text/plain, */*',
-                        'Content-type': 'application/json'
+                        'Content-type': 'application/json',
+                        'Authorization': 'Bearer ' + token
                     },
                     body: JSON.stringify({
                         uname: uname,

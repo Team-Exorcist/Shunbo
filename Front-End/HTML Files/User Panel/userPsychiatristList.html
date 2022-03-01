@@ -410,11 +410,13 @@
 	<script src="script.js"></script>
 
 	<script>
+		let token = sessionStorage.getItem('userToken');
 		fetch('http://127.0.0.1:8000/api/user/getdoctorlist', {
 				method: 'GET',
 				headers: {
 					'Accept': 'application/json, text/plain, */*',
-					'Content-type': 'application/json'
+					'Content-type': 'application/json',
+					'Authorization': 'Bearer ' + token
 				},
 			})
 			.then(res => res.json())

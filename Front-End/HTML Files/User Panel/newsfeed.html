@@ -261,7 +261,7 @@
 											<li>
 												<!-- <i class="ti-comments-smiley"></i> -->
 												<img src="../../ICONS/mkp.png" height="28px" width="28px" alt="">
-												<a href="" title="">Make Appointment</a>
+												<a href="./userPsychiatristList.html" title="">Make Appointment</a>
 											</li>
 											<li>
 												<!-- <i class="ti-comments-smiley"></i> -->
@@ -277,7 +277,7 @@
 											<li>
 												<!-- <i class="ti-power-off"></i> -->
 												<img src="../../ICONS/lg.png" height="28px" width="28px" alt="">
-												<a href="" title="">Logout</a>
+												<a id="logoutBut" href="" title="">Logout</a>
 											</li>
 										</ul>
 									</div><!-- Shortcuts -->
@@ -600,75 +600,100 @@
 	<script src="script.js"></script>
 
 	<script>
-		fetch('http://127.0.0.1:8000/api/user/getposts', {
-				method: 'GET',
-				headers: {
-					'Accept': 'application/json, text/plain, */*',
-					'Content-type': 'application/json'
-				},
-			})
-			.then(res => res.json())
-			.then(data.forEach(post => {
-				let output = '';
-				output += `
-		                `;
-			}));
+		document.getElementById('logoutBut').addEventListener('click', logout);
+
+		function logout(e) {
+			e.preventDefault();
+			let token = sessionStorage.getItem('userToken');
+			console.log(token);
+			fetch("http://127.0.0.1:8000/api/user/logout", {
+					method: "POST",
+					headers: {
+						'Accept': "application/json, text/plain, */*",
+						"Content-type": "application/json",
+						"Authorization": "Bearer " + token
+					},
+				}).then((res) =>
+					res.json())
+				.then(data => {
+
+					console.log('logged out');
+					sessionStorage.removeItem("uid");
+					sessionStorage.removeItem("userToken");
+					window.location.href = "./index.html";
+				})
+			console.log(sessionStorage.getItem("uid"));
+		}
+
+		// fetch('http://127.0.0.1:8000/api/user/getposts', {
+		// 		method: 'GET',
+		// 		headers: {
+		// 			'Accept': 'application/json, text/plain, */*',
+		// 			'Content-type': 'application/json'
+		// 		},
+		// 	})
+		// 	.then(res => res.json())
+		// 	.then(data.forEach(post => {
+		// 		let output = '';
+		// 		output += `
+		//                 `;
+		// 	}));
 
 
 
 
-		fetch('http://127.0.0.1:8000/api/user/getcomments', {
-				method: 'GET',
-				headers: {
-					'Accept': 'application/json, text/plain, */*',
-					'Content-type': 'application/json'
-				},
-				body: JSON.stringify({
+		// fetch('http://127.0.0.1:8000/api/user/getcomments', {
+		// 		method: 'GET',
+		// 		headers: {
+		// 			'Accept': 'application/json, text/plain, */*',
+		// 			'Content-type': 'application/json'
+		// 		},
+		// 		body: JSON.stringify({
 
-				}),
-			})
-			.then(res => {
-				resStatus = res.status;
-				if (resStatus >= 400) {
-					return res.text().then(data => {
-						console.log(data.message);
-						alert('Internal Error');
-					})
-				} else {
-					return res.json().then(data.forEach(post => {
-						let output = '';
-						output += `
-		                `;
-					}))
-				}
-			})
-
-
+		// 		}),
+		// 	})
+		// 	.then(res => {
+		// 		resStatus = res.status;
+		// 		if (resStatus >= 400) {
+		// 			return res.text().then(data => {
+		// 				console.log(data.message);
+		// 				alert('Internal Error');
+		// 			})
+		// 		} else {
+		// 			return res.json().then(data.forEach(post => {
+		// 				let output = '';
+		// 				output += `
+		//                 `;
+		// 			}))
+		// 		}
+		// 	})
 
 
 
-		const url = 'https://api.spacexdata.com/v4';
 
-		const result = fetch(`${url}/launches/latest`, {
-				method: 'get'
-			})
-			.then(response => response.json()) // pass the data as promise to next then block
-			.then(data => {
-				const rocketId = data.rocket;
 
-				console.log(rocketId, '\n');
+		// const url = 'https://api.spacexdata.com/v4';
 
-				return fetch(`${url}/rockets/${rocketId}`); // make a 2nd request and return a promise
-			})
-			.then(response => response.json())
-			.catch(err => {
-				console.error('Request failed', err)
-			})
+		// const result = fetch(`${url}/launches/latest`, {
+		// 		method: 'get'
+		// 	})
+		// 	.then(response => response.json()) // pass the data as promise to next then block
+		// 	.then(data => {
+		// 		const rocketId = data.rocket;
 
-		// I'm using the result const to show that you can continue to extend the chain from the returned promise
-		result.then(r => {
-			console.log(r.first_stage); // 2nd request result first_stage property
-		});
+		// 		console.log(rocketId, '\n');
+
+		// 		return fetch(`${url}/rockets/${rocketId}`); // make a 2nd request and return a promise
+		// 	})
+		// 	.then(response => response.json())
+		// 	.catch(err => {
+		// 		console.error('Request failed', err)
+		// 	})
+
+		// // I'm using the result const to show that you can continue to extend the chain from the returned promise
+		// result.then(r => {
+		// 	console.log(r.first_stage); // 2nd request result first_stage property
+		// });
 	</script>
 
 

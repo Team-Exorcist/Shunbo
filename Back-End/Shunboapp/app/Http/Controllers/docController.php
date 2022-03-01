@@ -267,10 +267,9 @@ class docController extends Controller
     }
 
     function logout(Request $req){
-        auth()->user()->tokens()->delete();
-
+        $req->user()->currentAccessToken()->delete();
         return [
-            "res" => "logged out"
+            "res" => "1"
         ];
     }
 }

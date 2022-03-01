@@ -47,7 +47,7 @@ Route::post('/user/changepassword', [userController::class, 'changePassword']);
 
 //protected user
 Route::group(['middleware' => ['auth:sanctum', 'ability:user']], function(){
-    Route::post('/doc/logout', [docController::class, 'logout']);
+    Route::post('/user/logout', [userController::class, 'logout']);
     Route::post('/user/createpost', [userController::class, 'createPost']);
     Route::post('/user/makecomment', [userController::class, 'makeComment']);
     Route::post('/user/vote/{pid}',[userController::class, 'vote']);

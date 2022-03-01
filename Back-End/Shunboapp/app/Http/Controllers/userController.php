@@ -251,7 +251,7 @@ class userController extends Controller{
         if($verificationCode->code != $req->code){
             return response([
                 "res" => '404'
-            ], 401);
+            ], 404);
         }
 
         $result = User::where('email', $req->email)->update(['password' => $password]);
@@ -346,9 +346,9 @@ class userController extends Controller{
     }
 
     function logout(Request $req){
-        auth()->user()->tokens()->delete();
+        $req->user()->currentAccessToken()->delete();
         return [
-            "res" => "logged out"
+            "res" => "1"
         ];
     }
 

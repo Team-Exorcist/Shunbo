@@ -128,6 +128,7 @@
                         if (data.res == 1) {
                             sessionStorage.setItem("userToken", data.token);
                             sessionStorage.setItem("uid", data.user.id);
+                            console.log(data.user.id);
                             window.location.href = "./newsfeed.html";
                         }
 
