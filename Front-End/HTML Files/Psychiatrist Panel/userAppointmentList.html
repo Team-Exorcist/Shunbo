@@ -306,8 +306,43 @@
 										<p class="card-text" style="font-size: 17px;color: red;">Date: 02.03.2022
 											&nbsp;<img src="../../ICONS/date.png" width="30px" height="30px" alt=""></p>
 										<!-- <a href="#" ><button type="button" class="btn btn-info">View Profile</button></a>-->
-										<a href="#"><button type="button" class="btn btn-warning"
-												style="float: right;">Rate</button></a>
+										<!--<a href="#"><button type="button" class="btn btn-warning"
+												style="float: right;">Rate</button></a>-->
+
+										        <a href="#" ><button type="button" class="btn btn-success" style="float: right; margin-left: 6PX;">Create a meet link</button></a>
+									  
+									 <!-- Button trigger modal to open pop-up -->
+									<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" style="float: right;">
+									Send meet link 
+  									</button>
+  
+  									<!-- Modal -->
+  									<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+	  								<div class="modal-content">
+									<div class="modal-header">
+		 							<h5 class="modal-title" id="exampleModalLabel" style="color: black;">Paste the meeting link here</h5>
+									 <!--button to close pop-up modal-->
+		  							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+									<!--form for the meet link-->
+		  							<form action="">
+			  						<div class="mb-3">
+									<label for="exampleFormControlTextarea1" class="form-label">Meet link</label>
+									<textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
+			  						</div>
+		  							</form>
+									</div>
+									<div class="modal-footer">
+									<a href="#"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></a>
+		  							<a href="#"><button type="button" class="btn btn-warning">Paste</button></a>
+									</div>
+
+									<!--END OF  Button trigger modal -->
+	  								</div>
+								</div>
+  								</div>
 									</div>
 								</div>
 
