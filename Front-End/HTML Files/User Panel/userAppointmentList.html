@@ -433,6 +433,36 @@
 				console.log(data);
 				console.log(uid);
 				data.forEach(element => {
+					let shift = '';
+
+					switch (element.time) {
+						case 1:
+							shift = '9.00am to 10.00am';
+							break;
+						case 2:
+							shift = '10.00am to 11.00am';
+							break;
+						case 3:
+							shift = '11.00am to 12.00pm';
+							break;
+						case 4:
+							shift = '3.00pm to 4.00pm';
+							break;
+						case 5:
+							shift = '4.00pm to 5.00pm';
+							break;
+						case 6:
+							shift = '5.00pm to 6.00pm';
+							break;
+						case 7:
+							shift = '7.00pm to 8.00pm';
+							break;
+						case 8:
+							shift = '8.00pm to 9.00pm';
+							break;
+						default:
+							shift = '9.00am to 10.00am';
+					}
 					console.log(element.id);
 					output += `
 					<div class="card" style="box-shadow: 0 6px 32px 16px rgba(119, 117, 117, 0.2);">
@@ -445,7 +475,7 @@
 									</div>
 									<div class="card-body">
 										<h5 class="card-title" style=" color: black;;">${element.dname}</h5>
-										<p class="card-text" style="font-size: 17px;color: red;">${element.time}
+										<p class="card-text" style="font-size: 17px;color: red;">${shift}
 											&nbsp;<img src="../../ICONS/clock.png" width="30px" height="30px" alt="">
 										</p>
 										<p class="card-text" style="font-size: 17px;color: red;">${element.date}<img src="../../ICONS/date.png" width="30px" height="30px" alt=""></p>
