@@ -19,6 +19,10 @@ class docController extends Controller
         return "hello";
     }
 
+    function getDoctor($did){
+        $doctor = Doctor::find($did);
+        return $doctor;
+    }
 
     function getAppointments($did){
         $app = DB::table('appointments')->where('did', $did)->orderByDesc('created_at')->get();
