@@ -32,7 +32,13 @@ Route::post('/doc/changepassword', [docController::class, 'changePassword']);
 //protected doctor
 Route::group(['middleware' => ['auth:sanctum', 'ability:doctor']], function(){
     Route::post('/doc/logout', [docController::class, 'logout']);
+    Route::post('/doc/createpost', [docController::class, 'createPost']);
+    Route::post('/doc/makecomment', [docController::class, 'makeComment']);
+    Route::post('/doc/vote/{pid}',[docController::class, 'vote']);
     Route::get('/doc/getposts',[docController::class, 'getPosts']);
+    Route::get('/doc/getcomments/{pid}',[docController::class, 'getComments']);
+    Route::get('/doc/getappointments/{did}',[docController::class, 'getAppointments']);
+    Route::get('/doc/getfullpost',[docController::class, 'getFullPost']);
 });
 
 

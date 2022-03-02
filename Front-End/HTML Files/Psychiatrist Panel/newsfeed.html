@@ -261,15 +261,15 @@
 												<a href="" title="">My Community</a>
 											</li>
 
-											<li>
-												<!-- <i class="ti-comments-smiley"></i> -->
+											<!-- <li>
+												<!-- <i class="ti-comments-smiley"></i> 
 												<img src="../../ICONS/mkp.png" height="28px" width="28px" alt="">
 												<a href="" title="">Make Appointment</a>
-											</li>
+											</li> -->
 											<li>
 												<!-- <i class="ti-comments-smiley"></i> -->
 												<img src="../../ICONS/aps.png" height="28px" width="28px" alt="">
-												<a href="" title="">My Appointments</a>
+												<a href="./userAppointmentList.html" title="">My Appointments</a>
 											</li>
 											<li>
 												<!-- <i class="ti-bell"></i> -->
@@ -618,7 +618,7 @@
 	<script>
 		let token = sessionStorage.getItem('docToken');
 		document.getElementById('logoutBut').addEventListener('click', logout);
-		let uid = sessionStorage.getItem('did');
+		let did = sessionStorage.getItem('did');
 
 		document.getElementById('createpostform').addEventListener('submit', createPost);
 		// document.getElementById('commentform').addEventListener('submit', comment);

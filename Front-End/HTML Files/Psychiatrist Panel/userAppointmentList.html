@@ -14,8 +14,8 @@
 	<link rel="stylesheet" href="../../CSS Files/User Panel Designs/responsive.css">
 	<title>Appointment List</title>
 	<script>
-		if (!sessionStorage.getItem("uid")) {
-			window.location.href = `./userLogin.html`;
+		if (!sessionStorage.getItem("did")) {
+			window.location.href = `./docLogin.html`;
 		}
 	</script>
 
@@ -257,14 +257,14 @@
 												<img src="../../ICONS/frnds.png" height="28px" width="28px" alt="">
 												<a href="" title="">My Community</a>
 											</li>
-
+											<!-- 
 											<li>
-												<!-- <i class="ti-comments-smiley"></i> -->
+												<!-- <i class="ti-comments-smiley"></i> 
 												<img src="../../ICONS/mkp.png" height="28px" width="28px" alt="">
-												<a href="userPsychiatristList.html" title="">Make Appointment</a>
-											</li>
+												<a href="" title="">Make Appointment</a>
+											</li> -->
 											<li>
-												<!-- <i class="ti-comments-smiley"></i> -->
+												<!-- <i class="ti-comments-smiley"></i>-->
 												<img src="../../ICONS/aps.png" height="28px" width="28px" alt="">
 												<a href="" title="">My Appointments</a>
 											</li>
@@ -277,7 +277,7 @@
 											<li>
 												<!-- <i class="ti-power-off"></i> -->
 												<img src="../../ICONS/lg.png" height="28px" width="28px" alt="">
-												<a id="logoutbut" href="" title="">Logout</a>
+												<a id="logoutBut" href="" title="">Logout</a>
 											</li>
 										</ul>
 									</div><!-- Shortcuts -->
@@ -394,15 +394,15 @@
 	<script src="main.min.js"></script>
 	<script src="script.js"></script>
 	<script>
-		let token = sessionStorage.getItem('userToken');
-		let uid = sessionStorage.getItem("uid");
+		let token = sessionStorage.getItem('docToken');
 		document.getElementById('logoutBut').addEventListener('click', logout);
+		let did = sessionStorage.getItem('did');
 
 		function logout(e) {
 			e.preventDefault();
-			let token = sessionStorage.getItem('userToken');
+			let token = sessionStorage.getItem('docToken');
 			console.log(token);
-			fetch("http://127.0.0.1:8000/api/user/logout", {
+			fetch("http://127.0.0.1:8000/api/doc/logout", {
 					method: "POST",
 					headers: {
 						'Accept': "application/json, text/plain, */*",
@@ -412,15 +412,18 @@
 				}).then((res) => res.json())
 				.then(data => {
 					console.log('logged out');
-					sessionStorage.removeItem("uid");
-					sessionStorage.removeItem("userToken");
-					window.location.href = "./index.html";
+					sessionStorage.removeItem("did");
+					sessionStorage.removeItem("docToken");
+					window.location.href = "../User Panel/index.html";
 				})
-			console.log(sessionStorage.getItem("uid"));
+			console.log(sessionStorage.getItem("did"));
 		}
 
+
+
+
 		let output = '';
-		fetch('http://127.0.0.1:8000/api/user/getappointments/' + uid, {
+		fetch('http://127.0.0.1:8000/api/user/getappointments/' + did, {
 				method: "GET",
 				headers: {
 					'Accept': "application/json, text/plain, */*",
@@ -431,7 +434,7 @@
 			.then(res => res.json())
 			.then(data => {
 				console.log(data);
-				console.log(uid);
+				console.log(did);
 				data.forEach(element => {
 					console.log(element.id);
 					output += `
@@ -444,7 +447,7 @@
 
 									</div>
 									<div class="card-body">
-										<h5 class="card-title" style=" color: black;;">${element.dname}</h5>
+										<h5 class="card-title" style=" color: black;;">${element.uname}</h5>
 										<p class="card-text" style="font-size: 17px;color: red;">${element.time}
 											&nbsp;<img src="../../ICONS/clock.png" width="30px" height="30px" alt="">
 										</p>
