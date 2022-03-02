@@ -457,7 +457,7 @@
 			e.preventDefault();
 			let link = document.getElementById('thelink').value;
 
-
+			console.log(link)
 			fetch("http://127.0.0.1:8000/api/doc/addmeetlink", {
 					method: "POST",
 					headers: {
@@ -484,6 +484,7 @@
 
 
 		let output = '';
+		let css = '';
 		fetch('http://127.0.0.1:8000/api/doc/getappointments/' + did, {
 				method: "GET",
 				headers: {
@@ -497,6 +498,9 @@
 				console.log(data);
 				console.log(did);
 				data.forEach(element => {
+					if (element.meetlink != null) {
+						css = 'hidden';
+					}
 					let shift = '';
 
 					switch (element.time) {
@@ -544,10 +548,10 @@
 											&nbsp;<img src="../../ICONS/clock.png" width="30px" height="30px" alt="">
 										</p>
 										<p class="card-text" style="font-size: 17px;color: red;">${element.date}<img src="../../ICONS/date.png" width="30px" height="30px" alt=""></p>
-										<!-- <a href="#" ><button type="button" class="btn btn-info">View Profile</button></a> -->
-										<a href="http://meet.google.com/new"><button type="button" class="btn btn-success"
+										<p class="card-text" style="font-size: 17px;color: red;">Meet Link: ${element.meetlink}</p>
+										<a target="_blank" href="http://meet.google.com/new"><button ${css} type="button" class="btn btn-success"
 												style="float: right; margin-left: 6PX;">Create a meet link</button></a>
-										<button type="button" class="btn btn-warning" data-bs-toggle="modal"
+										<button ${css} type="button" class="btn btn-warning" data-bs-toggle="modal"
 											data-bs-target="#exampleModal" style="float: right;" onclick="returnAppId(${element.id})">
 											Send meet link
 										</button>

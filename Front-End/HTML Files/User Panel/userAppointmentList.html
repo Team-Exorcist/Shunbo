@@ -434,6 +434,10 @@
 				console.log(uid);
 				data.forEach(element => {
 					let shift = '';
+					link = element.meetlink;
+					if (link == null) {
+						link = "Doctor will assign you with a link to join a meeting";
+					}
 
 					switch (element.time) {
 						case 1:
@@ -480,6 +484,7 @@
 										</p>
 										<p class="card-text" style="font-size: 17px;color: red;">${element.date}<img src="../../ICONS/date.png" width="30px" height="30px" alt=""></p>
 										<!-- <a href="#" ><button type="button" class="btn btn-info">View Profile</button></a> -->
+										<p class="card-text" style="font-size: 17px;color: red;">Meet Link: ${link}</p>
 										<a href="#"><button hidden type="button" class="btn btn-warning"
 												style="float: right;">Rate</button></a>
 									</div>
