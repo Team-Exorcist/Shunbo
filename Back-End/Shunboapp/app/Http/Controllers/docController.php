@@ -24,6 +24,16 @@ class docController extends Controller
         return $doctor;
     }
 
+
+    function addMeetLink(Request $req){
+        $aid = $req->aid;
+        $link = $req->link;
+        $app = DB::table('appointments')->where('id', $aid)->update(["meetlink" => $link]);
+        if($app){
+            return ['res' => 1];
+        }
+    }
+
     function getAppointments($did){
         $app = DB::table('appointments')->where('did', $did)->orderByDesc('created_at')->get();
         if($app){
