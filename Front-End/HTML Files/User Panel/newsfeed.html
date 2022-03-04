@@ -666,10 +666,13 @@
 
 		}
 
-		function comment(e) {
-			e.preventDefault();
-			let pid = document.getElementById('cpid').value;
-			let thecomment = document.getElementById('thecomment').value;
+
+
+
+		function comment(cid) {
+			let pid = cid.slice(7);
+			let commentVal = document.getElementById(`thecomment` + pid).value;
+
 
 			fetch('http://127.0.0.1:8000/api/user/makecomment', {
 					method: "POST",
@@ -680,7 +683,7 @@
 					},
 					body: JSON.stringify({
 						uid: uid,
-						msg: thecomment,
+						msg: commentVal,
 						pid: pid
 					})
 				})
@@ -804,14 +807,13 @@
 																	alt="">
 															</div>
 															<div class="post-comt-box">
-																<form id="commentform" method="post">
-																	<textarea id="thecomment" placeholder="Post your comment"
+																<!--<form id="commentform" method="post">-->
+																	<textarea id="thecomment${post.pid}" placeholder="Post your comment"
 																		style="width: 510px;margin-bottom:-6px ;"></textarea>
 
-																	<input id="cpid" value="${post.pid}" hidden/>
-																	<button type="submit" id="comment"
+																	<button type="button" id="comment${post.pid}" onclick="comment(this.id)"
 																		class="btn btn-primary">Comment</button>
-																</form>
+																<!--</form>-->
 															</div>
 														</li>
 													</ul>
