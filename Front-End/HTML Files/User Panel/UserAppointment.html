@@ -102,6 +102,13 @@
         let token = sessionStorage.getItem('userToken');
         document.getElementById("appointmentform").addEventListener("submit", makeAppointment);
 
+        let curDate = new Date();
+        let nextMonDate = new Date();
+        nextMonDate.setMonth(nextMonDate.getMonth() + 1);
+        let dateatt = document.getElementById('date');
+        dateatt.setAttribute("min", curDate.toISOString().split('T')[0]);
+        dateatt.setAttribute("max", nextMonDate.toISOString().split('T')[0]);
+
         function makeAppointment(e) {
             e.preventDefault();
 
