@@ -733,7 +733,16 @@
 
 				let allcomment = '';
 				let thepostid = post.pid;
+				let psychiatrist = '';
+				if (post.pisdoctor == 1) {
+					psychiatrist = `style="color:red;"`;
+					console.log(psychiatrist);
+				}
 				post.comments.forEach(comment => {
+					let doc = '';
+					if (comment.pisdoctor == 1) {
+						doc = `style="color:red;"`;
+					}
 					allcomment += `
 					<li>
 						<div class="comet-avatar">
@@ -742,7 +751,7 @@
 						</div>
 						<div class="we-comment">
 							<div class="coment-head">
-								<h5>${comment.username}</h5>
+								<h5 ${doc}>${comment.username}</h5>
 								<span>${comment.created_at}</span>
 								<i class="fa fa-reply"></i></a>
 							</div>
@@ -761,7 +770,7 @@
 													<img src="../../ICONS/p2.png" height="400px" width="500px" alt="">
 												</figure>
 												<div class="friend-name">
-													<ins><a href="time-line.html" title="">${post.pusername}</a></ins>
+													<ins><a ${psychiatrist} href="time-line.html" title="">${post.pusername}</a></ins>
 													<span>published: ${post.pcreated_at}</span>
 												</div>
 												<div class="post-meta">
