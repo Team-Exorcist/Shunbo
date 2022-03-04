@@ -7,15 +7,20 @@
 	<link rel="icon" href="../../ICONS/mh1.png">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<!-- JavaScript Bundle with Popper -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+	</script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 	<link rel="stylesheet" href="../../CSS Files/User Panel Designs/main.min.css">
 	<link rel="stylesheet" href="../../CSS Files/User Panel Designs/style.css">
 	<link rel="stylesheet" href="../../CSS Files/User Panel Designs/color.css">
 	<link rel="stylesheet" href="../../CSS Files/User Panel Designs/responsive.css">
 	<title>Appointment List</title>
 	<script>
-		if (!sessionStorage.getItem("uid")) {
-			window.location.href = `./userLogin.html`;
+		if (!sessionStorage.getItem("did")) {
+			window.location.href = `./docLogin.html`;
 		}
 	</script>
 
@@ -257,14 +262,14 @@
 												<img src="../../ICONS/frnds.png" height="28px" width="28px" alt="">
 												<a href="" title="">My Community</a>
 											</li>
-
+											<!-- 
 											<li>
-												<!-- <i class="ti-comments-smiley"></i> -->
+												<!-- <i class="ti-comments-smiley"></i> 
 												<img src="../../ICONS/mkp.png" height="28px" width="28px" alt="">
-												<a href="userPsychiatristList.html" title="">Make Appointment</a>
-											</li>
+												<a href="" title="">Make Appointment</a>
+											</li> -->
 											<li>
-												<!-- <i class="ti-comments-smiley"></i> -->
+												<!-- <i class="ti-comments-smiley"></i>-->
 												<img src="../../ICONS/aps.png" height="28px" width="28px" alt="">
 												<a href="" title="">My Appointments</a>
 											</li>
@@ -296,31 +301,8 @@
 										<img src="../../ICONS/apl.png" width="60px" height="60px" style="float: right;"
 											alt="">
 
-									</div>
-									<div class="card-body">
-										<h5 class="card-title" style=" color: black;;">Psychiatrist: Prof. Dr.Ifty khan
-										</h5>
-										<p class="card-text" style="font-size: 17px;color: red;">Time: 8.00pm - 9.00 pm
-											&nbsp;<img src="clock.png" width="30px" height="30px" alt=""></p>
-										<p class="card-text" style="font-size: 17px;color: red;">Date: 02.03.2022
-											&nbsp;<img src="date.png" width="30px" height="30px" alt=""></p>
-										<!-- <a href="#" ><button type="button" class="btn btn-info">View Profile</button></a> 
-										<a href="#"><button type="button" class="btn btn-warning"
-												style="float: right;">Rate</button></a>
-
-
-
-									</div>
-								</div>
-								<div class="card" style="box-shadow: 0 6px 32px 16px rgba(119, 117, 117, 0.2);">
-									<div class="card-header">
-										<img src="../../ICONS/d0.png" width="60px" height="60px" alt="">
-
-										<img src="../../ICONS/apl.png" width="60px" height="60px" style="float: right;"
-											alt="">
-
-									</div>
-									<div class="card-body">
+									</div> -->
+								<!-- <div class="card-body">
 										<h5 class="card-title" style=" color: black;;">Psychiatrist: Prof. Dr.Ifty khan
 										</h5>
 										<p class="card-text" style="font-size: 17px;color: red;">Time: 8.00pm - 9.00 pm
@@ -328,13 +310,59 @@
 										</p>
 										<p class="card-text" style="font-size: 17px;color: red;">Date: 02.03.2022
 											&nbsp;<img src="../../ICONS/date.png" width="30px" height="30px" alt=""></p>
-										<!-- <a href="#" ><button type="button" class="btn btn-info">View Profile</button></a> 
-								<a href="#"><button type="button" class="btn btn-warning"
-										style="float: right;">Rate</button></a>
-							</div>
-						</div> -->
+										<!-- <a href="#" ><button type="button" class="btn btn-info">View Profile</button></a>-->
+								<!--<a href="#"><button type="button" class="btn btn-warning"
+												style="float: right;">Rate</button></a>
 
+									<a href="#"><button type="button" class="btn btn-success"
+											style="float: right; margin-left: 6PX;">Create a meet link</button></a>
 
+									<!-- Button trigger modal to open pop-up 
+									<button type="button" class="btn btn-warning" data-bs-toggle="modal"
+										data-bs-target="#exampleModal" style="float: right;">
+										Send meet link
+									</button>
+
+									<!-- Modal 
+
+								</div>
+							</div> -->
+
+								<div class="modal fade" id="exampleModal" tabindex="-1"
+									aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel" style="color: black;">
+													Paste the meeting link here</h5>
+												<!--button to close pop-up modal-->
+												<button type="button" class="btn-close" data-bs-dismiss="modal"
+													aria-label="Close"></button>
+											</div>
+											<div class="modal-body">
+												<!--form for the meet link-->
+												<form id="sendlink" method="POST">
+													<div class="mb-3">
+														<label for="exampleFormControlTextarea1" class="form-label">Meet
+															link</label>
+														<textarea id="thelink" class="form-control"
+															id="exampleFormControlTextarea1" rows="1"></textarea>
+													</div>
+													<button type="submit" class="btn btn-warning"
+														style="float: right;">Paste</button>
+												</form>
+											</div>
+											<!-- <div class="modal-footer">
+											<a href="#"><button type="button" class="btn btn-secondary"
+													data-bs-dismiss="modal">Close</button></a>
+											<a href="#"><button type="button"
+													class="btn btn-warning">Paste</button></a>
+										</div> -->
+
+											<!--END OF  Button trigger modal -->
+										</div>
+									</div>
+								</div>
 
 
 
@@ -394,15 +422,16 @@
 	<script src="main.min.js"></script>
 	<script src="script.js"></script>
 	<script>
-		let token = sessionStorage.getItem('userToken');
-		let uid = sessionStorage.getItem("uid");
+		let token = sessionStorage.getItem('docToken');
 		document.getElementById('logoutBut').addEventListener('click', logout);
+		let did = sessionStorage.getItem('did');
+
 
 		function logout(e) {
 			e.preventDefault();
-			let token = sessionStorage.getItem('userToken');
+			let token = sessionStorage.getItem('docToken');
 			console.log(token);
-			fetch("http://127.0.0.1:8000/api/user/logout", {
+			fetch("http://127.0.0.1:8000/api/doc/logout", {
 					method: "POST",
 					headers: {
 						'Accept': "application/json, text/plain, */*",
@@ -412,15 +441,51 @@
 				}).then((res) => res.json())
 				.then(data => {
 					console.log('logged out');
-					sessionStorage.removeItem("uid");
-					sessionStorage.removeItem("userToken");
-					window.location.href = "./index.html";
+					sessionStorage.removeItem("did");
+					sessionStorage.removeItem("docToken");
+					window.location.href = "../User Panel/index.html";
 				})
-			console.log(sessionStorage.getItem("uid"));
+			console.log(sessionStorage.getItem("did"));
 		}
 
+
+
+		document.getElementById('sendlink').addEventListener("submit", addMeetLink);
+		let paid;
+
+		function addMeetLink(e) {
+			e.preventDefault();
+			let link = document.getElementById('thelink').value;
+
+			console.log(link)
+			fetch("http://127.0.0.1:8000/api/doc/addmeetlink", {
+					method: "POST",
+					headers: {
+						'Accept': "application/json, text/plain, */*",
+						"Content-type": "application/json",
+						"Authorization": "Bearer " + token
+					},
+					body: JSON.stringify({
+						aid: paid,
+						link: link
+					})
+				}).then((res) => res.json())
+				.then(data => {
+					console.log(data.res);
+				})
+		}
+
+		function returnAppId(aid) {
+			console.log(aid);
+			paid = aid;
+		}
+
+
+
+
 		let output = '';
-		fetch('http://127.0.0.1:8000/api/user/getappointments/' + uid, {
+		let css = '';
+		fetch('http://127.0.0.1:8000/api/doc/getappointments/' + did, {
 				method: "GET",
 				headers: {
 					'Accept': "application/json, text/plain, */*",
@@ -431,13 +496,12 @@
 			.then(res => res.json())
 			.then(data => {
 				console.log(data);
-				console.log(uid);
+				console.log(did);
 				data.forEach(element => {
-					let shift = '';
-					link = element.meetlink;
-					if (link == null) {
-						link = "Doctor will assign you with a link to join a meeting";
+					if (element.meetlink != null) {
+						css = 'hidden';
 					}
+					let shift = '';
 
 					switch (element.time) {
 						case 1:
@@ -467,6 +531,7 @@
 						default:
 							shift = '9.00am to 10.00am';
 					}
+
 					console.log(element.id);
 					output += `
 					<div class="card" style="box-shadow: 0 6px 32px 16px rgba(119, 117, 117, 0.2);">
@@ -478,15 +543,22 @@
 
 									</div>
 									<div class="card-body">
-										<h5 class="card-title" style=" color: black;;"> Psychiatrist: ${element.dname}</h5>
+										<h5 class="card-title" style=" color: black;;">Patient: ${element.uname}</h5>
 										<p class="card-text" style="font-size: 17px;color: red;">${shift}
 											&nbsp;<img src="../../ICONS/clock.png" width="30px" height="30px" alt="">
 										</p>
 										<p class="card-text" style="font-size: 17px;color: red;">${element.date}<img src="../../ICONS/date.png" width="30px" height="30px" alt=""></p>
-										<!-- <a href="#" ><button type="button" class="btn btn-info">View Profile</button></a> -->
-										<p class="card-text" style="font-size: 17px;color: red;">Meet Link: ${link}</p>
-										<a href="#"><button hidden type="button" class="btn btn-warning"
-												style="float: right;">Rate</button></a>
+										<p class="card-text" style="font-size: 17px;color: red;">Meet Link: ${element.meetlink}</p>
+										<a target="_blank" href="http://meet.google.com/new"><button ${css} type="button" class="btn btn-success"
+												style="float: right; margin-left: 6PX;">Create a meet link</button></a>
+										<button ${css} type="button" class="btn btn-warning" data-bs-toggle="modal"
+											data-bs-target="#exampleModal" style="float: right;" onclick="returnAppId(${element.id})">
+											Send meet link
+										</button>
+
+										<!-- Modal -->
+									
+										
 									</div>
 								</div>
 					`;

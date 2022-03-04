@@ -21,6 +21,11 @@ class userController extends Controller{
         return " user hello";
     }
 
+    function getUser($uid){
+        $user = User::find($uid);
+        return $user;
+    }
+
     function getAppointments($uid){
         $app = DB::table('appointments')->where('uid', $uid)->orderByDesc('created_at')->get();
         if($app){
@@ -147,6 +152,9 @@ class userController extends Controller{
     ////////////////////////////////////////////////////////////////////////////
 
     function createPost(Request $req){
+        $req->validate([
+            'msg' => 'required | max: 4500'
+        ]);
 
         $user = User::find($req->uid);
         $username = $user->name;
@@ -167,7 +175,9 @@ class userController extends Controller{
 
     function makeComment(Request $req){
         
-
+        $req->validate([
+            'msg' => 'required | max: 500'
+        ]);
         $user = User::find($req->uid);
         $username = $user->name;
 

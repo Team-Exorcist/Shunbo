@@ -32,7 +32,21 @@ Route::post('/doc/changepassword', [docController::class, 'changePassword']);
 //protected doctor
 Route::group(['middleware' => ['auth:sanctum', 'ability:doctor']], function(){
     Route::post('/doc/logout', [docController::class, 'logout']);
+
+    Route::post('/doc/createpost', [docController::class, 'createPost']);
+    Route::post('/doc/makecomment', [docController::class, 'makeComment']);
+    Route::post('/doc/vote/{pid}',[docController::class, 'vote']);
+
+    Route::get('/doc/getfullpost',[docController::class, 'getFullPost']);
     Route::get('/doc/getposts',[docController::class, 'getPosts']);
+    Route::get('/doc/getcomments/{pid}',[docController::class, 'getComments']);
+
+    Route::get('/doc/getappointments/{did}',[docController::class, 'getAppointments']);
+
+    Route::get('/doc/getdoctor/{did}',[docController::class, 'getDoctor']);
+
+    Route::post('/doc/addmeetlink', [docController::class, 'addMeetLink']);
+
 });
 
 
@@ -48,15 +62,22 @@ Route::post('/user/changepassword', [userController::class, 'changePassword']);
 //protected user
 Route::group(['middleware' => ['auth:sanctum', 'ability:user']], function(){
     Route::post('/user/logout', [userController::class, 'logout']);
+
     Route::post('/user/createpost', [userController::class, 'createPost']);
     Route::post('/user/makecomment', [userController::class, 'makeComment']);
     Route::post('/user/vote/{pid}',[userController::class, 'vote']);
+
     Route::post('/user/makeappointment', [userController::class, 'makeAppointment']);
+
+    Route::get('/user/getfullpost',[userController::class, 'getFullPost']);
     Route::get('/user/getposts',[userController::class, 'getPosts']);
     Route::get('/user/getcomments/{pid}',[userController::class, 'getComments']);
+
     Route::get('/user/getdoctorlist',[userController::class, 'getDoctorList']);
     Route::get('/user/getappointments/{uid}',[userController::class, 'getAppointments']);
-    Route::get('/user/getfullpost',[userController::class, 'getFullPost']);
+
+    Route::get('/user/getuser/{uid}',[userController::class, 'getUser']);
+
 });
 
 
