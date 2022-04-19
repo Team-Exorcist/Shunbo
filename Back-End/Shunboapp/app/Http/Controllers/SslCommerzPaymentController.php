@@ -178,7 +178,7 @@ class SslCommerzPaymentController extends Controller
         #Check order status in order tabel against the transaction id or order id.
         $order_detials = DB::table('orders')
             ->where('transaction_id', $tran_id)
-            ->select('transaction_id', 'status', 'currency', 'amount')->first();
+            ->select('transaction_id', 'status', 'currency', 'amount', 'did')->first();
 
         if ($order_detials->status == 'Pending') {
             $validation = $sslc->orderValidate($request->all(), $tran_id, $amount, $currency);
@@ -191,9 +191,21 @@ class SslCommerzPaymentController extends Controller
                 */
                 $update_product = DB::table('orders')
                     ->where('transaction_id', $tran_id)
-                    ->update(['status' => 'Processing']);
+                    ->update(['status' => 'Complete']);
 
-                echo "<br >Transaction is successfully Completed";
+                //echo "<br >Transaction is successfully Completed";
+                $did = $order_detials->did;
+                 echo "
+                <a href='http://127.0.0.1:8887/HTML Files/User Panel/userAppointment.html?did=".$did."'>Set Appointment</a>
+                ";
+
+                
+                
+
+
+
+                //echo "E://Projects/Spl-2/Front-End/HTML Files/User Panel/userAppointment.html?did=".$did;
+
             } else {
                 /*
                 That means IPN did not work or IPN URL was not set in your merchant panel and Transation validation failed.
@@ -214,6 +226,7 @@ class SslCommerzPaymentController extends Controller
             echo "Invalid Transaction";
         }
 
+     
 
     }
 

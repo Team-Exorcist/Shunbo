@@ -276,7 +276,8 @@
 											<li>
 												<!-- <i class="ti-power-off"></i> -->
 												<img src="../../ICONS/lg.png" height="28px" width="28px" alt="">
-												<a id="logoutBut" href="PlatformSelectionForLogin.html" title="">Logout</a>
+												<a id="logoutBut" href="PlatformSelectionForLogin.html"
+													title="">Logout</a>
 											</li>
 										</ul>
 									</div><!-- Shortcuts -->
@@ -493,6 +494,7 @@
 			let name = buttonId.split("+")[1];
 			let bill = buttonId.split("+")[2];
 			sessionStorage.setItem('selectedDocId', did);
+			window.localStorage.setItem('selectedDocId', did);
 			sessionStorage.setItem('selectedDocName', name);
 			window.localStorage.setItem('selectedDocName', name);
 			document.cookie = "doctorname=" + name + "; path=http://127.0.0.1:8000/example1";

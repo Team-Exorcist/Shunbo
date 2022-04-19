@@ -21,6 +21,15 @@ class userController extends Controller{
         return " user hello";
     }
 
+
+
+
+
+    
+
+    ////////////////////////////////////////////
+    ///////////////////////////////////////////
+
     function getUser($uid){
         $user = User::find($uid);
         return $user;
