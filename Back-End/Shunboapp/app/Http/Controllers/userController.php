@@ -32,8 +32,14 @@ class userController extends Controller{
         $review = $req->review;
         $update = Appointment::where('id', $aid)->update(['rating' => $rating, 'review' => $review]);
 
-        if($update){
-            return response(['res' => 1], 200);
+        $app = Appointment::find($aid); 
+        $did = $app->did;
+
+        $avg = DB::table('appointments')->where('did', $did)->avg('rating');
+        $result = DB::table('doctors')->where('id', $did)->update(['rating' => $avg]);
+
+        if($result){
+            return response(['res' => 1, 'did' => $avg], 200);
         }else{
             return response(['res' => 0], 200);
         }

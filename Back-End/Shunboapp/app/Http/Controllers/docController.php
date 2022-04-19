@@ -24,6 +24,19 @@ class docController extends Controller
         return $doctor;
     }
 
+    function updateBill(Request $req){
+        $did = $req->did;
+        $bill = $req->bill;
+
+        $result = DB::table('doctors')->where('id', $did)->update(["price" => $bill]);
+        if($result){
+            return response(['res' => 1], 200);
+        }else{
+            return response(['res'=> 0], 200);
+        }
+
+    }
+
 
     function addMeetLink(Request $req){
         $aid = $req->aid;

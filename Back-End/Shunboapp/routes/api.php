@@ -46,6 +46,7 @@ Route::group(['middleware' => ['auth:sanctum', 'ability:doctor']], function(){
     Route::get('/doc/getdoctor/{did}',[docController::class, 'getDoctor']);
 
     Route::post('/doc/addmeetlink', [docController::class, 'addMeetLink']);
+    Route::post('/doc/updatebill', [docController::class, 'updateBill']);
 
 });
 
