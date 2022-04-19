@@ -7,6 +7,8 @@ use App\Models\Post;
 use App\Models\Verificationcode;
 use App\Models\Comment;
 use App\Models\Appointment;
+use App\Models\Complaint;
+
 
 use App\Mail\Testmail;
 use Illuminate\Http\Request;
@@ -20,6 +22,57 @@ class userController extends Controller{
     function test(){
         return " user hello";
     }
+
+
+    function makeComplaint(Request $req){
+        $aid = $req->aid;
+        $uid = $req->uid;
+        $msg = $req->msg;
+
+        $app = Appointment::find($aid); 
+        $did = $app->did;
+
+        $complaint = new Complaint();
+        $complaint->uid = $uid;
+        $complaint->did = $did;
+        $complaint->aid = $aid;
+        $complaint->msg = $msg;
+
+        $result = $complaint->save();
+
+        if($result){
+            return response(['res' => 1], 200);
+        }else{
+            return response(['res' => 0], 200);
+        }
+
+    }
+
+
+
+    function rateDoctor(Request $req){
+
+         $aid = $req->aid;
+        $rating = $req->rating;
+        $review = $req->review;
+        $update = Appointment::where('id', $aid)->update(['rating' => $rating, 'review' => $review]);
+
+        $app = Appointment::find($aid); 
+        $did = $app->did;
+
+        $avg = DB::table('appointments')->where('did', $did)->avg('rating');
+        $result = DB::table('doctors')->where('id', $did)->update(['rating' => $avg]);
+
+        if($result){
+            return response(['res' => 1, 'did' => $avg], 200);
+        }else{
+            return response(['res' => 0], 200);
+        }
+
+    }
+
+    ////////////////////////////////////////////
+    ///////////////////////////////////////////
 
     function getUser($uid){
         $user = User::find($uid);
@@ -295,7 +348,7 @@ class userController extends Controller{
         }
         if($verificationCode->code != $req->code){
             return response([
-                "res" => '404'
+                "res" => $req->code
             ], 404);
         }
 

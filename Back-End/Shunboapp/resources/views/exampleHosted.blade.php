@@ -1,3 +1,4 @@
+   
 <!doctype html>
 <html lang="en">
 <head>
@@ -20,7 +21,6 @@
             -ms-user-select: none;
             user-select: none;
         }
-
         @media (min-width: 768px) {
             .bd-placeholder-img-lg {
                 font-size: 3.5rem;
@@ -47,25 +47,7 @@
                         <h6 class="my-0">Product name</h6>
                         <small class="text-muted">Brief description</small>
                     </div>
-                    <span class="text-muted">1000</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">Second product</h6>
-                        <small class="text-muted">Brief description</small>
-                    </div>
-                    <span class="text-muted">50</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">Third item</h6>
-                        <small class="text-muted">Brief description</small>
-                    </div>
-                    <span class="text-muted">150</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between">
-                    <span>Total (BDT)</span>
-                    <strong>1200 TK</strong>
+                    <span id="bill" class="text-muted">100</span>
                 </li>
             </ul>
         </div>
@@ -120,40 +102,10 @@
                     <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
                     <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
                 </div>
-
-                <div class="row">
-                    <div class="col-md-5 mb-3">
-                        <label for="country">Country</label>
-                        <select class="custom-select d-block w-100" id="country" required>
-                            <option value="">Choose...</option>
-                            <option value="Bangladesh">Bangladesh</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            Please select a valid country.
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="state">State</label>
-                        <select class="custom-select d-block w-100" id="state" required>
-                            <option value="">Choose...</option>
-                            <option value="Dhaka">Dhaka</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            Please provide a valid state.
-                        </div>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="zip">Zip</label>
-                        <input type="text" class="form-control" id="zip" placeholder="" required>
-                        <div class="invalid-feedback">
-                            Zip code required.
-                        </div>
-                    </div>
-                </div>
                 <hr class="mb-4">
                 <div class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" id="same-address">
-                    <input type="hidden" value="1200" name="amount" id="total_amount" required/>
+                    <input type="hidden" value="100" name="amount" id="total_amount" required/>
                     <label class="custom-control-label" for="same-address">Shipping address is the same as my billing
                         address</label>
                 </div>
@@ -185,4 +137,20 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+
+<script>
+    let params = new URLSearchParams(location.search);
+    let did = params.get('did');
+    let dname = params.get('docName');
+    let bill = params.get('bill');
+
+    document.getElementById('dname').innerHTML = dname;
+    document.getElementById('bill').innerHTML = bill +" BDT";
+        
+    let cname = document.getElementById('customer_name').value;
+    let cemail = document.getElementById('customer_email').value;
+    let mobile = document.getElementById('customer_mobile').value;
+
+
+</script>
 </html>

@@ -20,7 +20,6 @@
             -ms-user-select: none;
             user-select: none;
         }
-
         @media (min-width: 768px) {
             .bd-placeholder-img-lg {
                 font-size: 3.5rem;
@@ -33,41 +32,22 @@
     <div class="py-5 text-center">
         <h2>EasyCheckout (Popup) - SSLCommerz</h2>
 
-        <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. We have provided this
-            sample form for understanding EasyCheckout (Popup) Payment integration with SSLCommerz.</p>
+        <p class="lead">Payment Checkout</p>
     </div>
 
     <div class="row">
         <div class="col-md-4 order-md-2 mb-4">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-muted">Your cart</span>
+                <span class="text-muted">Pay</span>
                 <span class="badge badge-secondary badge-pill">3</span>
             </h4>
             <ul class="list-group mb-3">
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
-                        <h6 class="my-0">Product name</h6>
-                        <small class="text-muted">Brief description</small>
+                        <h6 id="dname" class="my-0"></h6>
+                        <small class="text-muted"></small>
                     </div>
-                    <span class="text-muted">1000</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">Second product</h6>
-                        <small class="text-muted">Brief description</small>
-                    </div>
-                    <span class="text-muted">50</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">Third item</h6>
-                        <small class="text-muted">Brief description</small>
-                    </div>
-                    <span class="text-muted">150</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between">
-                    <span>Total (BDT)</span>
-                    <strong>1200 TK</strong>
+                    <span id="bill" class="text-muted"></span>
                 </li>
             </ul>
         </div>
@@ -78,7 +58,7 @@
                     <div class="col-md-12 mb-3">
                         <label for="firstName">Full name</label>
                         <input type="text" name="customer_name" class="form-control" id="customer_name" placeholder=""
-                               value="John Doe" required>
+                               value="john" required>
                         <div class="invalid-feedback">
                             Valid customer name is required.
                         </div>
@@ -108,7 +88,7 @@
                     </div>
                 </div>
 
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                     <label for="address">Address</label>
                     <input type="text" class="form-control" id="address" placeholder="1234 Main St"
                            value="93 B, New Eskaton Road" required>
@@ -162,10 +142,10 @@
                     <input type="checkbox" class="custom-control-input" id="save-info">
                     <label class="custom-control-label" for="save-info">Save this information for next time</label>
                 </div>
-                <hr class="mb-4">
+                <hr class="mb-4"> -->
                 <button class="btn btn-primary btn-lg btn-block" id="sslczPayBtn"
                         token="if you have any token validation"
-                        postdata="your javascript arrays or objects which requires in backend"
+                        postdata=""
                         order="If you already have the transaction generated for current order"
                         endpoint="{{ url('/pay-via-ajax') }}"> Pay Now
                 </button>
@@ -182,9 +162,6 @@
         </ul>
     </footer>
 </div>
-
-
-
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -197,27 +174,60 @@
 
 
 <!-- If you want to use the popup integration, -->
+
+
 <script>
+    let params = new URLSearchParams(location.search);
+    let did = params.get('did');
+    let dname = params.get('docName');
+    let bill = params.get('bill');
+    let uid = params.get('uid');
+
+    document.getElementById('dname').innerHTML = dname;
+    document.getElementById('bill').innerHTML = bill +" BDT";
+        
+    let cname = document.getElementById('customer_name').value;
+    let cemail = document.getElementById('customer_email').value;
+    let mobile = document.getElementById('customer_mobile').value;
+
+
+</script>
+
+
+<script>
+
     var obj = {};
     obj.cus_name = $('#customer_name').val();
     obj.cus_phone = $('#mobile').val();
     obj.cus_email = $('#email').val();
-    obj.cus_addr1 = $('#address').val();
-    obj.amount = $('#total_amount').val();
+    obj.cus_addr1 = 'null';
+    obj.amount = bill;
+    obj.uid = uid;
+    obj.did = did;
+
+    $('#customer_name').change(function(){
+        obj.cus_name = $('#customer_name').val();
+    });
+    $('#mobile').change(function(){
+        obj.cus_phone = $('#mobile').val();
+    });
+    $('#email').change(function(){
+        obj.cus_email = $('#email').val();
+    });
 
     $('#sslczPayBtn').prop('postdata', obj);
-    
 
-(function (window, document) {
-	var loader = function () {
-	    var script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];
-	    script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7);
-	    tag.parentNode.insertBefore(script, tag);
-	};
-
-	window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
-})(window, document);
 </script>
 
-</body>
+<script>
+        (function (window, document) {
+        var loader = function () {
+            var script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];
+            // script.src = "https://seamless-epay.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7); // USE THIS FOR LIVE
+            script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7); // USE THIS FOR SANDBOX
+            tag.parentNode.insertBefore(script, tag);
+        };
+        window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
+    })(window, document);
+</script>
 </html>

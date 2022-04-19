@@ -274,7 +274,8 @@
 											<li>
 												<!-- <i class="ti-power-off"></i> -->
 												<img src="../../ICONS/lg.png" height="28px" width="28px" alt="">
-												<a id="logoutBut" href="PlatformSelectionForLogin.html" title="">Logout</a>
+												<a id="logoutBut" href="PlatformSelectionForLogin.html"
+													title="">Logout</a>
 											</li>
 										</ul>
 									</div><!-- Shortcuts -->
@@ -415,7 +416,7 @@
 				})
 			console.log(sessionStorage.getItem("uid"));
 		}
-
+		console.log(uid);
 		let output = '';
 		fetch('http://127.0.0.1:8000/api/user/getappointments/' + uid, {
 				method: "GET",
@@ -434,6 +435,22 @@
 					link = element.meetlink;
 					if (link == null) {
 						link = "Doctor will assign you with a link to join a meeting";
+					}
+
+					let hidden = '';
+
+					date = element.date;
+					dt = new Date(date);
+					cdate = new Date();
+
+					if (cdate > dt) {
+						console.log('cur date big');
+						if (element.rating) {
+							hidden = 'hidden';
+						}
+					} else if (cdate < dt) {
+						hidden = 'hidden';
+						console.log('cur date small');
 					}
 
 					switch (element.time) {
@@ -469,12 +486,14 @@
 					<div class="card" style="box-shadow: 0 6px 32px 16px rgba(119, 117, 117, 0.2);">
 									<div class="card-header">
 										<img src="../../ICONS/d0.png" width="60px" height="60px" alt="">
-
+										
 										<img src="../../ICONS/mp.png" width="60px" height="60px" style="float: right;"
 											alt="">
+										
 
 									</div>
 									<div class="card-body">
+										<h6>Appointment ID : ${element.id}</h6>
 										<h5 class="card-title" style=" color: black;;"> Psychiatrist: ${element.dname}</h5>
 										<p class="card-text" style="font-size: 17px;color: red;">${shift}
 											&nbsp;<img src="../../ICONS/clock.png" width="30px" height="30px" alt="">
@@ -482,7 +501,7 @@
 										<p class="card-text" style="font-size: 17px;color: red;">${element.date}<img src="../../ICONS/date.png" width="30px" height="30px" alt=""></p>
 										<!-- <a href="#" ><button type="button" class="btn btn-info">View Profile</button></a> -->
 										<p class="card-text" style="font-size: 17px;color: red;">Meet Link: ${link}</p>
-										<a href="userRatePsychiatrist.html"><button type="button" class="btn btn-warning"
+										<a href="userRatePsychiatrist.html?did=${element.did}&aid=${element.id}"><button ${hidden} type="button" class="btn btn-warning"
 												style="float: right;">Rate</button></a>
 									</div>
 								</div>

@@ -114,6 +114,8 @@
 
             let uid = sessionStorage.getItem("uid");
             let did = sessionStorage.getItem('selectedDocId');
+            let params = new URLSearchParams(location.search);
+            did = params.get('did');
 
 
             let uname = document.getElementById('name').value;
@@ -177,6 +179,12 @@
                         document.getElementById('error').innerHTML = `
                             <div style="background-color: yellowgreen;width: 400px;height: 50px;margin-left: 23%;margin-bottom: 5%;">
                                 <h6 style="text-align: center; color: white; padding-top: 17px;">Success!</h6>
+                            </div>`;
+                        window.location.href = "./userAppointmentList.html";
+                    } else {
+                        document.getElementById('error').innerHTML = `
+                            <div style="background-color: red;width: 400px;height: 50px;margin-left: 23%;margin-bottom: 5%;">
+                                <h6 style="text-align: center; color: white; padding-top: 17px;">Choose a Different time or date</h6>
                             </div>`;
                     }
 
