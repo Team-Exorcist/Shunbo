@@ -419,7 +419,7 @@
 				})
 			console.log(sessionStorage.getItem("uid"));
 		}
-
+		console.log(uid);
 		let output = '';
 		fetch('http://127.0.0.1:8000/api/user/getappointments/' + uid, {
 				method: "GET",
