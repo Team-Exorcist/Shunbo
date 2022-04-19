@@ -25,7 +25,20 @@ class userController extends Controller{
 
 
 
-    
+    function rateDoctor(Request $req){
+
+         $aid = $req->aid;
+        $rating = $req->rating;
+        $review = $req->review;
+        $update = Appointment::where('id', $aid)->update(['rating' => $rating, 'review' => $review]);
+
+        if($update){
+            return response(['res' => 1], 200);
+        }else{
+            return response(['res' => 0], 200);
+        }
+
+    }
 
     ////////////////////////////////////////////
     ///////////////////////////////////////////

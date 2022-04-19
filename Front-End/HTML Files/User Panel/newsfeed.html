@@ -280,7 +280,8 @@
 											<li>
 												<!-- <i class="ti-power-off"></i> -->
 												<img src="../../ICONS/lg.png" height="28px" width="28px" alt="">
-												<a id="logoutBut" href="PlatformSelectionForLogin.html" title="">Logout</a>
+												<a id="logoutBut" href="PlatformSelectionForLogin.html"
+													title="">Logout</a>
 											</li>
 										</ul>
 									</div><!-- Shortcuts -->
@@ -301,8 +302,9 @@
 													<ul>
 
 														<li>
-															<a href="newsfeed.html"><button type="submit" class="btn btn-warning">Share
-																Post</button></a>
+															<a href="#"><button type="submit"
+																	class="btn btn-warning">Share
+																	Post</button></a>
 													</ul>
 												</div>
 											</form>
@@ -640,7 +642,9 @@
 				.then(res => res.json())
 				.then(data => {
 					console.log(data.res);
+					window.location.href = "./newsfeed.html";
 				})
+
 		}
 
 		function vote(vid) {
