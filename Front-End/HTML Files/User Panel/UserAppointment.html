@@ -114,6 +114,8 @@
 
             let uid = sessionStorage.getItem("uid");
             let did = sessionStorage.getItem('selectedDocId');
+            let params = new URLSearchParams(location.search);
+            did = params.get('did');
 
 
             let uname = document.getElementById('name').value;
