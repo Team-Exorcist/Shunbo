@@ -295,7 +295,7 @@ class userController extends Controller{
         }
         if($verificationCode->code != $req->code){
             return response([
-                "res" => '404'
+                "res" => $req->code
             ], 404);
         }
 

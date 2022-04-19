@@ -26,7 +26,7 @@ class SslCommerzPaymentController extends Controller
         # In "orders" table, order unique identity is "transaction_id". "status" field contain status of the transaction, "amount" is the order amount to be paid and "currency" is for storing Site Currency which will be checked with paid currency.
 
         $post_data = array();
-        $post_data['total_amount'] = '10'; # You cant not pay less than 10
+        $post_data['total_amount'] = $request->bill; # You cant not pay less than 10
         $post_data['currency'] = "BDT";
         $post_data['tran_id'] = uniqid(); // tran_id must be unique
 
@@ -95,22 +95,26 @@ class SslCommerzPaymentController extends Controller
         # Lets your oder trnsaction informations are saving in a table called "orders"
         # In orders table order uniq identity is "transaction_id","status" field contain status of the transaction, "amount" is the order amount to be paid and "currency" is for storing Site Currency which will be checked with paid currency.
 
+        $requestData = (array)json_decode($request->cart_json);
+
         $post_data = array();
-        $post_data['total_amount'] = '10'; # You cant not pay less than 10
+        $post_data['total_amount'] = $requestData['amount']; # You cant not pay less than 10
         $post_data['currency'] = "BDT";
         $post_data['tran_id'] = uniqid(); // tran_id must be unique
 
         # CUSTOMER INFORMATION
-        $post_data['cus_name'] = 'Customer Name';
-        $post_data['cus_email'] = 'customer@mail.com';
+        $post_data['cus_name'] = $requestData['cus_name'];
+        $post_data['cus_email'] = $requestData['cus_email'];
         $post_data['cus_add1'] = 'Customer Address';
         $post_data['cus_add2'] = "";
         $post_data['cus_city'] = "";
         $post_data['cus_state'] = "";
         $post_data['cus_postcode'] = "";
         $post_data['cus_country'] = "Bangladesh";
-        $post_data['cus_phone'] = '8801XXXXXXXXX';
+        $post_data['cus_phone'] = $requestData['cus_phone'];
         $post_data['cus_fax'] = "";
+        $post_data['uid'] = $requestData['uid'];
+        $post_data['did'] = $requestData['did'];
 
         # SHIPMENT INFORMATION
         $post_data['ship_name'] = "Store Test";
@@ -138,6 +142,8 @@ class SslCommerzPaymentController extends Controller
         $update_product = DB::table('orders')
             ->where('transaction_id', $post_data['tran_id'])
             ->updateOrInsert([
+                'uid' => $post_data['uid'],
+                'did' => $post_data['did'],
                 'name' => $post_data['cus_name'],
                 'email' => $post_data['cus_email'],
                 'phone' => $post_data['cus_phone'],

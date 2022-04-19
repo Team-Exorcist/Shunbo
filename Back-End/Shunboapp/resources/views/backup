@@ -1,0 +1,11 @@
+    let params = new URLSearchParams(location.search);
+    let did = params.get('did');
+    let dname = params.get('docName');
+    let bill = params.get('bill');
+
+    document.getElementById('dname').innerHTML = dname;
+    document.getElementById('bill').innerHTML = bill +" BDT";
+
+    let cusName = document.getElementBy('customer_name').value;
+    let cusEmail = document.getElementBy('customer_email').value;
+    let cusMobile = document.getElementBy('customer_mobile').value;
