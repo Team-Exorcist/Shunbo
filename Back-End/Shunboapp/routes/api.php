@@ -60,7 +60,7 @@ Route::post('/user/resetpassword', [userController::class, 'resetPassword']);
 Route::post('/user/changepassword', [userController::class, 'changePassword']);
 
 Route::post('/user/rate',[userController::class, 'rateDoctor']);
-
+Route::post('/user/complaint', [userController::class, 'makeComplaint']);
 
 
 

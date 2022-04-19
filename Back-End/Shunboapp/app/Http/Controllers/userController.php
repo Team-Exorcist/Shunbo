@@ -7,6 +7,8 @@ use App\Models\Post;
 use App\Models\Verificationcode;
 use App\Models\Comment;
 use App\Models\Appointment;
+use App\Models\Complaint;
+
 
 use App\Mail\Testmail;
 use Illuminate\Http\Request;
@@ -22,6 +24,29 @@ class userController extends Controller{
     }
 
 
+    function makeComplaint(Request $req){
+        $aid = $req->aid;
+        $uid = $req->uid;
+        $msg = $req->msg;
+
+        $app = Appointment::find($aid); 
+        $did = $app->did;
+
+        $complaint = new Complaint();
+        $complaint->uid = $uid;
+        $complaint->did = $did;
+        $complaint->aid = $aid;
+        $complaint->msg = $msg;
+
+        $result = $complaint->save();
+
+        if($result){
+            return response(['res' => 1], 200);
+        }else{
+            return response(['res' => 0], 200);
+        }
+
+    }
 
 
 
