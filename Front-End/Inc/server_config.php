@@ -3,7 +3,7 @@
 $host = 'localhost';
 $owner = 'root';
 $password = '';
-$database_name = 'test';
+$database_name = 'sunboappdb';
 
 $connect = mysqli_connect($host, $owner, $password, $database_name);
 if (!$connect) {

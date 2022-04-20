@@ -71,7 +71,7 @@ if (isset($_POST['unban'])) {
             <li>
                 <a href="orderlist.php">
                     <i class='bx bx-list-ul'></i>
-                    <span class="links_name">Order list</span>
+                    <span class="links_name">Appointment list</span>
                 </a>
             </li>
             <li>

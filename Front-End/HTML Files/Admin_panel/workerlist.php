@@ -26,24 +26,24 @@ if ($result && mysqli_num_rows($result) > 0) {
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="shortcut icon" type="image/x-icon" href="../../ICONS/adminbro3.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Worker List</title>
+    <title>Doctor List</title>
 </head>
 
 <body>
     <div class="sidebar">
         <div class="logo-details">
             <i class='bx bxs-building-house'></i>
-            <span class="logo_name">HANDYMAN</span>
+            <span class="logo_name">Shunbo</span>
         </div>
         <ul class="nav-links">
-            <li>
+        <li>
                 <a href="admindashboard.php">
                     <i class='bx bx-grid-alt'></i>
                     <span class="links_name">Admin Dashboard</span>
                 </a>
             </li>
             <li>
-                <a href="AdminProfile.php">
+                <a href="AdminProfile.php" >
                     <i class='bx bx-box'></i>
                     <span class="links_name">Profile</span>
                 </a>
@@ -59,20 +59,15 @@ if ($result && mysqli_num_rows($result) > 0) {
             <li>
                 <a href="orderlist.php">
                     <i class='bx bx-list-ul'></i>
-                    <span class="links_name">Order list</span>
+                    <span class="links_name">Appointment list</span>
                 </a>
             </li>
-            <li>
-                <a href="customerlist.php">
-                    <i class='bx bx-pie-chart-alt-2'></i>
-                    <span class="links_name">Customer List</span>
-                </a>
-            </li>
+          
             <li>
                 <a href="workerlist.php" class="active">
                     <i class='bx bxs-user'></i>
                     <!-- <i class='bx bx-coin-stack'></i> -->
-                    <span class="links_name">Worker List</span>
+                    <span class="links_name">Doctor List</span>
                 </a>
             </li>
             <li>
@@ -81,31 +76,14 @@ if ($result && mysqli_num_rows($result) > 0) {
                     <span class="links_name">Complaint List</span>
                 </a>
             </li>
-            <li>
-                <a href="ServiceList.php">
-                    <!-- <i class='bx bxs-user-voice'></i> -->
-                    <i class='bx bx-coin-stack'></i>
-                    <span class="links_name">Service List</span>
-                </a>
-            </li>
-            <!--Banned list link-->
+         
             <!--Service Modification-->
-            <li>
-                <a href="modifyServices.php">
-                    <!-- <i class='bx bxs-user-voice'></i> -->
-                    <i class='bx bx-wrench'></i>
-                    <span class="links_name">Service Modification</span>
-                </a>
-            </li>
+          
             <!--Service modification-->
-            <li>
-                <a href="BannedList.php">
-                    <i class='bx bxs-error'></i>
-                    <span class="links_name">Banned List</span>
-                </a>
-            </li>
-            <!--Banned list link-->
 
+            <!--Banned list link-->
+        
+            <!--Banned list link-->
 
             <!--send message link-->
             <li>
@@ -116,20 +94,10 @@ if ($result && mysqli_num_rows($result) > 0) {
             </li>
             <!--send message link-->
             <!--Message history link-->
-            <li>
-                <a href="AdminMessageHistory.php">
-                    <i class='bx bx-history'></i>
-                    <span class="links_name">Complaint History</span>
-                </a>
-            </li>
+           
             <!--Message History link-->
             <!--Appeal history link-->
-            <li>
-                <a href="AppealHistory.php">
-                    <i class='bx bx-user-voice'></i>
-                    <span class="links_name">Appeal History</span>
-                </a>
-            </li>
+          
             <!--Appeal History link-->
 
             <li class="log_out">
@@ -144,7 +112,7 @@ if ($result && mysqli_num_rows($result) > 0) {
         <nav>
             <div class="sidebar-button">
                 <i class='bx bx-menu sidebarBtn'></i>
-                <span class="dashboard">Worker List</span>
+                <span class="dashboard">Doctor List</span>
             </div>
 
             <form method="POST">
@@ -165,7 +133,7 @@ if ($result && mysqli_num_rows($result) > 0) {
 
             <div class="sales-boxes">
                 <div class="recent-sales box">
-                    <div class="title">Worker Details</div>
+                    <div class="title">Doctor Details</div>
                     <div class="sales-details">
 
                         <!--changed part-->
@@ -173,15 +141,12 @@ if ($result && mysqli_num_rows($result) > 0) {
                             <table>
 
                                 <tr>
-                                    <th>Worker ID</th>
-                                    <th>Worker Name</th>
-                                    <th>Worker Type</th>
-                                    <th>Company</th>
+                                    <th>Doctor ID</th>
+                                    <th>Name</th>
                                     <th>Email</th>
                                     <th>Mobile Number</th>
-                                    <th>Address</th>
                                     <th>Price</th>
-                                    <th>Services completed</th>
+                    
                                     <th>Earned</th>
                                     <th>Rating</th>
                                 </tr>
@@ -190,13 +155,11 @@ if ($result && mysqli_num_rows($result) > 0) {
 
                                 if (isset($_POST['search'])) {
                                     $e_id = $_POST['input'];
-                                    $query = "SELECT id, name, type, company, email, number, address, rating,price,completed_services,
-                                            total_payment FROM employee WHERE id = $e_id";
+                                    $query = "SELECT * FROM doctors WHERE id = $e_id";
                                     $result = mysqli_query($connect, $query);
                                 } else {
 
-                                    $query = "SELECT id, name, type, company, email, number, address, rating,price,completed_services,
-                                            total_payment FROM employee";
+                                    $query = "SELECT * FROM doctors";
                                     $result = mysqli_query($connect, $query);
                                 }
 
@@ -205,26 +168,22 @@ if ($result && mysqli_num_rows($result) > 0) {
                                     while ($data = mysqli_fetch_assoc($result)) {
                                         $id = $data['id'];
                                         $name = $data['name'];
-                                        $type = $data['type'];
-                                        $number = $data['number'];
+                                        $number = $data['mobile'];
                                         $email = $data['email'];
-                                        $address = $data['address'];
-                                        $company = $data['company'];
                                         $rating = $data['rating'];
                                         $price = $data['price'];
-                                        $completed = $data['completed_services'];
-                                        $earned = $data['total_payment'];
+                                        $earned = $data['earned'];
                                         echo "
                                             <tr>
                                                 <td>$id</td>
                                                 <td>$name</td>
-                                                <td>$type</td>
-                                                <td>$company</td>
+             
+                     
                                                 <td>$email</td>
                                                 <td>$number</td>
-                                                <td>$address</td>
+                         
                                                 <td>$price</td>
-                                                <td>$completed</td>
+                        
                                                 <td>$earned</td>
                                                 <td>$rating</td>
                                             </tr>

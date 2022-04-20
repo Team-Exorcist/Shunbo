@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DB;
+use App\Models\Doctor;
 use Illuminate\Http\Request;
 use App\Library\SslCommerz\SslCommerzNotification;
 
@@ -153,6 +154,13 @@ class SslCommerzPaymentController extends Controller
                 'transaction_id' => $post_data['tran_id'],
                 'currency' => $post_data['currency']
             ]);
+        
+
+            $doc = Doctor::find($post_data['did']);
+            $earned = $doc->earned + $post_data['total_amount'];
+            $earned = $earned - $earned*(15/100);
+
+        $docearned= DB::table('doctors')->where('id', $post_data['did'])->update(['earned' => $earned]);
 
         $sslc = new SslCommerzNotification();
         # initiate(Transaction Data , false: Redirect to SSLCOMMERZ gateway/ true: Show all the Payement gateway here )
@@ -167,7 +175,7 @@ class SslCommerzPaymentController extends Controller
 
     public function success(Request $request)
     {
-        echo "Transaction is Successful";
+        // echo "Transaction is Successful";
 
         $tran_id = $request->input('tran_id');
         $amount = $request->input('amount');
@@ -195,10 +203,31 @@ class SslCommerzPaymentController extends Controller
 
                 //echo "<br >Transaction is successfully Completed";
                 $did = $order_detials->did;
-                 echo "
-                <a href='http://127.0.0.1:8887/HTML Files/User Panel/userAppointment.html?did=".$did."'>Set Appointment</a>
-                ";
 
+                echo "
+
+                    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css' rel='stylesheet'
+                        integrity='sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3' crossorigin='anonymous'>
+                    <!-- <link rel='stylesheet' href='../../CSS Files/User Panel Designs/mypaymenthelper.css'> -->
+                    <link rel='shortcut icon' type='image/x-icon' href='../../ICONS/mh1.png'>
+
+                    <body>
+
+                        <div class='container' style='text-align: center;margin-top: 100px;'>
+                        <i class='fa fa-check' aria-hidden='true'></i>
+
+                            <h2 style='margin-top: 50px;'>Congratulations!!!</h2>
+                            <p style='font-size: 40px;'> Your Payment was Successful</p>
+                            <a href='http://127.0.0.1:8887/HTML Files/User Panel/userAppointment.html?did=".$did."'><button type='submit' id='button' class='btn btn-success'>Make Appointment</button></a>
+
+                        </div>
+                        <div class='image'>
+
+                        </div>
+
+
+                    </body>
+                ";
                 
                 
 

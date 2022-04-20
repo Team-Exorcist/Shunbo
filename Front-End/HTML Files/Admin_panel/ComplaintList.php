@@ -33,17 +33,17 @@ if ($result && mysqli_num_rows($result) > 0) {
     <div class="sidebar">
         <div class="logo-details">
             <i class='bx bxs-building-house'></i>
-            <span class="logo_name">HANDYMAN</span>
+            <span class="logo_name">Shunbo</span>
         </div>
         <ul class="nav-links">
-            <li>
+        <li>
                 <a href="admindashboard.php">
                     <i class='bx bx-grid-alt'></i>
                     <span class="links_name">Admin Dashboard</span>
                 </a>
             </li>
             <li>
-                <a href="AdminProfile.php">
+                <a href="AdminProfile.php" >
                     <i class='bx bx-box'></i>
                     <span class="links_name">Profile</span>
                 </a>
@@ -59,20 +59,15 @@ if ($result && mysqli_num_rows($result) > 0) {
             <li>
                 <a href="orderlist.php">
                     <i class='bx bx-list-ul'></i>
-                    <span class="links_name">Order list</span>
+                    <span class="links_name">Appointment list</span>
                 </a>
             </li>
-            <li>
-                <a href="customerlist.php">
-                    <i class='bx bx-pie-chart-alt-2'></i>
-                    <span class="links_name">Customer List</span>
-                </a>
-            </li>
+          
             <li>
                 <a href="workerlist.php">
                     <i class='bx bxs-user'></i>
                     <!-- <i class='bx bx-coin-stack'></i> -->
-                    <span class="links_name">Worker List</span>
+                    <span class="links_name">Doctor List</span>
                 </a>
             </li>
             <li>
@@ -81,30 +76,13 @@ if ($result && mysqli_num_rows($result) > 0) {
                     <span class="links_name">Complaint List</span>
                 </a>
             </li>
-            <li>
-                <a href="ServiceList.php">
-                    <!-- <i class='bx bxs-user-voice'></i> -->
-                    <i class='bx bx-coin-stack'></i>
-                    <span class="links_name">Service List</span>
-                </a>
-            </li>
+         
             <!--Service Modification-->
-            <li>
-                <a href="modifyServices.php" >
-                    <!-- <i class='bx bxs-user-voice'></i> -->
-                    <i class='bx bx-wrench'></i>
-                    <span class="links_name">Service Modification</span>
-                </a>
-            </li>
+          
             <!--Service modification-->
 
             <!--Banned list link-->
-            <li>
-                <a href="BannedList.php" >
-                    <i class='bx bxs-error' ></i>
-                    <span class="links_name">Banned List</span>
-                </a>
-            </li>
+        
             <!--Banned list link-->
 
             <!--send message link-->
@@ -116,20 +94,10 @@ if ($result && mysqli_num_rows($result) > 0) {
             </li>
             <!--send message link-->
             <!--Message history link-->
-            <li>
-                <a href="AdminMessageHistory.php">
-                    <i class='bx bx-history'></i>
-                    <span class="links_name">Complaint History</span>
-                </a>
-            </li>
+           
             <!--Message History link-->
             <!--Appeal history link-->
-            <li>
-                <a href="AppealHistory.php" >
-                <i class='bx bx-user-voice'></i>
-                <span class="links_name">Appeal History</span>
-                </a>
-            </li>
+          
             <!--Appeal History link-->
 
             <li class="log_out">
@@ -164,39 +132,37 @@ if ($result && mysqli_num_rows($result) > 0) {
 
                                 <?php
 
-                                $query = "SELECT * FROM complain";
+                                $query = "SELECT * FROM complaints";
                                 $result = mysqli_query($connect, $query);
 
                                 if ($result && mysqli_num_rows($result) > 0) {
                                     while ($data = mysqli_fetch_assoc($result)) {
-                                        $id = $data['o_id'];
-                                        $name = $data['u_name'];
-                                        $problem = $data['problem'];
-                                        $description = $data['description'];
-                                        $rating = $data['rating'];
+                                        $id = $data['aid'];
+                                        $problem = $data['msg'];
+                                        $did = $data['did'];
+                                        $uid = $data['uid'];
+                                        $query = "SELECT name FROM USERS WHERE id = $uid";
+                                        $result = mysqli_query($connect, $query);
+                                        $udata = mysqli_fetch_assoc($result);
+                                        $uname = $udata['name'];
+
                                         echo "
                                         <div class='card'>
                                         <div class='bio-of-founder'>
     
                                             <form>
-                                                <h1 style='display: inline-block;'>Order ID: $id
-                                                    <h2 style='display: inline-block;float: right;'>Rating : $rating <img src='../../ICONS/rating.png' style='display: inline-block;' ></h2>
+                                                <h1 style='display: inline-block;'>Appointment ID: $id
+                
                                                 </h1>   
                                                 <hr style='width: 100%;'>
-                                                
-
 
                                                 <label for='name'>
-                                                    <h3 style='margin-top: 20px;'>Customer Name</h3>
+                                                    <h3 style='margin-top: 20px;'>Patient Name</h3>
                                                 </label>
-                                                <input type='text' id='name' value='$name' disabled>
+             
+                                                <input type='text' id='name' value='$uname' disabled>
                                                 <h3>Reason for complaining</h3>
                                                 <input type='text' id='name' value='$problem' disabled>
-                                                <label for='address'>
-                                                    <h3 style='margin-top: 12px;'>Description</h3>
-                                                </label>
-                                                <textarea disabled id='address'
-                                                    style='height:60px'>$description</textarea>
                                             </form>
                                         </div>
                                         </div>

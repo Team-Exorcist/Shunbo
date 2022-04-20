@@ -38,21 +38,21 @@ if ($result && mysqli_num_rows($result) > 0) {
             <span class="logo_name">HANDYMAN</span>
         </div>
         <ul class="nav-links">
-            <li>
+        <li>
                 <a href="admindashboard.php">
                     <i class='bx bx-grid-alt'></i>
                     <span class="links_name">Admin Dashboard</span>
                 </a>
             </li>
             <li>
-                <a href="AdminProfile.php">
+                <a href="AdminProfile.php" >
                     <i class='bx bx-box'></i>
                     <span class="links_name">Profile</span>
                 </a>
             </li>
             <!--add new admin-->
             <li>
-                <a href="addAdmin.php" >
+                <a href="addAdmin.php" class="active">
                     <i class='bx bx-user-plus'></i>
                     <span class="links_name">Add Admin</span>
                 </a>
@@ -61,20 +61,15 @@ if ($result && mysqli_num_rows($result) > 0) {
             <li>
                 <a href="orderlist.php">
                     <i class='bx bx-list-ul'></i>
-                    <span class="links_name">Order list</span>
+                    <span class="links_name">Appointment list</span>
                 </a>
             </li>
-            <li>
-                <a href="customerlist.php">
-                    <i class='bx bx-pie-chart-alt-2'></i>
-                    <span class="links_name">Customer List</span>
-                </a>
-            </li>
+          
             <li>
                 <a href="workerlist.php">
-                    <!-- <i class='bx bx-coin-stack'></i> -->
                     <i class='bx bxs-user'></i>
-                    <span class="links_name">Worker List</span>
+                    <!-- <i class='bx bx-coin-stack'></i> -->
+                    <span class="links_name">Doctor List</span>
                 </a>
             </li>
             <li>
@@ -83,31 +78,13 @@ if ($result && mysqli_num_rows($result) > 0) {
                     <span class="links_name">Complaint List</span>
                 </a>
             </li>
-
-            <li>
-                <a href="ServiceList.php">
-                    <!-- <i class='bx bxs-user-voice'></i> -->
-                    <i class='bx bx-coin-stack'></i>
-                    <span class="links_name">Service List</span>
-                </a>
-            </li>
+         
             <!--Service Modification-->
-            <li>
-                <a href="modifyServices.php">
-                    <!-- <i class='bx bxs-user-voice'></i> -->
-                    <i class='bx bx-wrench'></i>
-                    <span class="links_name">Service Modification</span>
-                </a>
-            </li>
+          
             <!--Service modification-->
 
             <!--Banned list link-->
-            <li>
-                <a href="BannedList.php">
-                    <i class='bx bxs-error'></i>
-                    <span class="links_name">Banned List</span>
-                </a>
-            </li>
+        
             <!--Banned list link-->
 
             <!--send message link-->
@@ -119,21 +96,12 @@ if ($result && mysqli_num_rows($result) > 0) {
             </li>
             <!--send message link-->
             <!--Message history link-->
-            <li>
-                <a href="AdminMessageHistory.php" class="active">
-                    <i class='bx bx-history'></i>
-                    <span class="links_name">Complaint History</span>
-                </a>
-            </li>
+           
             <!--Message History link-->
             <!--Appeal history link-->
-            <li>
-                <a href="AppealHistory.php">
-                    <i class='bx bx-user-voice'></i>
-                    <span class="links_name">Appeal History</span>
-                </a>
-            </li>
+          
             <!--Appeal History link-->
+
             <li class="log_out">
                 <a href="../../Inc/admin_logout.php">
                     <i class='bx bx-log-out'></i>

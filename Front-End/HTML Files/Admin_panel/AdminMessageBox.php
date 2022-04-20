@@ -22,15 +22,14 @@ if (isset($_POST['send'])) {
     $msg = $_POST['msg'];
 
 
-    $query = "SELECT id, type FROM employee WHERE id = '$e_id'";
+    $query = "SELECT * FROM doctors WHERE id = '$e_id'";
     $result = mysqli_query($connect, $query);
 
     if ($result && mysqli_num_rows($result) > 0) {
         $data = mysqli_fetch_assoc($result);
         $e_id = $data['id'];
-        $e_type = $data['type'];
         $date = date('Y-m-d', time() + 4 * 3600);
-        $query = "INSERT INTO message(e_id, msg, date) VALUES ('$e_id', '$msg', '$date')";
+        $query = "INSERT INTO message(did, msg, date) VALUES ('$e_id', '$msg', '$date')";
         mysqli_query($connect, $query);
     } else {
         $hide = '';
@@ -60,25 +59,24 @@ if (isset($_POST['send'])) {
     <div class="sidebar">
         <div class="logo-details">
             <i class='bx bxs-building-house'></i>
-            <span class="logo_name">HANDYMAN</span>
+            <span class="logo_name">Shunbo</span>
         </div>
         <ul class="nav-links">
-            <li>
+        <li>
                 <a href="admindashboard.php">
                     <i class='bx bx-grid-alt'></i>
                     <span class="links_name">Admin Dashboard</span>
                 </a>
             </li>
             <li>
-                <a href="AdminProfile.php">
+                <a href="AdminProfile.php" >
                     <i class='bx bx-box'></i>
                     <span class="links_name">Profile</span>
                 </a>
             </li>
-
             <!--add new admin-->
             <li>
-                <a href="addAdmin.php">
+                <a href="addAdmin.php" >
                     <i class='bx bx-user-plus'></i>
                     <span class="links_name">Add Admin</span>
                 </a>
@@ -87,20 +85,15 @@ if (isset($_POST['send'])) {
             <li>
                 <a href="orderlist.php">
                     <i class='bx bx-list-ul'></i>
-                    <span class="links_name">Order list</span>
+                    <span class="links_name">Appointment list</span>
                 </a>
             </li>
-            <li>
-                <a href="customerlist.php">
-                    <i class='bx bx-pie-chart-alt-2'></i>
-                    <span class="links_name">Customer List</span>
-                </a>
-            </li>
+          
             <li>
                 <a href="workerlist.php">
-                    <!-- <i class='bx bxs-user-voice'></i> -->
                     <i class='bx bxs-user'></i>
-                    <span class="links_name">Worker List</span>
+                    <!-- <i class='bx bx-coin-stack'></i> -->
+                    <span class="links_name">Doctor List</span>
                 </a>
             </li>
             <li>
@@ -109,32 +102,14 @@ if (isset($_POST['send'])) {
                     <span class="links_name">Complaint List</span>
                 </a>
             </li>
-
-            <li>
-                <a href="ServiceList.php">
-                    <i class='bx bx-coin-stack'></i>
-                    <span class="links_name">Service List</span>
-                </a>
-            </li>
+         
             <!--Service Modification-->
-            <li>
-                <a href="modifyServices.php">
-                    <!-- <i class='bx bxs-user-voice'></i> -->
-                    <i class='bx bx-wrench'></i>
-                    <span class="links_name">Service Modification</span>
-                </a>
-            </li>
+          
             <!--Service modification-->
 
             <!--Banned list link-->
-            <li>
-                <a href="BannedList.php">
-                    <i class='bx bxs-error'></i>
-                    <span class="links_name">Banned List</span>
-                </a>
-            </li>
+        
             <!--Banned list link-->
-
 
             <!--send message link-->
             <li>
@@ -145,20 +120,10 @@ if (isset($_POST['send'])) {
             </li>
             <!--send message link-->
             <!--Message history link-->
-            <li>
-                <a href="AdminMessageHistory.php">
-                    <i class='bx bx-history'></i>
-                    <span class="links_name">Complaint History</span>
-                </a>
-            </li>
+           
             <!--Message History link-->
             <!--Appeal history link-->
-            <li>
-                <a href="AppealHistory.php">
-                    <i class='bx bx-user-voice'></i>
-                    <span class="links_name">Appeal History</span>
-                </a>
-            </li>
+          
             <!--Appeal History link-->
 
             <li class="log_out">
@@ -203,7 +168,7 @@ if (isset($_POST['send'])) {
 
                                             <!-- Order ID -->
                                             <h3 style="margin-top: 20px;">
-                                                <label for="OrderID">Employee ID</label>
+                                                <label for="OrderID">Doctor ID</label>
                                                 <input type="text" name="e_id" id="OrderID" required>
 
                                             </h3>
@@ -213,7 +178,7 @@ if (isset($_POST['send'])) {
                                             <img src="../../ICONS/ouch.png" alt="" > -->
                                             <sup>
                                                 <t <?php echo $hide ?> style="font-size: small; color:red; margin: left 0px;
-                                                font-weight:bold; "> Employee ID not matched
+                                                font-weight:bold; "> Doctor ID not matched
                                                 </t>
                                             </sup>
                                             <!--alert-->

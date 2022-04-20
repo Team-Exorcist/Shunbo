@@ -61,20 +61,15 @@ $a_id = $_SESSION['aID'];
             <li>
                 <a href="orderlist.php">
                     <i class='bx bx-list-ul'></i>
-                    <span class="links_name">Order list</span>
+                    <span class="links_name">Appointment list</span>
                 </a>
             </li>
-            <li>
-                <a href="customerlist.php">
-                    <i class='bx bx-pie-chart-alt-2'></i>
-                    <span class="links_name">Customer List</span>
-                </a>
-            </li>
+          
             <li>
                 <a href="workerlist.php">
                     <i class='bx bxs-user'></i>
                     <!-- <i class='bx bx-coin-stack'></i> -->
-                    <span class="links_name">Worker List</span>
+                    <span class="links_name">Doctor List</span>
                 </a>
             </li>
             <li>
@@ -83,30 +78,13 @@ $a_id = $_SESSION['aID'];
                     <span class="links_name">Complaint List</span>
                 </a>
             </li>
-            <li>
-                <a href="ServiceList.php">
-                    <!-- <i class='bx bxs-user-voice'></i> -->
-                    <i class='bx bx-coin-stack'></i>
-                    <span class="links_name">Service List</span>
-                </a>
-            </li>
+         
             <!--Service Modification-->
-            <li>
-                <a href="modifyServices.php">
-                    <!-- <i class='bx bxs-user-voice'></i> -->
-                    <i class='bx bx-wrench'></i>
-                    <span class="links_name">Service Modification</span>
-                </a>
-            </li>
+          
             <!--Service modification-->
 
             <!--Banned list link-->
-            <li>
-                <a href="BannedList.php">
-                    <i class='bx bxs-error'></i>
-                    <span class="links_name">Banned List</span>
-                </a>
-            </li>
+        
             <!--Banned list link-->
 
             <!--send message link-->
@@ -118,20 +96,10 @@ $a_id = $_SESSION['aID'];
             </li>
             <!--send message link-->
             <!--Message history link-->
-            <li>
-                <a href="AdminMessageHistory.php">
-                    <i class='bx bx-history'></i>
-                    <span class="links_name">Complaint History</span>
-                </a>
-            </li>
+           
             <!--Message History link-->
             <!--Appeal history link-->
-            <li>
-                <a href="AppealHistory.php">
-                    <i class='bx bx-user-voice'></i>
-                    <span class="links_name">Appeal History</span>
-                </a>
-            </li>
+          
             <!--Appeal History link-->
 
             <li class="log_out">
