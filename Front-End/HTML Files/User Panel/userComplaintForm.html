@@ -17,8 +17,8 @@
 
 	<title>News Feed</title>
 	<script>
-		if (!sessionStorage.getItem("did")) {
-			window.location.href = `./docLogin.html`;
+		if (!sessionStorage.getItem("uid")) {
+			window.location.href = `./userLogin.html`;
 		}
 	</script>
 
@@ -295,11 +295,11 @@
 
 									</div>
 									<div class="card-body">
-										<form>
+										<form id="complaintform" method="POST">
 											<div class="row mb-3">
 												<label for="inputAID" class="col-sm-2 col-form-label">Appoint ID</label>
 												<div class="col-sm-10">
-													<input type="text" name="AID" class="form-control" id="inputAID"
+													<input type="text" name="AID" class="form-control" id="aid"
 														placeholder="Write your appointment ID here">
 												</div>
 											</div>
@@ -309,12 +309,12 @@
 												<div class="col-sm-10">
 													<textarea class="form-control"
 														placeholder="Leave your complaint message here"
-														id="floatingTextarea"></textarea>
+														id="msg"></textarea>
 												</div>
 											</div>
 
-											<a href="#"><button type="submit" class="btn btn-danger"
-													style="float: right;">Send</button></a>
+											<button type="submit" class="btn btn-danger"
+												style="float: right;">Send</button>
 
 										</form>
 
@@ -384,6 +384,61 @@
 
 	<script src="js/main.min.js"></script>
 	<script src="js/script.js"></script>
+
+
+	<script>
+		document.getElementById('logoutBut').addEventListener('click', logout);
+		document.getElementById('complaintform').addEventListener('submit', makeComplaint);
+
+
+
+		function makeComplaint(e) {
+			e.preventDefault();
+
+			let aid = document.getElementById('aid').value;
+			let msg = document.getElementById('msg').value;
+			let uid = sessionStorage.getItem('uid');
+
+			fetch("http://127.0.0.1:8000/api/user/complaint", {
+					method: "POST",
+					headers: {
+						'Accept': "application/json, text/plain, */*",
+						"Content-type": "application/json",
+						//"Authorization": "Bearer " + token
+					},
+					body: JSON.stringify({
+						aid: aid,
+						uid: uid,
+						msg: msg
+					})
+				}).then((res) => res.json())
+				.then(data => {
+					console.log(data.res);
+					window.location.href = "./userAppointmentList.html";
+				})
+		}
+
+		function logout(e) {
+			e.preventDefault();
+			let token = sessionStorage.getItem('userToken');
+			console.log(token);
+			fetch("http://127.0.0.1:8000/api/doc/logout", {
+					method: "POST",
+					headers: {
+						'Accept': "application/json, text/plain, */*",
+						"Content-type": "application/json",
+						"Authorization": "Bearer " + token
+					},
+				}).then((res) => res.json())
+				.then(data => {
+					console.log('logged out');
+					sessionStorage.removeItem("uid");
+					sessionStorage.removeItem("userToken");
+					window.location.href = "./index.html";
+				})
+
+		}
+	</script>
 
 
 </body>
