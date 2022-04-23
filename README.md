@@ -58,7 +58,7 @@ https://www.freeformatter.com/css-beautifier.html
 https://github.com/
 ```
 
-## Run the HandyMan website locally
+## Run the Shunbo webapp locally
 ### Requirements
 -----------------
 * Installed XAMPP for cross-platform facilities, Apache, MySQL, PHP.
@@ -75,16 +75,19 @@ https://github.com/Parasite-231/HandyMan.git
 * Step 03 : Create Database in phpMyAdmin with the same name as it was created originally.
 * Step 04 : Import the SQL file in phpMyAdmin in newly created Database.
 * Step 05 : Change the ID and password of the Database in the Software Package based on the newly created Database.
+* Step 06 : Install comsposer From <a href="https://getcomposer.org/download/">here</a>
+* Step 07 : Install Laravel by composer , type in terminal for windows: composer global require laravel/installer
+* Step 08 : Run Composer install on terminal to instantiate project.
 * Step 06 : Now to initialize the Web Application follow the steps below :<br />
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> Open a Browser.<br />
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> Write www.Shunbo.com in the URL and press enter.<br />
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> Write 127.0.0.1:8000/ in the URL and press enter.<br />
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> It will present a workable version of the Web Application.
             
 ***For any problem regarding setting up the Web Application please contact iftikharimrul@iut-dhaka.edu***
 
 ## Authors
 Contributors names and contact info 
-* [@IftyKhan-911](https://mail.google.com/mail/iftikharimrulkhan@gmail.com)
+* [@IftyKhan-911](https://mail.google.com/mail/iftikharimrul@iut-dhaka.edu)
 * [@mdmuktadir](https://mail.google.com/mail/mdmuktadirmazumder@gmail.com)
 * [@sadmanmehedi](https://mail.google.com/mail/sadmanmehedi%40gmail.com)
 
